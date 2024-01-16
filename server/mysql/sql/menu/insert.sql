@@ -1,0 +1,1 @@
+INSERT INTO `adm_menu`(`name`,`href`,`menu_type`,`description`,`depth`,`admin`,`parent`,`custom`,`custom_comment`) VALUES (?,?,?,?,?,?,?,?,?)

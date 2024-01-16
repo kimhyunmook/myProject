@@ -1,0 +1,41 @@
+$font :50px; // 이거 수정 하면 됨 
+$p: 50px;
+$w:$font;
+$h:$font;
+
+.slick-prev {
+    left: ($font - $p);
+    width: $w;
+    height: $h;
+    z-index: 99;
+
+    &::before {
+        font-size: $font;
+    }
+}
+
+.slick-next {
+    right: ($font - $p);
+    width: $w;
+    height: $h;
+    z-index: 99;
+
+    &::before {
+        font-size: $font;
+    }
+}
+
+.slick-arrow::before,
+.slick-arrow::after {
+    color: #0009;
+    font-weight: 700;
+    opacity: 0.3;
+}
+
+.slick-prev::before {
+    content: '<';
+}
+
+.slick-next::before {
+    content: '>';
+}

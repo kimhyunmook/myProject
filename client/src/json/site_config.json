@@ -1,0 +1,84 @@
+{
+    "domain" :"localhost:3005",
+    "header" : [
+        {
+            "name":"home",
+            "href":"/",
+            "menu_tpye":"",
+            "icon": 0,
+            "description":"홈"
+        },
+        {
+            "name":"board",
+            "menu_tpye":"board",
+            "href":"/board/board/1",
+            "depth":true,
+            "icon":1,
+            "description":"게시판"
+        },
+        {
+            "name":"xlsx",
+            "href":"/xlsx",
+            "icon":2,
+            "description":"엑셀"
+        },
+        {
+            "name":"ADM",
+            "href":"/adm",
+            "description":"관리자"
+        }
+    ],
+    "board": {
+        "target":[
+            {
+                "name":"board",
+                "href":"/board/board/1",
+                "auth":true,
+                "type": {
+                    "division":"board",
+                    "division_type":"normal"
+                }
+            },
+            {
+                "name":"gallery",
+                "href":"/board/gallery/1",
+                "auth":true,
+                "type" :{
+                    "division":"board",
+                    "division_type":"gallery"
+                }
+            },
+            {
+                "name":"board2",
+                "href":"/board/board2/1",
+                "auth":true,
+                "type":{
+                    "division":"board",
+                    "division_type":"normal"
+                }
+            }
+        ],
+        "tag":[
+            {
+                "name":"No.",
+                "class":"no"
+            },
+            {
+                "name":"제목",
+                "class":"subject"
+            },
+            {
+                "name":"작성자",
+                "class":"userName"
+            },
+            {
+                "name":"조회수",
+                "class":"hit"
+            },
+            {
+                "name":"작성일자",
+                "class":"time"
+            }
+        ]
+    }
+}

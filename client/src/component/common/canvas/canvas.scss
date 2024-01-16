@@ -1,0 +1,184 @@
+$canvas:1px;
+$tran :.5s;
+
+$bounce :(1, 2, 3, 4, 5, 6);
+
+.canvas {
+    &-bg {
+        &::after {
+            display: none;
+            content: "";
+            position: absolute;
+        }
+    }
+
+    &-box {
+        &.bounce_ball {
+            background: #000;
+            transition: 1s;
+            animation: test 60s infinite linear;
+            animation-timing-function: 1s;
+
+        }
+
+        &.big {
+            animation: test2 15s infinite;
+        }
+
+
+    }
+
+    @each $ani in $bounce {
+        &-bounce#{$ani} {
+            animation: bounce #{$ani+"s"} infinite;
+        }
+
+        &-circle:nth-of-type(#{$ani}) {
+            animation: normal_circle #{$ani + 5 + "s"} infinite alternate;
+            animation-delay: #{$ani} * 1+'s';
+        }
+    }
+
+}
+
+
+@keyframes normal_circle {
+    0% {
+        transform: translate(0, 15%);
+    }
+
+    25% {
+        // transform: translate(-2.5%, 0%);
+    }
+
+    50% {
+        // transform: translate(-2.5%, 20%);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+$s : 1.05;
+
+@keyframes bounce {
+    0% {
+        transform: scale($s)
+    }
+
+    50% {
+        transform: scale(1.0)
+    }
+
+    100% {
+        transform: scale($s)
+    }
+}
+
+$rotate: 90deg;
+$max:94%;
+
+@keyframes test {
+
+    0% {
+        transform: translate3d(0, 0, 0) rotate(0) scale(0.5);
+        background: rgb(0, 0, 0);
+        border-radius: 0;
+
+    }
+
+    10% {
+        transform: rotate($rotate*2) scale(1);
+        top: $max;
+        // border-radius: 0 10% 20% 30%;
+        left: 50%;
+    }
+
+    20% {
+        transform: rotate($rotate*5) scale(2);
+        border-radius: 50%;
+        top: 50%;
+        left: $max;
+        background: rgb(255, 0, 0);
+        border-radius: 10% 20% 10% 40%;
+    }
+
+    30% {
+        transform: rotate(-$rotate) scale(1.2);
+        top: 0%;
+        left: 80%;
+        border-radius: 0;
+    }
+
+    40% {
+        transform: rotate(-$rotate*3) scale(5);
+        border-radius: 50%;
+        top: 30%;
+        left: 30%;
+        border: 2px solid rgb(100, 255, 200);
+        background: transparent;
+    }
+
+    50% {
+        transform: rotate($rotate*6) scale(0.5);
+        top: 50%;
+        left: 50%;
+    }
+
+    60% {
+        transform: rotate(-$rotate*3) scale(1);
+        top: $max;
+        left: 0%;
+        background: rgb(0, 0, 255);
+    }
+
+    70% {
+        transform: rotate($rotate*2) scale(3);
+        top: 0%;
+        left: 20%;
+        border-radius: 0;
+    }
+
+    80% {
+        transform: rotate($rotate*6) scale(3.5);
+        top: 60%;
+        left: 60%;
+        background: rgb(255, 100, 255);
+    }
+
+    90% {
+        transform: rotate($rotate*9) scale(3);
+        top: $max;
+        left: 70%;
+    }
+
+    95% {
+        transform: rotate($rotate*9) scale(1);
+        border-radius: 50%;
+        top: 110%;
+        left: 50%;
+    }
+
+    100% {
+        transform: translate3d(-50%, -50%, 0px) rotate(0) scale(1);
+        top: 110%;
+        left: 50%;
+        background: rgb(0, 0, 0);
+    }
+}
+
+@keyframes test2 {
+    0% {
+        // transform: translate3d(0,0,0);
+        border-radius: 25%;
+    }
+
+    50% {
+        border-radius: 50%;
+    }
+
+    100% {
+        border-radius: 25%;
+    }
+}

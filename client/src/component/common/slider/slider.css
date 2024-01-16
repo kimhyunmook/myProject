@@ -1,0 +1,27 @@
+.slick-prev {
+  left: 0px;
+  width: 50px;
+  height: 50px;
+  z-index: 99; }
+  .slick-prev::before {
+    font-size: 50px; }
+
+.slick-next {
+  right: 0px;
+  width: 50px;
+  height: 50px;
+  z-index: 99; }
+  .slick-next::before {
+    font-size: 50px; }
+
+.slick-arrow::before,
+.slick-arrow::after {
+  color: #0009;
+  font-weight: 700;
+  opacity: 0.3; }
+
+.slick-prev::before {
+  content: '<'; }
+
+.slick-next::before {
+  content: '>'; }
