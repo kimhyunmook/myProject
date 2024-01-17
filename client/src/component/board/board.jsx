@@ -157,7 +157,7 @@ function Board({ className }) {
                 <Link className="right" to={nextPage}>
                   <FontAwsome data={"fa-angle-right"} />
                 </Link>
-                {Math.ceil(boardInfo.pageNavi.length / maxP) > pageCondtion ? (
+                {Math.ceil(boardInfo.pageNavi?.length / maxP) > pageCondtion ? (
                   <Link to={nextPage2}>
                     <FontAwsome data={"fa-angles-right"} />
                   </Link>
