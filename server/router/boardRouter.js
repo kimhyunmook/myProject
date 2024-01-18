@@ -37,11 +37,7 @@ router.get('/list/:name/:page', async (req, res) => {
     `;
     const conn = await db2.getConnection();
 
-
-
     try {
-        
-
         listLength = 10; // 1page length
         query = await conn.query(sql);
         rows = query[0]
