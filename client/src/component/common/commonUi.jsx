@@ -142,7 +142,7 @@ export function LoadingPage({ style, children }) {
  * @param {*} type
  * @param title subject
  * @param display boolean type modal is display
- * @param {Object} button  Object ex>> { Display:true, Name: String, Click: function }
+ * @param {Object} button  Object ex>> { Name: String, Click: function }
  * @param className classname "on" <- display:block; Default display:none;
  * @returns Modal
  */
@@ -151,17 +151,18 @@ export function Modal({
   title,
   className,
   children,
-  button = { Display: true, Name: "닫기" },
+  button,
   ref = null,
 }) {
   let clan = "modal";
   const bg = useRef(null);
-  let info = {
+  let info
+  Array.isArray(info) ? info = button :
+  info = {
     Name: button.Name ? button.Name : "닫기",
     Click: button.Click !== undefined ? button.Click : close,
   };
   if (className !== undefined) clan = `modal ${className}`;
-  if (button.Display === undefined) button.Display = true;
   if (Array.isArray(button)) {
     info = button;
   }
@@ -180,7 +181,7 @@ export function Modal({
       <div className={clan}>
         <h2>{title}</h2>
         {children}
-        {button.Display ? <BtnArea info={info} /> : null}
+        {<BtnArea info={info} />}
       </div>
     </div>
   );

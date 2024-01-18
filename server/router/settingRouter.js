@@ -93,6 +93,12 @@ DB=${req.body.db}
             read_sql: 'like.sql'
         });
 
+        await existCreateQuery({
+            connect: conn,
+            table_name: 'calendar',
+            read_sql: 'calendar/create.sql'
+        });
+
         sql = sqlText.INSERT('likes', 'icon,type,hit', `("😊","good",0),("🥰","love",0),("🤔","hmm",0),("😫","no",0),("😡","angry",0)`)
         await conn.query(sql);
 
@@ -113,7 +119,6 @@ DB=${req.body.db}
         dummy = dummy.data;
 
         if (dummyUse && dummy.length > 1) {
-            // console.log(dummy);
             for (let i = 0; i < dummy.length; i++) {
                 let dmysql = sqlText.INSERT('board_basic',
                     `w_num,w_parent,subject,content,w_comment,d_time,w_time,user_id,hit,reply_count,board_type,notice`,

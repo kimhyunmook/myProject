@@ -12,6 +12,7 @@ const userRouter = require("./router/userRouter");
 const boardRouter = require("./router/boardRouter");
 const settingRouter = require("./router/settingRouter");
 const admRouter = require("./router/admRouter");
+const calendarRouter = require("./router/calendar");
 // const xlsxUpload = require('./router/xlsxUpload');
 
 const port = require("../port");
@@ -27,6 +28,7 @@ app.use("/api/users", userRouter);
 app.use("/api/board", boardRouter);
 app.use("/api/setting", settingRouter);
 app.use("/api/adm", admRouter);
+app.use("/api/calendar",calendarRouter)
 // app.use('/api/upload', xlsxUpload);
 app.all("*", (req, res) => {
   res

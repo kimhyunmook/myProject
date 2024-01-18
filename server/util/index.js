@@ -165,7 +165,6 @@ function arrSql(target, type) {
     let key = ''
     let value = ''
     let list = target.list === undefined ? target :target.list ;
-    // console.log(list.length)
     key += Object.keys(list[0]);
 
     for (let i = 0; i < list.length; i++) {
@@ -185,8 +184,16 @@ function arrSql(target, type) {
     else return value
 }
 const sqlText = {
+    /**
+     * if Array >> insert = {table_name:String, list:Array}
+     * @param {*} tableName INSERT INTO ???
+     * @param {*} key tableName (???) VALUES
+     * @param {*} value VALUES ???
+     * @returns 
+     */
     INSERT: (tableName = '', key = '', value = '') => {
         let sql;
+        console.log(tableName)
         Array.isArray(tableName.list) ?
             sql = `INSERT INTO ${tableName.table_name} (${arrSql(tableName,'key')}) VALUES ${arrSql(tableName)}` :
             sql = `INSERT INTO ${tableName} (${key}) VALUES ${value};`;

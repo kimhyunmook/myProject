@@ -1,0 +1,9 @@
+CREATE TABLE `calendar` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`type` VARCHAR(200) NOT NULL,
+	`subject` VARCHAR(200) NOT NULL,
+	`content` VARCHAR(200) NOT NULL,
+	`description` VARCHAR(500) NULL DEFAULT NULL,
+	PRIMARY KEY (`id`)
+)
+;
