@@ -4,6 +4,7 @@ CREATE TABLE `calendar` (
 	`subject` VARCHAR(200) NOT NULL,
 	`content` VARCHAR(200) NOT NULL,
 	`description` VARCHAR(500) NULL DEFAULT NULL,
+	`date` VARCHAR(70) NOT NULL,
 	PRIMARY KEY (`id`)
 )
 ;

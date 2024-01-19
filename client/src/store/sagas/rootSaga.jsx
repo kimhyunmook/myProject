@@ -1,16 +1,36 @@
 import { takeLatest, takeEvery } from "redux-saga/effects";
-import { handleEditUser, handleLogOutUser, handleLoginUser, handleDeleteUser, handleRegisterUser } from "../sagas/userSaga";
+import {
+  handleEditUser,
+  handleLogOutUser,
+  handleLoginUser,
+  handleDeleteUser,
+  handleRegisterUser,
+} from "../sagas/userSaga";
 import { _Login, _Edit, _Logout, _Delete, _Register } from "../userSlice";
 import { _Condtion, _CreateMenu } from "../menuSlice";
 import { handleCreateMenu, handleMenu } from "./menuSaga";
-import { _DeleteTarget, _GetList, _InsertWrite, _Modify, _ViewContent } from "../boardSlice";
-import { handleBoardList, handleBoardWrite, handleDeleteBoard, handleModifyBoard, handleViewContent } from "./boardSaga";
+import {
+  _DeleteTarget,
+  _GetList,
+  _InsertWrite,
+  _Modify,
+  _ViewContent,
+} from "../boardSlice";
+import {
+  handleBoardList,
+  handleBoardWrite,
+  handleDeleteBoard,
+  handleModifyBoard,
+  handleViewContent,
+} from "./boardSaga";
 import { basicInfo } from "../basicSlice";
 import { handleBasic } from "./basicSaga";
 import { _GetLike } from "../likeSlice";
 import { handleLike } from "./likeSaga";
 import { getSetting } from "../settingSlice";
 import { handleSetting } from "./settingSaga";
+import { calendarInfo, getCalendarData } from "../calendarSlice";
+import { handleCalendarInfo } from "./calendarSaga";
 
 export default function* rootSaga() {
   yield [
@@ -32,12 +52,13 @@ export default function* rootSaga() {
     yield takeLatest(_Modify.type, handleModifyBoard),
     yield takeLatest(_DeleteTarget.type, handleDeleteBoard),
 
-    //baisc 
+    //baisc
     yield takeLatest(basicInfo.type, handleBasic),
 
     //like
     yield takeLatest(_GetLike.type, handleLike),
 
     yield takeLatest(getSetting, handleSetting),
-  ]
+    yield takeLatest(calendarInfo.type, handleCalendarInfo),
+  ];
 }
