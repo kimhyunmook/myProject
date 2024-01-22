@@ -1,9 +1,16 @@
 const express = require("express");
 const router = express.Router();
-const { db2 } = require("../db");
-const { errorMessage, correctMessage, sqlText } = require("../util");
+const {
+  db2
+} = require("../db");
+const {
+  errorMessage,
+  correctMessage,
+  sqlText
+} = require("../util");
 const fs = require("fs");
 const training = require("../training/training");
+const moment = require('moment')
 
 router.post("/study", async (req, res) => {
   const routerName = req.originalUrl;
@@ -32,9 +39,6 @@ router.post("/study", async (req, res) => {
 
     //server save
     sql = sqlText.INSERT(insert);
-
-    console.log(insert, sql);
-
     await conn.query(sql);
 
     res.status(200).json({
@@ -50,15 +54,26 @@ router.post("/study", async (req, res) => {
 router.post("/info", async (req, res) => {
   const routerName = req.originalUrl;
   const conn = await db2.getConnection();
-  const date = req.params.date;
-  let sql, data;
+  const date = req.body.date;
+  let data, lookData = []
+  let sql = '';
+  let today = new Date();
+  console.log(req.body)
   try {
+    let where = date !== undefined ? `date="${date}"` : `date="${moment(today).format('YYYY-MM-DD')}"`;
+    console.log(where);
     sql = sqlText.SELECT("calendar");
     data = await conn.query(sql);
     data = data[0];
+
+    sql = sqlText.SELECT('calendar', where);
+    lookData = await conn.query(sql);
+    lookData = lookData[0];
+
     res.status(200).json({
       condition: "success",
       data,
+      lookData,
     });
     correctMessage(routerName, "Info ~~ :)");
   } catch (error) {

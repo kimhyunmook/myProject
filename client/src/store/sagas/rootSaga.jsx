@@ -29,8 +29,8 @@ import { _GetLike } from "../likeSlice";
 import { handleLike } from "./likeSaga";
 import { getSetting } from "../settingSlice";
 import { handleSetting } from "./settingSaga";
-import { calendarInfo, getCalendarData } from "../calendarSlice";
-import { handleCalendarInfo } from "./calendarSaga";
+import { calendarInfo, notToday } from "../calendarSlice";
+import { handleCalendarInfo, handle_notToday } from "./calendarSaga";
 
 export default function* rootSaga() {
   yield [
@@ -59,6 +59,9 @@ export default function* rootSaga() {
     yield takeLatest(_GetLike.type, handleLike),
 
     yield takeLatest(getSetting, handleSetting),
+
+    //calendar
     yield takeLatest(calendarInfo.type, handleCalendarInfo),
+    yield takeLatest(notToday.type, handle_notToday),
   ];
 }

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Container2, Modal } from "../common/commonUi";
 import Skeleton from "react-loading-skeleton";
@@ -8,7 +7,7 @@ import "react-calendar/dist/Calendar.css";
 import moment from "moment";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { calendarInfo } from "../../store/calendarSlice";
+import { calendarInfo, getNotTodayData, lookDataReset, notToday } from "../../store/calendarSlice";
 
 export default function Test() {
   const [value, OnChange] = useState(new Date());
@@ -26,7 +25,7 @@ export default function Test() {
   const userInfo = store.userInfo.data;
   const calendar_info = store.calendarInfo;
   const [view, setView] = useState(null);
-  const [view_button, setView_button] = useState({ Name: "" }); // init 값 필수
+  const [view_button, setView_button] = useState({ Name: "" });
 
   let body = {};
   const callBack = useCallback((event) => {
@@ -54,6 +53,7 @@ export default function Test() {
   function dayClick() {
     setModal_dis(false);
     setList(listFirst);
+    dispatch(lookDataReset());
   }
   async function submit(event) {
     event.preventDefault();
@@ -72,11 +72,10 @@ export default function Test() {
   }
   const plus = useCallback((event) => {
     event.preventDefault();
-    // console.log(list);
     list.length < 5
       ? setList(list.concat({ type: "english" }))
-      : // list.concat({ type: "english" })
-        alert("5개 초과 입력할 수 없습니다.");
+      :
+      alert("5개 초과 입력할 수 없습니다.");
   });
   return (
     <Container2 info={{ className: "container-normal" }}>
@@ -95,8 +94,12 @@ export default function Test() {
               { Name: "송출 버튼입니다만", Click: submit },
             ]);
           } else {
+            dispatch(notToday({
+              url: `/calendar/info`,
+              date: moment(value).format(format)
+            }))
             setModal_dis(true);
-            setView("leanded");
+            setView('leaned');
             setView_button({ Name: "", Click: dayClick });
           }
         }}
@@ -115,11 +118,11 @@ export default function Test() {
         }}
       />
       <Modal display={modal_dis} title={"🤗 오늘의 영어"} button={view_button}>
-        {view === "training" ? <Training_view /> : <Leaned_view />}
+        {view === "training" ? <Training_view /> : <Leaned_view view={calendar_info.lookData} />}
       </Modal>
     </Container2>
   );
-  function Training_view({}) {
+  function Training_view({ }) {
     return (
       <form action="">
         <ul>
@@ -130,14 +133,15 @@ export default function Test() {
           </li>
           {list.map((v, i) => {
             return (
-              <li key={`list_${i}`}>
-                <div className="line">
+              <li key={`list_${v}_${i}`}>
+                <div className="line" >
                   <label htmlFor="subject">영문장</label>
                   <input
                     name={"subject"}
                     type="text"
                     onChange={callBack}
                     data-index={i}
+                    pattern="[A-Za-z]+"
                   />
                 </div>
                 <div className="line">
@@ -167,7 +171,39 @@ export default function Test() {
     );
   }
 
-  function Leaned_view() {
-    return <div className="leaned_view">학습된 영어들</div>;
+  function Leaned_view({ view }) {
+    // console.log('view', calendar_info);
+    const Box = ({ children, title }) => {
+      return (
+        <div>
+          <b>{title} : </b>
+          {children}
+        </div>
+      )
+    }
+    return (
+      <div className="leaned_view">
+        <h2>학습한 내용</h2>
+        {
+          calendar_info.lookData.length > 0 ?
+          calendar_info.lookData.map((v, i) => {
+            return (
+              <div className="" key={`leaned_view_${i}`}>
+                <Box title={'영문장'}>
+                  {v.subject}
+
+                </Box>
+                <Box title={'뜻'}>
+                  {v.content}
+                </Box>
+                <Box title={'설명'}>
+                  {v.description}
+                </Box>
+              </div>
+            )
+          }): 
+          <div>학습된 내용이 없습니다.</div>
+          }
+      </div>);
   }
 }

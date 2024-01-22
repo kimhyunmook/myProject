@@ -13,11 +13,12 @@ import basicReducer from "./basicSlice";
 import likeReducer from "./likeSlice";
 import rootSaga from "./sagas/rootSaga";
 import settingReducer from "./settingSlice";
+// import logger from 'redux-logger'
 import calrendarReducer from "./calendarSlice";
 // import promiseMiddleware from 'redux-promise' // store 사용시
 
 const rootReducer = combineReducers({
-  setting: settingReducer,
+  // setting: settingReducer,
   userInfo: userReducer,
   menuInfo: menuReducer,
   boardInfo: boardReducer,
@@ -37,9 +38,9 @@ const persistConfig = {
     "boardInfo",
     "basicInfo",
     "likeInfo",
-    "setting",
+    // "setting",
   ], // 해당 reducer만 저장
-  // blacklist: [''] // 해당 reducer만 제외
+  // blacklist: ['calendar'] // 해당 reducer만 제외
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 const sagaMiddleware = createSagaMiddleware();
