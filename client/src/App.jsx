@@ -1,48 +1,45 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import React, { useState, useLayoutEffect, useEffect } from 'react';
-import Main from './component/main'
-import Header from './component/common/header'
-import Register from './component/user/register';
-import Login from './component/user/login';
-import MyPage from './component/user/myPage';
-import UserEdit from './component/user/edit';
-import Board from './component/board/board';
-import Write from './component/board/write';
-import ContentBoard from './component/board/[num]';
-import ModifyBoard from './component/board/modify';
-import ADM from './component/adm';
-import SearchUser from './component/user/search';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React, { useState, useLayoutEffect, useEffect } from "react";
+import Main from "./component/main";
+import Header from "./component/common/header";
+import Register from "./component/user/register";
+import Login from "./component/user/login";
+import MyPage from "./component/user/myPage";
+import UserEdit from "./component/user/edit";
+import Board from "./component/board/board";
+import Write from "./component/board/write";
+import ContentBoard from "./component/board/[num]";
+import ModifyBoard from "./component/board/modify";
+import ADM from "./component/adm";
+import SearchUser from "./component/user/search";
 // import WriteGallery from './component/board/write-gallery';
-import NeedDownLoad from './component/download';
-import '../src/css/main.css'
-import '../src/component/common/canvas/canvas.css';
-import Footer from './component/common/footer';
-import About from './component/about';
-import Test from './component/test/test';
+import NeedDownLoad from "./component/download";
+import "../src/css/main.css";
+import "../src/component/common/canvas/canvas.css";
+import Footer from "./component/common/footer";
+import About from "./component/about";
+import ProjectS from "./component/project";
 
 function App() {
   const [headerCofirm, setHeaderCofirm] = useState(true);
   const path = window.location.pathname;
   useEffect(() => {
-    let path = window.location.pathname.split('/');
-    if (path[1] === 'download') {
+    let path = window.location.pathname.split("/");
+    if (path[1] === "download") {
       setHeaderCofirm(false);
     } else {
       setHeaderCofirm(true);
     }
-  }, [path])
+  }, [path]);
   return (
     <Router>
-      {
-        headerCofirm === true ?
-          <Header /> : null
-      }
+      {headerCofirm === true ? <Header /> : null}
       <Routes>
-        <Route path="test" element={<Test />} />
         {/* <Route path='/' element={<Open />} /> */}
         <Route path="/" element={<Main />} />
         <Route path="/adm" element={<ADM />} />
         <Route path="/download" element={<NeedDownLoad />} />
+        <Route path="/project/:type" element={<ProjectS />} />
 
         {/* user */}
         <Route path="/register" element={<Register />} />
@@ -60,12 +57,8 @@ function App() {
         <Route path={`/board/:name/contents/:num`} element={<ContentBoard />} />
         <Route path={`/board/:name/modify/:num`} element={<ModifyBoard />} />
         {/* <Route path={`/board/gallery/:name/write`} element={<WriteGallery />} /> */}
-
       </Routes>
-      {
-        headerCofirm === true ?
-          <Footer /> : null
-      }
+      {headerCofirm === true ? <Footer /> : null}
     </Router>
   );
 }

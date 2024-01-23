@@ -33,10 +33,10 @@
                 "custom_comment": ""
             },
             {
-                "name":"test",
-                "href":"/test",
+                "name":"Project",
+                "href":"/project/calendar",
                 "menu_type":"normal",
-                "description":"test용 페이지",
+                "description":"main",
                 "depth": 0,
                 "admin": 1,
                 "custom": "",
