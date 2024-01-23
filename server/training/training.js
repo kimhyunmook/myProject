@@ -14,6 +14,7 @@ function training(target, data) {
       c.split(".")[1] === "json" ? a.push(c) : null;
       return a;
     }, []);
+    console.log(target, data);
 
     let training_target = file.filter((t) => t === target);
     const target_confirm =
@@ -23,7 +24,10 @@ function training(target, data) {
       url = root_dir + "/" + training_target[0];
       //   console.log("url", url);
       training_target = require(url);
-      training_target.list = training_target.list?.concat(data);
+      training_target.list =
+        data !== undefined
+          ? training_target.list?.concat(data)
+          : training_target.list;
       const result = {
         table_name: training_target.table_name,
         training_traget: target.split(".json")[0],

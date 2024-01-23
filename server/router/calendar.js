@@ -1,16 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const {
-  db2
-} = require("../db");
-const {
-  errorMessage,
-  correctMessage,
-  sqlText
-} = require("../util");
+const { db2 } = require("../db");
+const { errorMessage, correctMessage, sqlText } = require("../util");
 const fs = require("fs");
 const training = require("../training/training");
-const moment = require('moment')
+const moment = require("moment");
 
 router.post("/study", async (req, res) => {
   const routerName = req.originalUrl;
@@ -55,27 +49,74 @@ router.post("/info", async (req, res) => {
   const routerName = req.originalUrl;
   const conn = await db2.getConnection();
   const date = req.body.date;
-  let data, lookData = []
-  let sql = '';
+  let data,
+    lookData = [];
+  let sql = "";
   let today = new Date();
-  console.log(req.body)
   try {
-    let where = date !== undefined ? `date="${date}"` : `date="${moment(today).format('YYYY-MM-DD')}"`;
-    console.log(where);
+    let where =
+      date !== undefined
+        ? `date="${date}"`
+        : `date="${moment(today).format("YYYY-MM-DD")}"`;
     sql = sqlText.SELECT("calendar");
     data = await conn.query(sql);
     data = data[0];
 
-    sql = sqlText.SELECT('calendar', where);
+    sql = sqlText.SELECT("calendar", where);
     lookData = await conn.query(sql);
     lookData = lookData[0];
+
+    // local save data가 있는 경우
+    const training_dir = fs.readdirSync("server/training");
+    let json_file = [];
+    let training_data = {};
+
+    if (training_dir.length > 1 && data.length === 0) {
+      training_dir.map((v) =>
+        v.split(".")[v.split(".").length - 1] === "json"
+          ? json_file.push(v)
+          : null
+      );
+      json_file.map(async (v, i) => {
+        training_data = training(v);
+        let insert = {
+          table_name: "calendar",
+          list: training_data.list,
+        };
+        sql = sqlText.INSERT(insert);
+        await conn.query(sql);
+      });
+    }
 
     res.status(200).json({
       condition: "success",
       data,
       lookData,
     });
-    correctMessage(routerName, "Info ~~ :)");
+    correctMessage(routerName, "Info Success ~~ :)");
+  } catch (error) {
+    errorMessage(routerName, error);
+  }
+});
+
+router.post("/study_test", async (req, res) => {
+  const routerName = req.originalUrl;
+  let sql = "";
+  let data = [];
+  let [userId, type] = [req.body.userId, req.body.type];
+  let conn = await db2.getConnection();
+
+  try {
+    sql = sqlText.SELECT("calendar", `type="${type}"`);
+    data = await conn.query(sql);
+    data = data[0];
+    let random = Math.floor(Math.random() * data.length);
+    data = data[random];
+    correctMessage(routerName, "Success");
+    res.status(200).json({
+      condition: "success",
+      data,
+    });
   } catch (error) {
     errorMessage(routerName, error);
   }
