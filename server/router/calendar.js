@@ -20,6 +20,7 @@ router.post("/study", async (req, res) => {
     tabel_name: "",
     list: [],
   };
+  console.log(insert);
   if (!fs.existsSync(training_dir))
     fs.writeFileSync(training_dir, JSON.stringify(initial));
 
@@ -34,6 +35,7 @@ router.post("/study", async (req, res) => {
     //server save
     sql = sqlText.INSERT(insert);
     await conn.query(sql);
+    console.log(sql);
 
     res.status(200).json({
       condition: "success",
@@ -104,15 +106,38 @@ router.post("/study_test", async (req, res) => {
   let sql = "";
   let data = [];
   let [userId, type] = [req.body.userId, req.body.type];
-  let conn = await db2.getConnection();
+  const conn = await db2.getConnection();
+  const quesLength = 10;
+  let random,
+    i = 0;
+  let quesIndex = [];
 
   try {
-    sql = sqlText.SELECT("calendar", `type="${type}"`);
+    sql = sqlText.SELECT("calendar", `type="${type}" AND  userId="${userId}"`);
     data = await conn.query(sql);
     data = data[0];
-    let random = Math.floor(Math.random() * data.length);
-    data = data[random];
-    correctMessage(routerName, "Success");
+    for (i = 0; i < quesLength; i++) {
+      random = Math.floor(Math.random() * data.length);
+      quesIndex.push(random);
+    }
+    function overlap_remove() {
+      quesIndex = quesIndex.filter((x, i) => quesIndex.indexOf(x) === i);
+
+      if (quesIndex.length < quesLength) {
+        for (i = 0; i < quesLength - quesIndex.length; i++) {
+          random = Math.floor(Math.random() * data.length);
+          quesIndex.push(random);
+        }
+        return overlap_remove();
+      } else return quesIndex;
+    }
+    quesIndex = overlap_remove();
+    // data = data[random];
+    data = quesIndex.reduce((a, c, i) => {
+      a.push(data[c]);
+      return a;
+    }, []);
+    correctMessage(routerName, "Success requiest_id:" + userId);
     res.status(200).json({
       condition: "success",
       data,

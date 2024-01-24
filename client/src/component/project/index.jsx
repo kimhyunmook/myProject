@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Container2, Modal } from "../common/commonUi";
+import { BtnArea, Container2, Modal } from "../common/commonUi";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import Calendar from "react-calendar";
@@ -13,9 +13,9 @@ import {
   notToday,
   testRequest,
 } from "../../store/calendarSlice";
-import { Link } from "react-router-dom";
 import util from "../../util";
 import { useNavigate } from "react-router-dom";
+import TestView from "./testView";
 
 export default function ProjectS() {
   const [value, OnChange] = useState(new Date());
@@ -36,11 +36,13 @@ export default function ProjectS() {
   const [view_button, setView_button] = useState({ Name: "" });
   const path = util.path();
   const navigate = useNavigate();
+  const [question, setQuestion] = useState(false);
 
   let body = {};
   const callBack = useCallback((event) => {
     const target = event.currentTarget;
     const lt = list[target.dataset.index];
+    console.log(target, list);
     switch (target.name) {
       case "subject":
         lt.subject = target.value;
@@ -54,41 +56,47 @@ export default function ProjectS() {
     }
   });
 
-  function dayClick() {
-    setModal_dis(false);
-    setList(listFirst);
-    dispatch(lookDataReset());
-  }
-  async function submit(event) {
-    event.preventDefault();
-    body = {
-      userId: userInfo.id,
-      data: list,
-    };
-    await body.data.map((v, i) => {
-      v.userId = userInfo.id;
-      v.date = moment(korNow).format(format);
-    });
-    await axios.post(`/api/calendar/study`, body);
-    dispatch(calendarInfo({ url: `/calendar/info` }));
-    setModal_dis(false);
-    alert("입력되었습니다.");
-  }
   const plus = useCallback((event) => {
     event.preventDefault();
     list.length < 5
       ? setList(list.concat({ type: "english" }))
       : alert("5개 초과 입력할 수 없습니다.");
   });
+
+  function dayClick() {
+    setModal_dis(false);
+    setList(listFirst);
+    dispatch(lookDataReset());
+  }
+  function submit(event) {
+    event.preventDefault();
+    console.log(list);
+    body = {
+      userId: userInfo.id,
+      data: list,
+    };
+    console.log(list);
+    body.data.map((v, i) => {
+      v.userId = userInfo.id;
+      v.date = moment(korNow).format(format);
+    });
+    axios.post(`/api/calendar/study`, body);
+    dispatch(calendarInfo({ url: `/calendar/info` }));
+    setModal_dis(false);
+    // setList(listFirst);
+    alert("입력되었습니다.");
+  }
+
   const calendarRef = useRef(null);
   const testRef = useRef(null);
-  // const [div_ref, setDiv_ref] = useState({});
   useEffect(() => {
     body = {
       url: `/calendar/info`,
     };
     dispatch(calendarInfo(body));
+    setQuestion(calendar_info.testData?.subject);
   }, []);
+
   const menuClick = (event) => {
     event.preventDefault();
     let target = event.currentTarget;
@@ -96,17 +104,21 @@ export default function ProjectS() {
       String(window.location.origin),
       ""
     );
-
-    navigate(target_href, "");
+    if (target_href !== window.location.pathname) {
+      navigate(target_href);
+    }
+  };
+  const startTest = () => {
     body = {
       userId: userInfo.id,
       type: "english",
       url: "/calendar/study_test",
     };
-    if (target_href === "/project/test") dispatch(testRequest(body));
-  };
 
-  console.log(calendar_info);
+    dispatch(testRequest(body));
+    setQuestion(true);
+    navigate("?task=0");
+  };
 
   return (
     <Container2 info={{ className: "container-normal" }}>
@@ -181,25 +193,42 @@ export default function ProjectS() {
       ) : (
         <div ref={testRef} className="cover-box-test">
           <div className="question">
-            <h2>{calendar_info.testData?.subject}</h2>
+            <h3> "지금 까지 학습한 내용을 테스트 해볼게요.😏"</h3>
           </div>
-          <div className="answer">
-            <label htmlFor="answer">답</label>
-            <input type="text" name="answer" />
-            <button>제출</button>
-          </div>
+          {<BtnArea info={[{ Name: "시험보기", Click: startTest }]} />}
+          {question ? (
+            <div className="answer">
+              <TestView viewData={calendar_info.testData}></TestView>
+            </div>
+          ) : null}
         </div>
       )}
     </Container2>
   );
   function Training_view({}) {
+    const ul = useRef(null);
+
+    const mius = (event) => {
+      event.preventDefault();
+      if (list.length > 1) {
+        let li = ul.current.children;
+        li[li.length - 1].remove();
+        list.pop();
+      } else {
+        alert("최소 입력 값입니다.");
+      }
+    };
+
     return (
       <form action="">
-        <ul>
+        <ul ref={ul}>
           <li>
-            <button className="addButton" onClick={plus}>
-              +
-            </button>
+            <BtnArea
+              info={[
+                { Name: "+", Click: plus },
+                { Name: "-", Click: mius },
+              ]}
+            />
           </li>
           {list?.map((v, i) => {
             return (
@@ -209,6 +238,7 @@ export default function ProjectS() {
                   <input
                     name={"subject"}
                     type="text"
+                    // value={list[i].subject}
                     onChange={callBack}
                     data-index={i}
                   />
@@ -218,6 +248,7 @@ export default function ProjectS() {
                   <input
                     name={"content"}
                     type="text"
+                    // value={list[i].content}
                     onChange={callBack}
                     data-index={i}
                   />
@@ -228,6 +259,7 @@ export default function ProjectS() {
                     name={"description"}
                     type="text"
                     placeholder="description"
+                    // value={list[i].description}
                     onChange={callBack}
                     data-index={i}
                   />
