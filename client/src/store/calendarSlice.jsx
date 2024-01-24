@@ -5,7 +5,7 @@ let initialState = {
   type: null,
   data: [],
   lookData: [],
-  testData: {},
+  testData: [],
 };
 
 const calendarSlice = createSlice({

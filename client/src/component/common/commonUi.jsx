@@ -7,11 +7,12 @@ const headerH = 90;
 const footerH = 125;
 
 /**
- * Name, onClick, ternaryOperator 설정 가능
+ * error fix
  * @recent_update 삼항연산 조건 추가 (ternaryOperator)
  * @param {*} info Object ex >> { Name:string, Click:function, ternaryOperator:{ Object } }
  * @param {info}ternaryOperator ex >> { condition: a===b, reversResult: null }
  * @returns button
+ *
  */
 export function BtnArea({ info, className }) {
   const isarr = Array.isArray(info);
@@ -23,10 +24,9 @@ export function BtnArea({ info, className }) {
     <div className="btnArea">
       {isarr ? (
         info.map((el, index) => {
-          function Btn(i) {
+          function Btn() {
             return (
               <button
-                // key={'btn_' + i}
                 className={classN}
                 onClick={el.Click === undefined ? null : el.Click}
               >
@@ -35,17 +35,17 @@ export function BtnArea({ info, className }) {
             );
           }
           return (
-            <>
+            <span key={`${el.Name}+${index}`}>
               {el.ternaryOperator !== undefined ? (
                 el.ternaryOperator.condition ? (
-                  <Btn key={"btn__" + index} />
+                  <Btn key={`${el.Name}+${index}`} />
                 ) : (
                   el.ternaryOperator.reverseResult
                 )
               ) : (
                 <Btn key={"btn__" + index} />
               )}
-            </>
+            </span>
           );
         })
       ) : (
@@ -156,12 +156,13 @@ export function Modal({
 }) {
   let clan = "modal";
   const bg = useRef(null);
-  let info
-  Array.isArray(info) ? info = button :
-  info = {
-    Name: button.Name ? button.Name : "닫기",
-    Click: button.Click !== undefined ? button.Click : close,
-  };
+  let info;
+  Array.isArray(info)
+    ? (info = button)
+    : (info = {
+        Name: button.Name ? button.Name : "닫기",
+        Click: button.Click !== undefined ? button.Click : close,
+      });
   if (className !== undefined) clan = `modal ${className}`;
   if (Array.isArray(button)) {
     info = button;

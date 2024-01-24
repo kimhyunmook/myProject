@@ -14,7 +14,7 @@ function training(target, data) {
       c.split(".")[1] === "json" ? a.push(c) : null;
       return a;
     }, []);
-    console.log(target, data);
+    // console.log(target, data);
 
     let training_target = file.filter((t) => t === target);
     const target_confirm =
