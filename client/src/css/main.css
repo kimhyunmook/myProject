@@ -1102,6 +1102,7 @@ input {
       padding-top: 35px;
       padding-bottom: 35px; }
     #root .react-calendar abbr {
+      transition: .5s;
       font-family: 'OKDDUNG';
       color: #4b1010a6; }
     #root .react-calendar .react-calendar__viewContainer {
@@ -1127,19 +1128,29 @@ input {
       font-size: 16px; }
     #root .react-calendar .react-calendar__tile--active {
       background: #ff9d9d;
-      border-radius: 30px; }
+      border-radius: 15px; }
     #root .react-calendar .calendar-dot {
       margin: 5px 0;
       background: #ff9d9d;
-      border-radius: 10px;
+      border-radius: 15px;
       width: 100%;
       height: 10px; }
+    #root .react-calendar .react-calendar__tile:enabled:hover, #root .react-calendar .react-calendar__tile:enabled:focus {
+      background-color: #b2d3ff;
+      border-radius: 15px;
+      box-shadow: 3px 1px 5px #000; }
+      #root .react-calendar .react-calendar__tile:enabled:hover abbr, #root .react-calendar .react-calendar__tile:enabled:focus abbr {
+        display: block;
+        color: #ff9d9d;
+        text-shadow: 3px 0px 5px #000;
+        transform: rotate(15deg) scale(1.5); }
   #root .calendar-modal {
     border: 0;
     box-shadow: 2px 3px 5px #000;
     border-radius: 5px; }
     #root .calendar-modal h2 {
-      font-family: 'OKDDUNG'; }
+      font-family: 'OKDDUNG';
+      text-shadow: 3px 0px 5px orange; }
     #root .calendar-modal ul {
       padding: 20px 20px;
       width: 100%;
@@ -1185,12 +1196,36 @@ input {
           #root .calendar-modal ul li .line input:focus ~ label, #root .calendar-modal ul li .line input:valid ~ label {
             font-size: 16px;
             bottom: 40px;
-            color: #666;
+            color: #4b1010a6;
             font-weight: bold; }
           #root .calendar-modal ul li .line input:focus ~ span, #root .calendar-modal ul li .line input:valid ~ span {
             width: 100%; }
     #root .calendar-modal .btnArea button {
       background-color: #ff9d9d; }
+  #root .cover-box-test {
+    width: 100%;
+    height: 350px; }
+    #root .cover-box-test button {
+      border: 0;
+      display: block;
+      margin: auto;
+      max-width: 300px;
+      font-size: 25px;
+      border-radius: 10px;
+      box-shadow: 2px 0px 2px #000;
+      padding: 10px;
+      background-color: #ff9d9d;
+      font-family: 'OKDDUNG'; }
+    #root .cover-box-test .question {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap; }
+      #root .cover-box-test .question h3 {
+        width: 100%;
+        font-size: 35px;
+        text-align: center;
+        margin: 30px 0; }
   #root form ul li {
     display: flex;
     margin: 5px 0; }

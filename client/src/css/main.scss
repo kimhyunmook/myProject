@@ -1967,6 +1967,7 @@ input {
             padding-bottom:$p;
         }
         abbr {
+            transition:.5s;
             font-family: 'OKDDUNG';
             color:$calendar_color;   
         }
@@ -2004,16 +2005,29 @@ input {
                 font-size:16px;
             }
         }
+        $radius: 15px;
         .react-calendar__tile--active {
             background:$active_color;
-            border-radius:30px;
+            border-radius:$radius;
         }
         .calendar-dot { 
             margin: 5px 0;
             background:$active_color;
-            border-radius:10px;
+            border-radius:$radius;
             width:100%;
             height:10px
+        }
+        .react-calendar__tile:enabled:hover, .react-calendar__tile:enabled:focus {
+            background-color:rgb(178, 211, 255);
+            border-radius:$radius;
+            box-shadow: 3px 1px 5px #000;
+
+            abbr {
+                display:block;
+                color:$active_color;
+                text-shadow: 3px 0px 5px #000;
+                transform:rotate(15deg)scale(1.5)
+            }
         }
     }
     .calendar-modal {
@@ -2022,6 +2036,7 @@ input {
         border-radius:5px;
         h2 {
             font-family: 'OKDDUNG' ;
+            text-shadow: 3px 0px 5px orange;
         }
         ul {
             padding: 20px 20px;
@@ -2076,7 +2091,7 @@ input {
                       input:focus ~ label, input:valid ~ label {
                         font-size: 16px;
                         bottom: 40px;
-                        color: #666;
+                        color: $calendar_color;
                         font-weight: bold;
                       }
                       
@@ -2090,6 +2105,35 @@ input {
             button {
                 background-color:$active_color;
             }
+        }
+    }
+    .cover-box-test {
+        width:100%;
+        height:350px;
+        button {
+            border:0;
+            display:block;
+            margin:auto;
+            max-width:300px;
+            font-size:25px;
+            border-radius:10px;
+            box-shadow: 2px 0px 2px #000;
+            padding: 10px;
+            background-color: $active_color;
+            font-family: 'OKDDUNG';
+        }
+        .question {
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap:wrap;
+            h3 {
+                width:100%;
+                font-size:35px;
+                text-align:center;
+                margin:30px 0;
+            }
+          
         }
     }
 

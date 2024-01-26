@@ -108,8 +108,7 @@ router.post("/study_test", async (req, res) => {
   let [userId, type] = [req.body.userId, req.body.type];
   const conn = await db2.getConnection();
   const quesLength = 10;
-  let random,
-    i = 0;
+  let random, i = 0;
   let quesIndex = [];
 
   try {
@@ -120,23 +119,25 @@ router.post("/study_test", async (req, res) => {
       random = Math.floor(Math.random() * data.length);
       quesIndex.push(random);
     }
-    function overlap_remove() {
-      quesIndex = quesIndex.filter((x, i) => quesIndex.indexOf(x) === i);
+    console.log(quesIndex)
+    // async function overlap_remove() {
+    //   quesIndex = await quesIndex.filter((x, i) => quesIndex.indexOf(x) === i);
+    //   console.log(quesIndex)
+    //   if (quesIndex.length < quesLength) {
+    //     for (i = 0; i < quesLength - quesIndex.length; i++) {
+    //       random = Math.floor(Math.random() * data.length);
+    //       quesIndex.push(random);
+    //     }
+    //     return overlap_remove();
+    //   } else return quesIndex;
+    // }
+    // quesIndex = overlap_remove();
+    // console.log(quesIndex)
 
-      if (quesIndex.length < quesLength) {
-        for (i = 0; i < quesLength - quesIndex.length; i++) {
-          random = Math.floor(Math.random() * data.length);
-          quesIndex.push(random);
-        }
-        return overlap_remove();
-      } else return quesIndex;
-    }
-    quesIndex = overlap_remove();
-    // data = data[random];
-    data = quesIndex.reduce((a, c, i) => {
-      a.push(data[c]);
-      return a;
-    }, []);
+    // data = quesIndex.reduce((a, c, i) => {
+    //   a.push(data[c]);
+    //   return a;
+    // }, []);
     correctMessage(routerName, "Success requiest_id:" + userId);
     res.status(200).json({
       condition: "success",
