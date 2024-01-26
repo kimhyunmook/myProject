@@ -19,6 +19,7 @@ import "../src/component/common/canvas/canvas.css";
 import Footer from "./component/common/footer";
 import About from "./component/about";
 import ProjectS from "./component/project";
+import Test from "./component/project/test";
 
 function App() {
   const [headerCofirm, setHeaderCofirm] = useState(true);
@@ -35,7 +36,8 @@ function App() {
     <Router>
       {headerCofirm === true ? <Header /> : null}
       <Routes>
-        {/* <Route path='/' element={<Open />} /> */}
+        <Route path="/test" element={<Test />} />
+
         <Route path="/" element={<Main />} />
         <Route path="/adm" element={<ADM />} />
         <Route path="/download" element={<NeedDownLoad />} />

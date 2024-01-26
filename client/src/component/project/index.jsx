@@ -21,7 +21,7 @@ export default function ProjectS() {
   const [value, OnChange] = useState(new Date());
   const [modal_dis, setModal_dis] = useState(false);
   const listFirst = [{ type: "english" }];
-  const [list, setList] = useState(listFirst);
+  const [list, setList] = useState([{ type: "english" }]);
   const cal = useRef(null);
   const curr = new Date();
   const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
@@ -37,12 +37,12 @@ export default function ProjectS() {
   const path = util.path();
   const navigate = useNavigate();
   const [question, setQuestion] = useState(false);
+  const listRef = useRef(list);
 
   let body = {};
   const callBack = useCallback((event) => {
     const target = event.currentTarget;
     const lt = list[target.dataset.index];
-    console.log(target, list);
     switch (target.name) {
       case "subject":
         lt.subject = target.value;
@@ -54,37 +54,71 @@ export default function ProjectS() {
         lt.description = target.value;
         break;
     }
+    setList(list);
+    listRef.current = list;
   });
-
-  const plus = useCallback((event) => {
+  const [insertLength, setInsertLength] = useState(1);
+  function plushandle(event) {
     event.preventDefault();
-    list.length < 5
-      ? setList(list.concat({ type: "english" }))
-      : alert("5개 초과 입력할 수 없습니다.");
-  });
+    if (list.length < 5) {
+      setList(list.concat({ type: "english" }));
+      setInsertLength((i) => i + 1);
+      navigate(`?inserLength=${insertLength}`);
+    } else alert("5개 초과 입력할 수 없습니다.");
+  }
+  const miushandle = (event) => {
+    event.preventDefault();
+    if (list.length > 1) {
+      let li = ul.current.children;
+      console.log("ddd", list.splice(list.length - 1, 1));
+      setList(list.splice(list.length - 1, 1));
+      console.log(list);
+    } else {
+      alert("최소 입력 값입니다.");
+    }
+  };
+
+  function secondsubmit(event) {
+    console.log(listRef.current);
+  }
 
   function dayClick() {
     setModal_dis(false);
-    setList(listFirst);
+    setList([{ type: "english" }]);
     dispatch(lookDataReset());
+    navigate("/project/calendar");
   }
-  function submit(event) {
+  function submit_(event) {
     event.preventDefault();
-    console.log(list);
+    console.log(listRef.current);
     body = {
       userId: userInfo.id,
-      data: list,
+      data: listRef.current,
     };
-    console.log(list);
+    let triger = true;
+    function triger_confirm(target, text) {
+      if (target === "" || target === undefined) {
+        triger = false;
+        alert(text);
+        return;
+      }
+    }
     body.data.map((v, i) => {
+      triger_confirm(v.subject, "주제를 입력해주세요");
+      triger_confirm(v.content, "뜻을 입력해주세요");
+
       v.userId = userInfo.id;
       v.date = moment(korNow).format(format);
     });
-    axios.post(`/api/calendar/study`, body);
-    dispatch(calendarInfo({ url: `/calendar/info` }));
-    setModal_dis(false);
-    // setList(listFirst);
-    alert("입력되었습니다.");
+
+    if (triger) {
+      setList(listFirst);
+      window.location.reload();
+      axios.post(`/api/calendar/study`, body);
+      dispatch(calendarInfo({ url: `/calendar/info` }));
+      setModal_dis(false);
+      alert("입력되었습니다.");
+    }
   }
 
   const calendarRef = useRef(null);
@@ -120,37 +154,53 @@ export default function ProjectS() {
     navigate("?task=0");
   };
 
+  const ul = useRef(null);
+
   return (
-    <Container2 info={{ className: "container-normal" }}>
-      <ul>
+    <Container2
+      info={{
+        className: "container-normal",
+        style: { background: "#ffefef", maxWidth: "100%" },
+      }}
+    >
+      <ul className="project-menu">
         <li>
           <a href="/project/calendar" onClick={menuClick}>
-            Calendar
+            🗓️ Calendar
           </a>
         </li>
         <li>
           <a href="/project/test" onClick={menuClick}>
-            Test
+            📝 Test
           </a>
         </li>
       </ul>
       {path[path.length - 1] === "calendar" ? (
         <div ref={calendarRef} className="cover-box-calendar">
           <Calendar
+            locale="en"
             ref={cal}
             onChange={OnChange}
             value={value}
+            next2Label={null}
+            prev2Label={null}
             showNeighboringMonth={false}
-            formatDay={(locale, date) => moment(date).format("DD")}
+            navigationAriaLive="polite"
+            // formatWeekday={(locale, date) => moment(date).format("DDDD")}
+            formatMonthYear={(locale, date) => moment(date).format("YYYY MMMM")}
+            formatDay={(locale, date) => moment(date).format("D")}
+            showNavigation={true}
             onClickDay={(value, event) => {
               if (
                 moment(value).format(format) === moment(korNow).format(format)
               ) {
                 setModal_dis(true);
                 setView("training");
+                navigate(`?inserLength=1`);
                 setView_button([
-                  { Name: "닫기 번튼입니다만", Click: dayClick },
-                  { Name: "송출 버튼입니다만", Click: submit },
+                  { Name: "닫기", Click: dayClick },
+                  { Name: "학습", Click: submit_ },
+                  // { Name: "test", Click: secondsubmit },
                 ]);
               } else {
                 dispatch(
@@ -171,20 +221,70 @@ export default function ProjectS() {
                   .map((v) => v.date)
                   .find((x) => x === moment(date).format(format))
               ) {
-                html.push(
-                  <div key={date} style={{ border: "2px solid skyblue" }}></div>
-                );
+                html.push(<div className={"calendar-dot"} key={date}></div>);
               }
               return <div>{html}</div>;
             }}
           />
           <Modal
             display={modal_dis}
-            title={"🤗 오늘의 영어"}
+            className={"calendar-modal"}
+            title={"🤗 Today English"}
             button={view_button}
           >
             {view === "training" ? (
-              <Training_view />
+              <form action="">
+                <ul ref={ul}>
+                  <li>
+                    {/* <BtnArea
+                      info={[
+                        { Name: "+", Click: plushandle },
+                        { Name: "-", Click: miushandle },
+                      ]}
+                    /> */}
+                  </li>
+                  {list.map((v, i) => {
+                    return (
+                      <li key={`list_${v}_${i}`}>
+                        <div className="line">
+                          <input
+                            name={"subject"}
+                            type="text"
+                            onChange={callBack}
+                            data-index={i}
+                            required
+                          />
+                          <label htmlFor="subject">영문장</label>
+                          <span></span>
+                        </div>
+                        <div className="line">
+                          <input
+                            name={"content"}
+                            type="text"
+                            onChange={callBack}
+                            data-index={i}
+                            required
+                          />
+                          <label htmlFor="content">뜻</label>
+                          <span></span>
+                        </div>
+                        <div className="line">
+                          <input
+                            name={"description"}
+                            type="text"
+                            // placeholder="description"
+                            onChange={callBack}
+                            data-index={i}
+                            required
+                          />
+                          <label htmlFor="description">설명</label>
+                          <span></span>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </form>
             ) : (
               <Leaned_view view={calendar_info.lookData} />
             )}
@@ -205,72 +305,6 @@ export default function ProjectS() {
       )}
     </Container2>
   );
-  function Training_view({}) {
-    const ul = useRef(null);
-
-    const mius = (event) => {
-      event.preventDefault();
-      if (list.length > 1) {
-        let li = ul.current.children;
-        li[li.length - 1].remove();
-        list.pop();
-      } else {
-        alert("최소 입력 값입니다.");
-      }
-    };
-
-    return (
-      <form action="">
-        <ul ref={ul}>
-          <li>
-            <BtnArea
-              info={[
-                { Name: "+", Click: plus },
-                { Name: "-", Click: mius },
-              ]}
-            />
-          </li>
-          {list?.map((v, i) => {
-            return (
-              <li key={`list_${v}_${i}`}>
-                <div className="line">
-                  <label htmlFor="subject">영문장</label>
-                  <input
-                    name={"subject"}
-                    type="text"
-                    // value={list[i].subject}
-                    onChange={callBack}
-                    data-index={i}
-                  />
-                </div>
-                <div className="line">
-                  <label htmlFor="content">뜻</label>
-                  <input
-                    name={"content"}
-                    type="text"
-                    // value={list[i].content}
-                    onChange={callBack}
-                    data-index={i}
-                  />
-                </div>
-                <div className="line">
-                  <label htmlFor="description">설명</label>
-                  <input
-                    name={"description"}
-                    type="text"
-                    placeholder="description"
-                    // value={list[i].description}
-                    onChange={callBack}
-                    data-index={i}
-                  />
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      </form>
-    );
-  }
 
   function Leaned_view({ view }) {
     const Box = ({ children, title }) => {

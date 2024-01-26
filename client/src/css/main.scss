@@ -13,6 +13,13 @@
     // font-style: normal;
 }
 
+@font-face {
+    font-family: 'OKDDUNG';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/OKDDUNG.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 ul,
 ol {
@@ -1906,6 +1913,185 @@ input {
         }
     }
 
+    $calendar_color:#4b1010a6;
+    $active_color :#ff9d9d;
+    .project-menu {
+        display:flex;
+        justify-content:space-around;  
+        height:50px;
+        width:70%;
+        max-width: 1000px;
+        margin: 20px auto 40px ;
+        align-items: center;
+        font-size:27px; 
+        li {
+
+            width:100%;
+            height:100%;
+            text-align:center;
+            line-height:1em;
+            padding: 10px 0;
+            &:hover {
+                a {
+                    font-size:1.2em;
+                    text-shadow: orange 3px 1px 15px
+                }
+            }
+            a {
+                transition: .5s;
+                font-family: 'OKDDUNG';
+                text-shadow: $active_color 1px 3px 10px;
+            }
+        }
+    }
+
+    .react-calendar {
+        $border : 3px solid #390000;
+        $bgc:#fdf0f0;
+        width:100%;
+        max-width:850px;
+        margin:auto;
+        border:0;
+        // box-shadow:  3px 3px 10px #3a3733;
+        // border:$border;  
+        border-left: 0;
+        border-right:0;
+        overflow:hidden;
+        background-color: $bgc;
+        font-family: 'OKDDUNG';
+        margin-bottom:100px;
+
+        .react-calendar__tile {
+            $p :35px;
+            padding-top: $p;
+            padding-bottom:$p;
+        }
+        abbr {
+            font-family: 'OKDDUNG';
+            color:$calendar_color;   
+        }
+        $calendar_p :40px;
+        .react-calendar__viewContainer {
+            padding: 0 $calendar_p;
+        }   
+        
+        .react-calendar__navigation {
+            height:150px;
+            border-bottom:$border;  
+            background-color: $bgc;
+            padding: 0 $calendar_p;
+            .react-calendar__navigation__label {
+                font-size:30px;
+                color:#000;
+                text-shadow:#fff 3px 1px 10px;
+            }
+            button {
+                font-family:initial;
+            }
+            .react-calendar__navigation__arrow {
+                font-size:3em;
+            }
+        }
+        .react-calendar__navigation__label__labelText {
+            font-family: 'OKDDUNG';
+            
+        }
+        .react-calendar__month-view__weekdays__weekday {
+            font-size:22px;   
+        }
+        .react-calendar__month-view__days__day {
+            abbr {
+                font-size:16px;
+            }
+        }
+        .react-calendar__tile--active {
+            background:$active_color;
+            border-radius:30px;
+        }
+        .calendar-dot { 
+            margin: 5px 0;
+            background:$active_color;
+            border-radius:10px;
+            width:100%;
+            height:10px
+        }
+    }
+    .calendar-modal {
+        border:0;
+        box-shadow: 2px 3px 5px #000;
+        border-radius:5px;
+        h2 {
+            font-family: 'OKDDUNG' ;
+        }
+        ul {
+            padding: 20px 20px;
+            width:100%;
+            margin:auto;
+            li {
+
+                display:block;
+                .line {
+                    position: relative;
+                    width: 100%;
+                    margin: 50px 0;
+
+                    $font :25px;
+                    input {
+                        font-size: 15px;
+                        color: #222222;
+                        width: 100%;
+                        border: none;
+                        border-bottom: solid #aaaaaa 1px;
+                        padding-bottom: 10px;
+                        padding-left: 10px;
+                        position: relative;
+                        background: none;
+                        z-index: 5;
+                      }
+                      
+                      input::placeholder { color: #aaaaaa; }
+                      input:focus { outline: none; }
+                      
+                      span {
+                        display: block;
+                        position: absolute;
+                        bottom: 0;
+                        left: 0%;
+                        background-color: #666;
+                        width: 0;
+                        height: 2px;
+                        border-radius: 2px;
+                        transition: 0.5s;
+                      }
+                      
+                      label {
+                        position: absolute;
+                        color: #aaa;
+                        left: 10px;
+                        font-size: 20px;
+                        bottom: 8px;
+                        transition: all .2s;
+                      }
+                      
+                      input:focus ~ label, input:valid ~ label {
+                        font-size: 16px;
+                        bottom: 40px;
+                        color: #666;
+                        font-weight: bold;
+                      }
+                      
+                      input:focus ~ span, input:valid ~ span {
+                        width: 100%;
+                      }
+                }
+            }
+        }
+        .btnArea {
+            button {
+                background-color:$active_color;
+            }
+        }
+    }
 
     form {
 
