@@ -292,15 +292,17 @@ export default function ProjectS() {
         </div>
       ) : (
         <div ref={testRef} className="cover-box-test">
-          <div className="question">
-            <h3> "지금 까지 학습한 내용을 테스트 해볼게요.😏"</h3>
-          </div>
-          {<BtnArea info={[{ Name: "시험보기", Click: startTest }]} />}
+
           {question ? (
             <div className="answer">
               <TestView viewData={calendar_info.testData}></TestView>
             </div>
-          ) : null}
+          ) : <div className="question">
+            <h3> "지금 까지 학습한 내용을 테스트 해볼게요.😏"</h3>
+            <button onClick={startTest}>
+              Test Start
+            </button>
+          </div>}
         </div>
       )}
     </Container2>
