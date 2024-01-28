@@ -1097,7 +1097,8 @@ input {
     overflow: hidden;
     background-color: #fdf0f0;
     font-family: 'OKDDUNG';
-    margin-bottom: 100px; }
+    margin-bottom: 100px;
+    padding-bottom: 10px; }
     #root .react-calendar .react-calendar__tile {
       padding-top: 35px;
       padding-bottom: 35px; }
@@ -1163,17 +1164,17 @@ input {
           margin: 50px 0; }
           #root .calendar-modal ul li .line input {
             font-size: 15px;
-            color: #222222;
+            color: #222;
             width: 100%;
             border: none;
-            border-bottom: solid #aaaaaa 1px;
+            border-bottom: solid #aaa 1px;
             padding-bottom: 10px;
             padding-left: 10px;
             position: relative;
             background: none;
             z-index: 5; }
           #root .calendar-modal ul li .line input::placeholder {
-            color: #aaaaaa; }
+            color: #aaa; }
           #root .calendar-modal ul li .line input:focus {
             outline: none; }
           #root .calendar-modal ul li .line span {
@@ -1204,7 +1205,7 @@ input {
       background-color: #ff9d9d; }
   #root .cover-box-test {
     width: 100%;
-    height: 350px; }
+    height: 280px; }
     #root .cover-box-test button {
       border: 0;
       display: block;
@@ -1223,9 +1224,60 @@ input {
       flex-wrap: wrap; }
       #root .cover-box-test .question h3 {
         width: 100%;
-        font-size: 35px;
+        font-size: 40px;
         text-align: center;
         margin: 30px 0; }
+    #root .cover-box-test .answer .test-view-description {
+      margin-bottom: 20px;
+      font-size: 25px; }
+      #root .cover-box-test .answer .test-view-description .question {
+        font-family: "OKDDUNG";
+        font-size: 0.9em; }
+    #root .cover-box-test .answer .test-view-box {
+      padding-top: 20px; }
+      #root .cover-box-test .answer .test-view-box-input {
+        position: relative;
+        width: 80%;
+        margin: 50px auto; }
+        #root .cover-box-test .answer .test-view-box-input input {
+          font-size: 15px;
+          color: #222;
+          width: 100%;
+          border: none;
+          border-bottom: solid #aaa 1px;
+          padding-bottom: 10px;
+          padding-left: 10px;
+          position: relative;
+          background: none;
+          z-index: 5; }
+        #root .cover-box-test .answer .test-view-box-input input::placeholder {
+          color: #aaa; }
+        #root .cover-box-test .answer .test-view-box-input input:focus {
+          outline: none; }
+        #root .cover-box-test .answer .test-view-box-input span {
+          display: block;
+          position: absolute;
+          bottom: 0;
+          left: 0%;
+          background-color: #666;
+          width: 0;
+          height: 2px;
+          border-radius: 2px;
+          transition: 0.5s; }
+        #root .cover-box-test .answer .test-view-box-input label {
+          position: absolute;
+          color: #aaa;
+          left: 10px;
+          font-size: 20px;
+          bottom: 8px;
+          transition: all .2s; }
+        #root .cover-box-test .answer .test-view-box-input input:focus ~ label, #root .cover-box-test .answer .test-view-box-input input:valid ~ label {
+          font-size: 16px;
+          bottom: 40px;
+          color: #4b1010a6;
+          font-weight: bold; }
+        #root .cover-box-test .answer .test-view-box-input input:focus ~ span, #root .cover-box-test .answer .test-view-box-input input:valid ~ span {
+          width: 100%; }
   #root form ul li {
     display: flex;
     margin: 5px 0; }
