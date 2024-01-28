@@ -20,6 +20,8 @@
     font-style: normal;
 }
 
+$font2: 'OKDDUNG';
+
 
 ul,
 ol {
@@ -71,6 +73,59 @@ textarea {
 @mixin basicFont ($w:400) {
     font-family: 'TheJamsil';
     font-weight: $w;
+}
+@mixin inputs($width:100%,$font:25px) {
+        position: relative;
+        width: $width;
+        // margin: 50px 0;
+
+        input {
+            font-size: 15px;
+            color: #222;
+            width: 100%;
+            border: none;
+            border-bottom: solid #aaa 1px;
+            padding-bottom: 10px;
+            padding-left: 10px;
+            position: relative;
+            background: none;
+            z-index: 5;
+          }
+          
+          input::placeholder { color: #aaa; }
+          input:focus { outline: none; }
+          
+          span {
+            display: block;
+            position: absolute;
+            bottom: 0;
+            left: 0%;
+            background-color: #666;
+            width: 0;
+            height: 2px;
+            border-radius: 2px;
+            transition: 0.5s;
+          }
+          
+          label {
+            position: absolute;
+            color: #aaa;
+            left: 10px;
+            font-size: 20px;
+            bottom: 8px;
+            transition: all .2s;
+          }
+    
+          input:focus ~ label, input:valid ~ label {
+            font-size: 16px;
+            bottom: 40px;
+            color: #4b1010a6;
+            font-weight: bold;
+          }
+          
+          input:focus ~ span, input:valid ~ span {
+            width: 100%;
+          }
 }
 
 //전역 변수
@@ -1952,14 +2007,13 @@ input {
         max-width:850px;
         margin:auto;
         border:0;
-        // box-shadow:  3px 3px 10px #3a3733;
-        // border:$border;  
         border-left: 0;
         border-right:0;
         overflow:hidden;
         background-color: $bgc;
         font-family: 'OKDDUNG';
         margin-bottom:100px;
+        padding-bottom: 10px;
 
         .react-calendar__tile {
             $p :35px;
@@ -2053,10 +2107,10 @@ input {
                     $font :25px;
                     input {
                         font-size: 15px;
-                        color: #222222;
+                        color: #222;
                         width: 100%;
                         border: none;
-                        border-bottom: solid #aaaaaa 1px;
+                        border-bottom: solid #aaa 1px;
                         padding-bottom: 10px;
                         padding-left: 10px;
                         position: relative;
@@ -2064,7 +2118,7 @@ input {
                         z-index: 5;
                       }
                       
-                      input::placeholder { color: #aaaaaa; }
+                      input::placeholder { color: #aaa; }
                       input:focus { outline: none; }
                       
                       span {
@@ -2109,7 +2163,7 @@ input {
     }
     .cover-box-test {
         width:100%;
-        height:350px;
+        height:280px;
         button {
             border:0;
             display:block;
@@ -2129,11 +2183,36 @@ input {
             flex-wrap:wrap;
             h3 {
                 width:100%;
-                font-size:35px;
+                font-size:40px;
                 text-align:center;
                 margin:30px 0;
             }
-          
+        }
+        .answer {
+            .test-view {
+                &-container {
+                }
+                &-description {
+                    margin-bottom:20px;
+                    font-size:25px;
+                    h3 {
+                    }
+                    .question  {
+                        font-family:$font2;
+                        font-size:0.9em;
+                    }
+                }
+                &-box {
+                    padding-top:20px;
+                   
+                    &-input {
+                        @include inputs(80%);
+                        margin: 50px auto;
+                    }
+                }
+                &-firstbox {}
+                &-last-box {}
+            }
         }
     }
 

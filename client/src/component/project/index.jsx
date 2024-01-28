@@ -38,6 +38,7 @@ export default function ProjectS() {
   const navigate = useNavigate();
   const [question, setQuestion] = useState(false);
   const listRef = useRef(list);
+  let task = window.location.search.split("task=")[1];
 
   let body = {};
   const callBack = useCallback((event) => {
@@ -58,29 +59,27 @@ export default function ProjectS() {
     listRef.current = list;
   });
   const [insertLength, setInsertLength] = useState(1);
-  function plushandle(event) {
-    event.preventDefault();
-    if (list.length < 5) {
-      setList(list.concat({ type: "english" }));
-      setInsertLength((i) => i + 1);
-      navigate(`?inserLength=${insertLength}`);
-    } else alert("5개 초과 입력할 수 없습니다.");
-  }
-  const miushandle = (event) => {
-    event.preventDefault();
-    if (list.length > 1) {
-      let li = ul.current.children;
-      console.log("ddd", list.splice(list.length - 1, 1));
-      setList(list.splice(list.length - 1, 1));
-      console.log(list);
-    } else {
-      alert("최소 입력 값입니다.");
-    }
-  };
 
-  function secondsubmit(event) {
-    console.log(listRef.current);
-  }
+  // 추가 될 기능
+  // function plushandle(event) {
+  //   event.preventDefault();
+  //   if (list.length < 5) {
+  //     setList(list.concat({ type: "english" }));
+  //     setInsertLength((i) => i + 1);
+  //     navigate(`?inserLength=${insertLength}`);
+  //   } else alert("5개 초과 입력할 수 없습니다.");
+  // }
+  // const miushandle = (event) => {
+  //   event.preventDefault();
+  //   if (list.length > 1) {
+  //     let li = ul.current.children;
+  //     console.log("ddd", list.splice(list.length - 1, 1));
+  //     setList(list.splice(list.length - 1, 1));
+  //     console.log(list);
+  //   } else {
+  //     alert("최소 입력 값입니다.");
+  //   }
+  // };
 
   function dayClick() {
     setModal_dis(false);
@@ -106,7 +105,7 @@ export default function ProjectS() {
     body.data.map((v, i) => {
       triger_confirm(v.subject, "주제를 입력해주세요");
       triger_confirm(v.content, "뜻을 입력해주세요");
-
+      if (v.description === undefined) v.description = "";
       v.userId = userInfo.id;
       v.date = moment(korNow).format(format);
     });
@@ -139,6 +138,13 @@ export default function ProjectS() {
       ""
     );
     if (target_href !== window.location.pathname) {
+      if (target_href === "/project/calendar") {
+        if (Number(task) >= 1)
+          if (!window.confirm("시험이 초기화 됩니다. 괜찮으신가요?")) {
+            return;
+          }
+      }
+      setQuestion(false);
       navigate(target_href);
     }
   };
@@ -292,17 +298,16 @@ export default function ProjectS() {
         </div>
       ) : (
         <div ref={testRef} className="cover-box-test">
-
           {question ? (
             <div className="answer">
               <TestView viewData={calendar_info.testData}></TestView>
             </div>
-          ) : <div className="question">
-            <h3> "지금 까지 학습한 내용을 테스트 해볼게요.😏"</h3>
-            <button onClick={startTest}>
-              Test Start
-            </button>
-          </div>}
+          ) : (
+            <div className="question">
+              <h3> "지금 까지 학습한 내용을 테스트 해볼게요.😏"</h3>
+              <button onClick={startTest}>Test Start</button>
+            </div>
+          )}
         </div>
       )}
     </Container2>
