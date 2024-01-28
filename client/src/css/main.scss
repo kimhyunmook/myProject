@@ -2092,6 +2092,7 @@ input {
             font-family: 'OKDDUNG' ;
             text-shadow: 3px 0px 5px orange;
         }
+      
         ul {
             padding: 20px 20px;
             width:100%;
@@ -2181,12 +2182,12 @@ input {
             align-items: center;
             justify-content: center;
             flex-wrap:wrap;
-            h3 {
-                width:100%;
-                font-size:40px;
-                text-align:center;
-                margin:30px 0;
-            }
+        }
+        h3 {
+            width:100%;
+            font-size:40px;
+            text-align:center;
+            margin:30px 0;
         }
         .answer {
             .test-view {

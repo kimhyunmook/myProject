@@ -112,12 +112,13 @@ export default function TestView({ viewData }) {
           className={`${rcn}-lastbox`}
           style={task > viewData.length ? { ...boxStyle, zIndex: 1 } : boxStyle}
           click_={next}
-          button={"결과 확인 🫣"}
+          button={"결과 확인 "}
         ></Box>
       </div>
     </div>
   );
 }
+
 function Box({
   className,
   children,
