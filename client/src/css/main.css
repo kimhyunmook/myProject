@@ -228,25 +228,6 @@ input {
   #root h1 {
     font-family: 'PartialSansKR-Regular';
     font-weight: 100; }
-  #root .banner {
-    text-align: center;
-    padding: 20px 0; }
-    #root .banner h2 {
-      font-size: 50px;
-      font-weight: 700;
-      text-shadow: 1px 1px 1px #000;
-      margin-bottom: 10px; }
-    #root .banner .like {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: auto;
-      width: 80%; }
-      #root .banner .like li {
-        margin: auto; }
-        #root .banner .like li a {
-          display: block;
-          font-size: 50px; }
   #root section {
     width: 100%; }
     #root section article {
@@ -366,14 +347,14 @@ input {
         #root section#section3 table tr th {
           width: 25%; }
     #root section#section4 {
-      padding: 0; }
+      padding: 30px 0;
+      background: rgba(170, 176, 255, 0.35); }
       #root section#section4 article {
         max-width: initial;
         padding: 0; }
         #root section#section4 article .list {
           display: flex;
-          padding: 0 3%;
-          background: rgba(170, 176, 255, 0.35); }
+          padding: 0 3%; }
           #root section#section4 article .list .flex-box {
             width: 100%; }
             #root section#section4 article .list .flex-box .imgBox {
@@ -383,13 +364,36 @@ input {
               position: relative;
               display: flex;
               justify-content: center;
-              align-items: center;
-              transition: .5s; }
+              align-items: center; }
               #root section#section4 article .list .flex-box .imgBox:hover {
-                box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3), -5px -5px 10px rgba(170, 176, 255, 0.3); }
+                transition: .5s;
+                transition-property: width,height,opacity,border-radius,background-color;
+                margin: auto 0;
+                box-shadow: 2px 2px 10px #babfff;
+                background-color: #fff;
+                border-radius: 10px;
+                border: 5px solid #1e3932; }
+                #root section#section4 article .list .flex-box .imgBox:hover::before {
+                  content: "";
+                  display: block;
+                  position: absolute;
+                  width: 10px;
+                  height: 10px;
+                  top: 10px;
+                  left: 10px;
+                  background: #1e3932; }
+                #root section#section4 article .list .flex-box .imgBox:hover::after {
+                  content: "";
+                  display: block;
+                  position: absolute;
+                  width: 10px;
+                  height: 10px;
+                  bottom: 10px;
+                  right: 10px;
+                  background: #1e3932; }
                 #root section#section4 article .list .flex-box .imgBox:hover img {
                   background: transparent;
-                  transform: scale(1.4);
+                  transform: scale(1.2);
                   opacity: 1; }
                 #root section#section4 article .list .flex-box .imgBox:hover h3 {
                   color: transparent;
@@ -425,57 +429,6 @@ input {
                   width: 130%;
                   height: 30%;
                   background: #aab0ff; }
-    #root section#section5 {
-      padding: 70px 0;
-      position: relative;
-      overflow: hidden; }
-      #root section#section5 .gear {
-        position: absolute;
-        max-width: 500px;
-        top: -300px;
-        left: -300px;
-        z-index: 1;
-        animation: gear 60s infinite ease; }
-
-@keyframes gear {
-  0% {
-    transform: rotate(0deg); }
-  100% {
-    transform: rotate(2160deg); } }
-      #root section#section5 .section-pad {
-        padding: 2%; }
-      #root section#section5 .list {
-        z-index: 5;
-        position: relative;
-        padding: 50px 0; }
-        #root section#section5 .list:first-child {
-          border-top: 3px solid #babfff; }
-        #root section#section5 .list:last-child {
-          border-bottom: 3px solid #babfff; }
-        #root section#section5 .list .content-box {
-          width: 100%;
-          justify-content: space-between; }
-          #root section#section5 .list .content-box .text-box {
-            width: 50%;
-            padding-left: 5%; }
-            #root section#section5 .list .content-box .text-box h3 {
-              font-size: 45px;
-              margin-bottom: 30px; }
-            #root section#section5 .list .content-box .text-box ul {
-              padding-left: 15px; }
-              #root section#section5 .list .content-box .text-box ul li {
-                margin: 12.5px 0;
-                padding-left: 5px; }
-                #root section#section5 .list .content-box .text-box ul li::marker {
-                  content: "-";
-                  font-size: 0.7em; }
-                #root section#section5 .list .content-box .text-box ul li p {
-                  font-weight: 100;
-                  font-size: 20px; }
-          #root section#section5 .list .content-box img {
-            width: 50%;
-            margin: 0 30px;
-            max-width: 500px; }
   #root .download {
     width: 70%;
     margin: auto; }
@@ -1150,8 +1103,8 @@ input {
     box-shadow: 2px 3px 5px #000;
     border-radius: 5px; }
     #root .calendar-modal h2 {
-      font-family: 'OKDDUNG';
-      text-shadow: 3px 0px 5px orange; }
+      font-family: "OKDDUNG";
+      text-shadow: 3px 0px 5px #ffcc6c; }
     #root .calendar-modal ul {
       padding: 20px 20px;
       width: 100%;
@@ -1205,7 +1158,7 @@ input {
       background-color: #ff9d9d; }
   #root .cover-box-test {
     width: 100%;
-    height: 280px; }
+    height: 300px; }
     #root .cover-box-test button {
       border: 0;
       display: block;
@@ -1216,7 +1169,7 @@ input {
       box-shadow: 2px 0px 2px #000;
       padding: 10px;
       background-color: #ff9d9d;
-      font-family: 'OKDDUNG'; }
+      font-family: "OKDDUNG"; }
     #root .cover-box-test .question {
       display: flex;
       align-items: center;
@@ -1224,60 +1177,79 @@ input {
       flex-wrap: wrap; }
     #root .cover-box-test h3 {
       width: 100%;
-      font-size: 40px;
+      font-size: 25px;
       text-align: center;
-      margin: 30px 0; }
-    #root .cover-box-test .answer .test-view-description {
-      margin-bottom: 20px;
-      font-size: 25px; }
-      #root .cover-box-test .answer .test-view-description .question {
-        font-family: "OKDDUNG";
-        font-size: 0.9em; }
-    #root .cover-box-test .answer .test-view-box {
-      padding-top: 20px; }
-      #root .cover-box-test .answer .test-view-box-input {
-        position: relative;
-        width: 80%;
-        margin: 50px auto; }
-        #root .cover-box-test .answer .test-view-box-input input {
-          font-size: 15px;
-          color: #222;
-          width: 100%;
-          border: none;
-          border-bottom: solid #aaa 1px;
-          padding-bottom: 10px;
-          padding-left: 10px;
+      margin: 20px 0; }
+      #root .cover-box-test h3 b.userId {
+        font-size: 1.5em;
+        letter-spacing: 1px;
+        color: #4b1010a6; }
+    #root .cover-box-test .answer .test-view {
+      height: 350px; }
+      #root .cover-box-test .answer .test-view-description {
+        margin-bottom: 10px;
+        font-size: 25px; }
+        #root .cover-box-test .answer .test-view-description .question {
+          font-family: "OKDDUNG";
+          font-size: 0.9em; }
+      #root .cover-box-test .answer .test-view-box {
+        padding-top: 20px; }
+        #root .cover-box-test .answer .test-view-box-input {
           position: relative;
-          background: none;
-          z-index: 5; }
-        #root .cover-box-test .answer .test-view-box-input input::placeholder {
-          color: #aaa; }
-        #root .cover-box-test .answer .test-view-box-input input:focus {
-          outline: none; }
-        #root .cover-box-test .answer .test-view-box-input span {
-          display: block;
-          position: absolute;
-          bottom: 0;
-          left: 0%;
-          background-color: #666;
-          width: 0;
-          height: 2px;
-          border-radius: 2px;
-          transition: 0.5s; }
-        #root .cover-box-test .answer .test-view-box-input label {
-          position: absolute;
-          color: #aaa;
-          left: 10px;
-          font-size: 20px;
-          bottom: 8px;
-          transition: all .2s; }
-        #root .cover-box-test .answer .test-view-box-input input:focus ~ label, #root .cover-box-test .answer .test-view-box-input input:valid ~ label {
-          font-size: 16px;
-          bottom: 40px;
-          color: #4b1010a6;
-          font-weight: bold; }
-        #root .cover-box-test .answer .test-view-box-input input:focus ~ span, #root .cover-box-test .answer .test-view-box-input input:valid ~ span {
-          width: 100%; }
+          width: 80%;
+          margin: 30px auto;
+          width: 70%;
+          max-width: 700px; }
+          #root .cover-box-test .answer .test-view-box-input input {
+            font-size: 15px;
+            color: #222;
+            width: 100%;
+            border: none;
+            border-bottom: solid #aaa 1px;
+            padding-bottom: 10px;
+            padding-left: 10px;
+            position: relative;
+            background: none;
+            z-index: 5; }
+          #root .cover-box-test .answer .test-view-box-input input::placeholder {
+            color: #aaa; }
+          #root .cover-box-test .answer .test-view-box-input input:focus {
+            outline: none; }
+          #root .cover-box-test .answer .test-view-box-input span {
+            display: block;
+            position: absolute;
+            bottom: 0;
+            left: 0%;
+            background-color: #666;
+            width: 0;
+            height: 2px;
+            border-radius: 2px;
+            transition: 0.5s; }
+          #root .cover-box-test .answer .test-view-box-input label {
+            position: absolute;
+            color: #aaa;
+            left: 10px;
+            font-size: 20px;
+            bottom: 8px;
+            transition: all .2s; }
+          #root .cover-box-test .answer .test-view-box-input input:focus ~ label, #root .cover-box-test .answer .test-view-box-input input:valid ~ label {
+            font-size: 16px;
+            bottom: 40px;
+            color: #4b1010a6;
+            font-weight: bold; }
+          #root .cover-box-test .answer .test-view-box-input input:focus ~ span, #root .cover-box-test .answer .test-view-box-input input:valid ~ span {
+            width: 100%; }
+      #root .cover-box-test .answer .test-view-question {
+        font-size: 1.5em;
+        color: #4b1010a6;
+        font-family: "TheJamsil"; }
+        #root .cover-box-test .answer .test-view-question::before {
+          content: "Question : ";
+          color: #000;
+          font-family: initial;
+          font-weight: 700;
+          font-size: 0.7em;
+          word-break: keep-all; }
   #root form ul li {
     display: flex;
     margin: 5px 0; }
@@ -1341,6 +1313,131 @@ input {
   .adminSide .btnArea button {
     background: #0009;
     color: #fff; }
+
+aside {
+  position: fixed;
+  bottom: 70px;
+  right: 30px; }
+  aside .aside-icon {
+    text-align: center;
+    height: 100px;
+    width: 85px;
+    position: relative;
+    z-index: 99; }
+    aside .aside-icon ul {
+      position: absolute;
+      width: 100%;
+      transition: .5s;
+      transition-property: top,opacity;
+      z-index: -1;
+      top: 50%;
+      opacity: 0; }
+      aside .aside-icon ul li {
+        top: 0;
+        border-radius: 10px;
+        background-color: #fff;
+        margin: 10px auto;
+        width: 100%;
+        cursor: pointer;
+        box-shadow: 3px 0px 5px #000;
+        font-size: 26px; }
+      aside .aside-icon ul.on {
+        top: 0%;
+        opacity: 1; }
+    aside .aside-icon > span {
+      display: block;
+      background: #fff;
+      box-shadow: 3px 1px 5px #000;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 10px; }
+      aside .aside-icon > span button {
+        background-color: transparent;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 100%;
+        height: 100%;
+        transform: translate(-50%, -50%);
+        border: 0;
+        font-size: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center; }
+        aside .aside-icon > span button img {
+          display: block;
+          width: 80%;
+          height: 80%; }
+  aside .aside-content {
+    position: absolute;
+    width: 800px;
+    overflow: hidden;
+    right: -800px;
+    bottom: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 5px 0 10px #babfff;
+    transition: 1.5s;
+    opacity: 0; }
+    aside .aside-content > li {
+      transition: .5s;
+      opacity: 0;
+      z-index: -1; }
+    aside .aside-content.on {
+      right: 120%;
+      opacity: 1; }
+      aside .aside-content.on li {
+        z-index: 1;
+        left: 100%; }
+        aside .aside-content.on li.on {
+          opacity: 1; }
+  aside .likes-cover {
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    background: #fff; }
+    aside .likes-cover h2 {
+      font-size: 50px;
+      font-weight: 700;
+      text-shadow: 1px 1px 1px #000;
+      margin-bottom: 10px; }
+    aside .likes-cover .like {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: auto;
+      width: 80%;
+      padding-bottom: 30px; }
+      aside .likes-cover .like-description {
+        font-size: 30px;
+        margin-bottom: 20px; }
+      aside .likes-cover .like li {
+        margin: auto; }
+        aside .likes-cover .like li:hover a {
+          transition: .5;
+          text-shadow: 3px 0px 5px #000;
+          transform: scale(1.4); }
+        aside .likes-cover .like li a {
+          display: block;
+          font-size: 50px; }
+        aside .likes-cover .like li .like_hit {
+          position: relative;
+          font-size: 1.5em;
+          color: #1f222a; }
+          aside .likes-cover .like li .like_hit::after {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 5px;
+            background: #ff9d9d;
+            border-radius: 30px;
+            bottom: 0px; }
 
 @keyframes myName-right {
   0% {

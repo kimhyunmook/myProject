@@ -304,7 +304,13 @@ export default function ProjectS() {
             </div>
           ) : (
             <div className="question">
-              <h3> "지금 까지 학습한 내용을 테스트 해볼게요.😏"</h3>
+              <h3>
+                <b className="userId">{userInfo.id}</b>
+                님 안녕하세요! <br />
+                지금 까지 학습한 내용들을 Test 할거에요.
+                <br />
+                문제를 풀고 점수를 확인하세요 😏
+              </h3>
               <button onClick={startTest}>Test Start</button>
             </div>
           )}

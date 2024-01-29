@@ -27,7 +27,7 @@ export default function TestView({ viewData }) {
 
   const containerStyle = {
     width: "100%",
-    height: "300px",
+    // height: "300px",
     overflow: "hidden",
     textAlign: "center",
     position: "relative",
@@ -113,7 +113,12 @@ export default function TestView({ viewData }) {
           style={task > viewData.length ? { ...boxStyle, zIndex: 1 } : boxStyle}
           click_={next}
           button={"결과 확인 "}
-        ></Box>
+        >
+          <h3>
+            수고하셨어요~ <br />
+            결과를 확인 할려면 결과 확인 버튼을 눌러주세요
+          </h3>
+        </Box>
       </div>
     </div>
   );

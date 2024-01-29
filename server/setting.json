@@ -3,16 +3,6 @@
         "table_name": "adm_menu",
         "list": [
             {
-                "name":"관리자",
-                "href":"/adm",
-                "menu_type":"adm",
-                "description":"관리자",
-                "depth": 0,
-                "admin": 1,
-                "custom": "fontawsome",
-                "custom_comment": "fa-unlock-keyhole"
-            },
-            {
                 "name":"About",
                 "href":"/about",
                 "menu_type":"normal",
