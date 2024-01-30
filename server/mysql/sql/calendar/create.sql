@@ -1,4 +1,4 @@
-CREATE TABLE `calendar` (
+CREATE TABLE `?` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`type` VARCHAR(200) NOT NULL,
 	`subject` VARCHAR(200) NOT NULL,

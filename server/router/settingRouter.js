@@ -94,6 +94,18 @@ DB=${req.body.db}
       connect: conn,
       table_name: "calendar",
       read_sql: "calendar/create.sql",
+      read_sql_config: {
+        createName: "calendar",
+      },
+    });
+
+    await existCreateQuery({
+      connect: conn,
+      table_name: "calendar_dev",
+      read_sql: "calendar/create.sql",
+      read_sql_config: {
+        createName: "calendar_dev",
+      },
     });
 
     sql = sqlText.INSERT(
@@ -159,7 +171,8 @@ router.delete("/delete", async (req, res) => {
     rows = rows[0];
 
     await rows.map(async (el) => {
-      await conn.query(`DROP TABLE IF EXISTS ${Object.values(el)[0]}`);
+      if (Object.values(el)[0] !== "calendar")
+        await conn.query(`DROP TABLE IF EXISTS ${Object.values(el)[0]}`);
     });
     await fs.unlinkSync(".env");
     correctMessage(routerName);

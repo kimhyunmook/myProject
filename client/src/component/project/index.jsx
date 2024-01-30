@@ -16,6 +16,7 @@ import {
 import util from "../../util";
 import { useNavigate } from "react-router-dom";
 import TestView from "./testView";
+import Auth from "../common/Auth";
 
 export default function ProjectS() {
   const [value, OnChange] = useState(new Date());
@@ -124,6 +125,7 @@ export default function ProjectS() {
   const testRef = useRef(null);
   useEffect(() => {
     body = {
+      userId: userInfo.id,
       url: `/calendar/info`,
     };
     dispatch(calendarInfo(body));
@@ -169,153 +171,157 @@ export default function ProjectS() {
         style: { background: "#ffefef", maxWidth: "100%" },
       }}
     >
-      <ul className="project-menu">
-        <li>
-          <a href="/project/calendar" onClick={menuClick}>
-            🗓️ Calendar
-          </a>
-        </li>
-        <li>
-          <a href="/project/test" onClick={menuClick}>
-            📝 Test
-          </a>
-        </li>
-      </ul>
-      {path[path.length - 1] === "calendar" ? (
-        <div ref={calendarRef} className="cover-box-calendar">
-          <Calendar
-            locale="en"
-            ref={cal}
-            onChange={OnChange}
-            value={value}
-            next2Label={null}
-            prev2Label={null}
-            showNeighboringMonth={false}
-            navigationAriaLive="polite"
-            // formatWeekday={(locale, date) => moment(date).format("DDDD")}
-            formatMonthYear={(locale, date) => moment(date).format("YYYY MMMM")}
-            formatDay={(locale, date) => moment(date).format("D")}
-            showNavigation={true}
-            onClickDay={(value, event) => {
-              if (
-                moment(value).format(format) === moment(korNow).format(format)
-              ) {
-                setModal_dis(true);
-                setView("training");
-                navigate(`?inserLength=1`);
-                setView_button([
-                  { Name: "닫기", Click: dayClick },
-                  { Name: "학습", Click: submit_ },
-                  // { Name: "test", Click: secondsubmit },
-                ]);
-              } else {
-                dispatch(
-                  notToday({
-                    url: `/calendar/info`,
-                    date: moment(value).format(format),
-                  })
-                );
-                setModal_dis(true);
-                setView("leaned");
-                setView_button({ Name: "", Click: dayClick });
+      <Auth>
+        <ul className="project-menu">
+          <li>
+            <a href="/project/calendar" onClick={menuClick}>
+              🗓️ Calendar
+            </a>
+          </li>
+          <li>
+            <a href="/project/test" onClick={menuClick}>
+              📝 Test
+            </a>
+          </li>
+        </ul>
+        {path[path.length - 1] === "calendar" ? (
+          <div ref={calendarRef} className="cover-box-calendar">
+            <Calendar
+              locale="en"
+              ref={cal}
+              onChange={OnChange}
+              value={value}
+              next2Label={null}
+              prev2Label={null}
+              showNeighboringMonth={false}
+              navigationAriaLive="polite"
+              // formatWeekday={(locale, date) => moment(date).format("DDDD")}
+              formatMonthYear={(locale, date) =>
+                moment(date).format("YYYY MMMM")
               }
-            }}
-            tileContent={({ date, view }) => {
-              let html = [];
-              if (
-                calendar_info.data
-                  .map((v) => v.date)
-                  .find((x) => x === moment(date).format(format))
-              ) {
-                html.push(<div className={"calendar-dot"} key={date}></div>);
-              }
-              return <div>{html}</div>;
-            }}
-          />
-          <Modal
-            display={modal_dis}
-            className={"calendar-modal"}
-            title={"🤗 Today English"}
-            button={view_button}
-          >
-            {view === "training" ? (
-              <form action="">
-                <ul ref={ul}>
-                  <li>
-                    {/* <BtnArea
-                      info={[
-                        { Name: "+", Click: plushandle },
-                        { Name: "-", Click: miushandle },
-                      ]}
-                    /> */}
-                  </li>
-                  {list.map((v, i) => {
-                    return (
-                      <li key={`list_${v}_${i}`}>
-                        <div className="line">
-                          <input
-                            name={"subject"}
-                            type="text"
-                            onChange={callBack}
-                            data-index={i}
-                            required
-                          />
-                          <label htmlFor="subject">영문장</label>
-                          <span></span>
-                        </div>
-                        <div className="line">
-                          <input
-                            name={"content"}
-                            type="text"
-                            onChange={callBack}
-                            data-index={i}
-                            required
-                          />
-                          <label htmlFor="content">뜻</label>
-                          <span></span>
-                        </div>
-                        <div className="line">
-                          <input
-                            name={"description"}
-                            type="text"
-                            // placeholder="description"
-                            onChange={callBack}
-                            data-index={i}
-                            required
-                          />
-                          <label htmlFor="description">설명</label>
-                          <span></span>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </form>
+              formatDay={(locale, date) => moment(date).format("D")}
+              showNavigation={true}
+              onClickDay={(value, event) => {
+                if (
+                  moment(value).format(format) === moment(korNow).format(format)
+                ) {
+                  setModal_dis(true);
+                  setView("training");
+                  navigate(`?inserLength=1`);
+                  setView_button([
+                    { Name: "닫기", Click: dayClick },
+                    { Name: "학습", Click: submit_ },
+                    // { Name: "test", Click: secondsubmit },
+                  ]);
+                } else {
+                  dispatch(
+                    notToday({
+                      url: `/calendar/info`,
+                      date: moment(value).format(format),
+                    })
+                  );
+                  setModal_dis(true);
+                  setView("leaned");
+                  setView_button({ Name: "", Click: dayClick });
+                }
+              }}
+              tileContent={({ date, view }) => {
+                let html = [];
+                if (
+                  calendar_info.data
+                    .map((v) => v.date)
+                    .find((x) => x === moment(date).format(format))
+                ) {
+                  html.push(<div className={"calendar-dot"} key={date}></div>);
+                }
+                return <div>{html}</div>;
+              }}
+            />
+            <Modal
+              display={modal_dis}
+              className={"calendar-modal"}
+              title={"🤗 Today English"}
+              button={view_button}
+            >
+              {view === "training" ? (
+                <form action="">
+                  <ul ref={ul}>
+                    <li>
+                      {/* <BtnArea
+                        info={[
+                          { Name: "+", Click: plushandle },
+                          { Name: "-", Click: miushandle },
+                        ]}
+                      /> */}
+                    </li>
+                    {list.map((v, i) => {
+                      return (
+                        <li key={`list_${v}_${i}`}>
+                          <div className="line">
+                            <input
+                              name={"subject"}
+                              type="text"
+                              onChange={callBack}
+                              data-index={i}
+                              required
+                            />
+                            <label htmlFor="subject">영문장</label>
+                            <span></span>
+                          </div>
+                          <div className="line">
+                            <input
+                              name={"content"}
+                              type="text"
+                              onChange={callBack}
+                              data-index={i}
+                              required
+                            />
+                            <label htmlFor="content">뜻</label>
+                            <span></span>
+                          </div>
+                          <div className="line">
+                            <input
+                              name={"description"}
+                              type="text"
+                              // placeholder="description"
+                              onChange={callBack}
+                              data-index={i}
+                              required
+                            />
+                            <label htmlFor="description">설명</label>
+                            <span></span>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </form>
+              ) : (
+                <Leaned_view view={calendar_info.lookData} />
+              )}
+            </Modal>
+          </div>
+        ) : (
+          <div ref={testRef} className="cover-box-test">
+            {question ? (
+              <div className="answer">
+                <TestView viewData={calendar_info.testData}></TestView>
+              </div>
             ) : (
-              <Leaned_view view={calendar_info.lookData} />
+              <div className="question">
+                <h3>
+                  <b className="userId">{userInfo.id}</b>
+                  님 안녕하세요! <br />
+                  지금 까지 학습한 내용들을 Test 할거에요.
+                  <br />
+                  문제를 풀고 점수를 확인하세요 😏
+                </h3>
+                <button onClick={startTest}>Test Start</button>
+              </div>
             )}
-          </Modal>
-        </div>
-      ) : (
-        <div ref={testRef} className="cover-box-test">
-          {question ? (
-            <div className="answer">
-              <TestView viewData={calendar_info.testData}></TestView>
-            </div>
-          ) : (
-            <div className="question">
-              <h3>
-                <b className="userId">{userInfo.id}</b>
-                님 안녕하세요! <br />
-                지금 까지 학습한 내용들을 Test 할거에요.
-                <br />
-                문제를 풀고 점수를 확인하세요 😏
-              </h3>
-              <button onClick={startTest}>Test Start</button>
-            </div>
-          )}
-        </div>
-      )}
+          </div>
+        )}
+      </Auth>
     </Container2>
   );
 

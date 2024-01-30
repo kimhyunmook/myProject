@@ -10,7 +10,7 @@ router.post("/study", async (req, res) => {
   const routerName = req.originalUrl;
   let sql;
   let insert = {
-    table_name: "calendar",
+    table_name: req.body.userId !== "admin" ? "calendar" : "calendar_dev",
     list: req.body.data,
   };
 
@@ -20,22 +20,27 @@ router.post("/study", async (req, res) => {
     tabel_name: "",
     list: [],
   };
-  console.log(insert);
   if (!fs.existsSync(training_dir))
     fs.writeFileSync(training_dir, JSON.stringify(initial));
 
   const conn = await db2.getConnection();
   try {
     //local save
-    let backup = training("english", req.body.data);
-    sql = sqlText.SELECT("calendar");
+    let backup;
+    if (req.body.userId !== "admin")
+      backup = training("english", req.body.data);
+    sql =
+      req.body.userId !== "admin"
+        ? sqlText.SELECT("calendar")
+        : sqlText.SELECT("calendar_dev");
     let confirm = await conn.query(sql);
-    confirm[0].length === 0 ? (insert.list = backup.list) : null;
+    if (req.body.userId !== "admin")
+      confirm[0].length === 0 ? (insert.list = backup.list) : null;
 
     //server save
+    console.log(insert);
     sql = sqlText.INSERT(insert);
     await conn.query(sql);
-    console.log(sql);
 
     res.status(200).json({
       condition: "success",
@@ -55,16 +60,20 @@ router.post("/info", async (req, res) => {
     lookData = [];
   let sql = "";
   let today = new Date();
+  let userid = req.body.userId;
+  let target_db = userid !== "admin" ? "calendar" : "calendar_dev";
   try {
+    console.log(date);
+
     let where =
       date !== undefined
-        ? `date="${date}"`
-        : `date="${moment(today).format("YYYY-MM-DD")}"`;
-    sql = sqlText.SELECT("calendar");
+        ? `date="${date}" AND userId="${userid}"`
+        : `date="${moment(today).format("YYYY-MM-DD")}" AND userId="${userid}"`;
+    sql = sqlText.SELECT(target_db);
     data = await conn.query(sql);
     data = data[0];
 
-    sql = sqlText.SELECT("calendar", where);
+    sql = sqlText.SELECT(target_db, where);
     lookData = await conn.query(sql);
     lookData = lookData[0];
 
@@ -79,15 +88,16 @@ router.post("/info", async (req, res) => {
           ? json_file.push(v)
           : null
       );
-      json_file.map(async (v, i) => {
-        training_data = training(v);
-        let insert = {
-          table_name: "calendar",
-          list: training_data.list,
-        };
-        sql = sqlText.INSERT(insert);
-        await conn.query(sql);
-      });
+      if (userid !== "admin")
+        json_file?.map(async (v, i) => {
+          training_data = training(v);
+          let insert = {
+            table_name: target_db,
+            list: training_data?.list,
+          };
+          sql = sqlText.INSERT(insert);
+          await conn.query(sql);
+        });
     }
 
     res.status(200).json({

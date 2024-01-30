@@ -13,6 +13,16 @@
                 "custom_comment": ""
             },
             {
+                "name":"Project",
+                "href":"/project/calendar",
+                "menu_type":"normal",
+                "description":"main",
+                "depth": 0,
+                "admin": 0,
+                "custom": "",
+                "custom_comment": ""
+            },
+            {
                 "name":"게시판",
                 "href":"/board/basic",
                 "menu_type":"board",
@@ -21,17 +31,8 @@
                 "admin": 0,
                 "custom": "",
                 "custom_comment": ""
-            },
-            {
-                "name":"Project",
-                "href":"/project/calendar",
-                "menu_type":"normal",
-                "description":"main",
-                "depth": 0,
-                "admin": 1,
-                "custom": "",
-                "custom_comment": ""
             }
+       
         ]
     }
 }

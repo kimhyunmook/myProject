@@ -15,12 +15,18 @@ export default function Likes(props) {
     backgroundAttachment: "fixed",
   };
   const fontStyle = {
-    ...props.fs,
+    ...props.titleStyle,
   };
+  let title = true;
+  if (props.title !== undefined) title = props.title;
   return (
-    <div className="likes-cover" style={banerStyle}>
-      <h2 style={fontStyle}>{props.children}</h2>
-      <p className="like-description">{props.description}</p>
+    <div className="likes-cover" style={{ ...banerStyle, ...props.style }}>
+      {title ? <h2 style={fontStyle}>{props.children}</h2> : null}
+      {props.description === undefined ? null : (
+        <p className="like-description" style={props.descriptionStyle}>
+          {props.description}
+        </p>
+      )}
       <ul className="like">
         {likes !== undefined
           ? likes.map((el, i) => {

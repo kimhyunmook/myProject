@@ -10,9 +10,11 @@ import AdminSide from "../common/adminSide";
 import Canvas from "../common/canvas/canvas";
 import { _GetLike } from "../../store/likeSlice";
 import { Container2 } from "../common/commonUi";
+import Likes from "../aside/likes";
 function Main() {
   const store = useSelector((state) => state);
   const [menu, setMenu] = useState(store.menuInfo.data);
+  const [likeInfo, setLikeInfo] = useState(store.likeInfo.data);
   const [userInfo, setUserInfo] = useState({});
   const dispatch = useDispatch();
   const section1 = useRef(null);
@@ -25,6 +27,7 @@ function Main() {
 
   useEffect(() => {
     setUserInfo(store.userInfo.data);
+    setLikeInfo(store.likeInfo.data);
   }, [store]);
 
   useLayoutEffect(() => {
@@ -104,8 +107,11 @@ function Main() {
   //   ];
   return (
     <Container2 info={{ style: ContainerStyle }}>
-      <Section index="1" useRef={section1}>
-        {/* <canvas ref={canvasRef} style={canvasStyle}></canvas> */}
+      <Section
+        index="1"
+        useRef={section1}
+        style={{ height: winSize.height + "px" }}
+      >
         <div className="aboutMe">
           <div className="position">
             <h1>Section1</h1>
@@ -115,9 +121,9 @@ function Main() {
             </p>
           </div>
         </div>
-        <div className="gear">
+        {/* <div className="gear">
           <div></div>
-        </div>
+        </div> */}
       </Section>
       <Section index="4" className="useLang">
         <h2>Used Language</h2>
@@ -155,6 +161,29 @@ function Main() {
             </ImgBox> */}
           </List>
         </Slider2>
+      </Section>
+      <Section index={10}>
+        <Likes
+          style={{
+            // backgroundColor: "#4b1010a6",
+            backgroundColor: "#ffec8e",
+          }}
+          titleStyle={{
+            // color: "#fee04d",
+            fontSize: "50px",
+            letterSpacing: "0px",
+          }}
+          descriptionStyle={
+            {
+              // color: "#fee04d",
+            }
+          }
+          like={likeInfo}
+          userInfo={store.userInfo}
+          description={"좋아요를 남겨주세요"}
+        >
+          LIKE
+        </Likes>
       </Section>
 
       {/* <Section useRef={section2} index='2' name="Mastery">
@@ -241,7 +270,11 @@ function List({ children, type, name, img_position, img, img_alt, data = [] }) {
 
 function Section(props) {
   return (
-    <section ref={props.useRef} id={`section${props.index}`}>
+    <section
+      ref={props.useRef}
+      id={`section${props.index}`}
+      style={props.style}
+    >
       <article className="section-pad">
         {props.name !== undefined ? <h2>{props.name}</h2> : null}
         {props.children}
