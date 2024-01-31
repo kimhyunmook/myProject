@@ -290,8 +290,11 @@ body {
                         li {
                             min-width:80px;
                             margin: 0 13px;
+                            padding:10px 0;
+
                             a {
                                 color:$font_c;
+                                // color:#000000;
                                 text-shadow: 3px 1px 3px #000;
                                 text-align:center;
                                 display:block;
@@ -327,16 +330,14 @@ body {
                     max-width:280px;
                     padding:.5%;
                     border-radius:25px;
-                    // background:rgba(0, 0, 0, 0.);
-                    // padding-right:3%;
-                    background:#eee;
-                    border:2px solid #000;
+                    background:#fff;
                     li {
                         display:flex;
                         margin: 0 10px;
                         a {
                             text-shadow: 3px 1px 3px #000;
-                            color:$font_c;
+                            // color:$font_c;
+                            color:#000;
                         }
                         &.id {
                             b {
@@ -344,7 +345,8 @@ body {
                                     color:orangered;
                                 }
 
-                                color:$font_c;
+                                // color:$font_c;
+                                color:#000;
                                 margin: 0 4px;
                             }
                         
@@ -353,7 +355,8 @@ body {
                             .icon-list {
                                 display:flex;
                                 a {
-                                    color:$font_c;
+                                    // color:$font_c;
+                                    color:#000;
 
                                 }
                                 .logout {
@@ -586,18 +589,20 @@ body {
     //     height: $topNav;
     // }
 
-    .Container2 {
+    .container2 {
         position: relative;
         width: 100%;
         background: #fff;
+        .content-cover {
+            margin:auto;
+            width:100%;
+            max-width:1500px;
+            height:100%;
+            position:relative;
+        }
     }
 
 
-
-    .max1400 {
-        max-width: 1400px;
-        // margin: $topNav auto 0;
-    }
 
     .container-normal {
         max-width: $maxW;
@@ -691,6 +696,7 @@ body {
                     background-size: 100%;
                     //bg_3 Leeloo The First님의 사진: https://www.pexels.com/ko-kr/photo/5386754/
                     //bg_1 Jessica Lewis 🦋 thepaintedsquare님의 사진: https://www.pexels.com/ko-kr/photo/3361483/
+           
                     .textbox {
                             position:absolute;
                             left:5%;
@@ -2634,6 +2640,8 @@ aside {
     }
 
     .like {
+        max-width:1150px;
+
         display: flex;
         align-items: center;
         justify-content: center;
@@ -2646,7 +2654,7 @@ aside {
         }
         li {
             margin: auto;
-            padding: 20px 0;
+            padding: 25px 0;
             width: 17%;
             background-color: #fff;
             border-radius: 10px ;

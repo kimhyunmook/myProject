@@ -112,7 +112,8 @@ input {
         transition: .5s; }
         #root header .header-nav-menu li {
           min-width: 80px;
-          margin: 0 13px; }
+          margin: 0 13px;
+          padding: 10px 0; }
           #root header .header-nav-menu li a {
             color: #babfff;
             text-shadow: 3px 1px 3px #000;
@@ -141,31 +142,34 @@ input {
       max-width: 280px;
       padding: .5%;
       border-radius: 25px;
-      background: #eee;
-      border: 2px solid #000; }
+      background: #fff; }
       #root header .login-box li {
         display: flex;
         margin: 0 10px; }
         #root header .login-box li a {
           text-shadow: 3px 1px 3px #000;
-          color: #babfff; }
+          color: #000; }
         #root header .login-box li.id b {
-          color: #babfff;
+          color: #000;
           margin: 0 4px; }
           #root header .login-box li.id b:first-of-type {
             color: orangered; }
         #root header .login-box li.icon-box .icon-list {
           display: flex; }
           #root header .login-box li.icon-box .icon-list a {
-            color: #babfff; }
+            color: #000; }
           #root header .login-box li.icon-box .icon-list .logout {
             cursor: pointer; }
-  #root .Container2 {
+  #root .container2 {
     position: relative;
     width: 100%;
     background: #fff; }
-  #root .max1400 {
-    max-width: 1400px; }
+    #root .container2 .content-cover {
+      margin: auto;
+      width: 100%;
+      max-width: 1500px;
+      height: 100%;
+      position: relative; }
   #root .container-normal {
     max-width: 1400px;
     padding: 25px 200px 100px;
@@ -1410,6 +1414,7 @@ aside {
     text-shadow: 1px 1px 1px #000;
     margin-bottom: 10px; }
   .likes-cover .like {
+    max-width: 1150px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1421,7 +1426,7 @@ aside {
       margin-bottom: 20px; }
     .likes-cover .like li {
       margin: auto;
-      padding: 20px 0;
+      padding: 25px 0;
       width: 17%;
       background-color: #fff;
       border-radius: 10px; }
