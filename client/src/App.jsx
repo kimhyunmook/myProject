@@ -19,12 +19,13 @@ import "../src/component/common/canvas/canvas.css";
 import Footer from "./component/common/footer";
 import About from "./component/about";
 import ProjectS from "./component/project";
-import Test from "./component/project/test";
 import Aside from "./component/aside";
+import util from "./util";
 
 function App() {
   const [headerCofirm, setHeaderCofirm] = useState(true);
   const path = window.location.pathname;
+  // const path = util.path();
   useEffect(() => {
     let path = window.location.pathname.split("/");
     if (path[1] === "download") {
@@ -32,13 +33,11 @@ function App() {
     } else {
       setHeaderCofirm(true);
     }
-  }, [path]);
+  }, [window.location.href]);
   return (
     <Router>
       {headerCofirm === true ? <Header /> : null}
       <Routes>
-        <Route path="/test" element={<Test />} />
-
         <Route path="/" element={<Main />} />
         <Route path="/adm" element={<ADM />} />
         <Route path="/download" element={<NeedDownLoad />} />

@@ -1,9 +1,9 @@
-import { useState, useLayoutEffect, useEffect, useRef } from "react";
+import { useState, useLayoutEffect, useEffect, useRef, useMemo } from "react";
 import LoginList from "./loginList";
 import { loginToken } from "../../actions/type";
 import { FontAwsome } from "./fontawsome";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "./logo";
 import util from "../../util";
 
@@ -17,7 +17,8 @@ function Header(props) {
   const menuInfo = store.menuInfo.data;
   let body, i;
   const header = useRef(null);
-
+  const [id, setId] = useState("header");
+  const p = useRef(path);
   const [scrollY, setScrollY] = useState(0);
   // const [scrollToggle, setScrollToggle] = useState(false);
 
@@ -32,19 +33,18 @@ function Header(props) {
     if (path[1].split("?")[0] !== "download") {
       if (menuInfo !== undefined) {
         setMenu(menuInfo);
-        // for (i = 0; i < menuInfo.length; i++) {
-        //   if (menuInfo[i].parent !== 0) setDepthMenu(menuInfo[i]);
-        // }
       }
     }
   }, [store]);
-
+  useEffect(() => {
+    // console.log(p.current);
+  }, [p]);
   return (
     <>
       <header
-        id="header"
+        id={id}
         ref={header}
-        className={scrollY > 0 ? "on" : null}
+        className={scrollY > 0 ? "on" : ""}
         style={{ height: 90 }}
       >
         <div className="header">

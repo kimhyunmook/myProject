@@ -11,6 +11,7 @@ import Canvas from "../common/canvas/canvas";
 import { _GetLike } from "../../store/likeSlice";
 import { Container2 } from "../common/commonUi";
 import Likes from "../aside/likes";
+
 function Main() {
   const store = useSelector((state) => state);
   const [menu, setMenu] = useState(store.menuInfo.data);
@@ -31,40 +32,15 @@ function Main() {
   }, [store]);
 
   useLayoutEffect(() => {
-    // Canvas.box({
-    //     target: section1.current,
-    //     coordinate: [['-42vw', "-30%"]], // 위치
-    //     width: ["55%"], // width
-    //     height: ["95%"], // height
-    //     color: ['rgba(23,66,255,0.3)'],
-    //     addStyle: [`
-    //         transform:rotate(45deg);
-    //         border-radius:20px;
-    //     `],
-    //     animation: ['big']
-    // });
-
-    // Canvas.circle({
-    //     target: section1.current,
-    //     coordinate: ["65%", "-6%"],
-    //     width: 300,
-    //     height: 300,
-    //     color: 'rgba(255,0,125,0.2)'
-    // })
-    // Canvas.circle({
-    //     target: section1.current,
-    //     coordinate: [["60%", '40%'], ["75%", "60%"], ["90%", "40%"]],
-    //     width: [150, 200, 250],
-    //     height: [150, 200, 250],
-    //     color: ['rgba(44,35,255,0.6)', 'rgba(23,66,255,0.3)', 'rgba(50,255,100,0.5)']ㄱ
-    // })
-
     body = {};
 
     needDownLoad(body).payload.then((res) => {
       if (!res.Download) window.location.href = "/download?task=0";
     });
 
+    const header = document.querySelector("header");
+
+    header.classList.add("index");
     const handleResize = () => {
       setWinSize({
         width: window.innerWidth,
@@ -90,21 +66,6 @@ function Main() {
     variableWidth: true,
   };
 
-  //   const section5Data = [
-  //     [
-  //       "React로 portFolio 제작",
-  //       "PHP(그누보드)로 홈페이지 제작 및 유지보수 (경력: 1년)",
-  //       "Sass(css) 관련 프레임워크 사용",
-  //       "Vanilla Javascript 선호",
-  //     ],
-  //     [
-  //       "NodeJs, Java, Python, PHP, mySql",
-  //       "NodeJs 로그인, 게시판, 회원가입 기능 직접 구현",
-  //       "HeidiSQL을 통한 DB 조작",
-  //       "숙련도는 높지 않음.",
-  //     ],
-  //     ["Bixby AI QA (경력: 2년)", "Bixby AI Localization(ko-KR)"],
-  //   ];
   return (
     <Container2 info={{ style: ContainerStyle }}>
       <Section
@@ -112,26 +73,32 @@ function Main() {
         useRef={section1}
         style={{ height: winSize.height + "px" }}
       >
-        <div className="aboutMe">
-          <div className="position">
-            <h1>Section1</h1>
+        <div className="bg">
+          <div className="textbox">
+            <h2>My Project</h2>
             <p>
-              현재 윈도우 넓이 : {winSize.width} <br />
-              현재 윈도우 높이 : {winSize.height} <br />
+              오늘의 계획을 Calendar에 저장하고 Test를 통해 하루를 돌아보세요.
             </p>
           </div>
+          <div className="imgbox">
+            <img src="../img/bg_2.jpg" alt="" />
+            <div className="disNo">
+              Bich Tran님의 사진: https://www.pexels.com/ko-kr/photo/1059383/
+            </div>
+          </div>
         </div>
-        {/* <div className="gear">
-          <div></div>
-        </div> */}
       </Section>
       <Section index="4" className="useLang">
         <h2>Used Language</h2>
         <Slider2 {...settings}>
           <List>
-            <ImgBox imgSrc={"html.png"}>
+            {/* <ImgBox imgSrc={"html.png"}>
               <h3>HTML</h3>
               <a href="https://ko.wikipedia.org/wiki/HTML"></a>
+            </ImgBox> */}
+            <ImgBox imgSrc={"react.png"}>
+              <h3>React</h3>
+              <a href="https://ko.wikipedia.org/wiki/%EB%A6%AC%EC%95%A1%ED%8A%B8_(%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8_%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC)"></a>
             </ImgBox>
             <ImgBox imgSrc={"css.png"}>
               <h3>CSS3</h3>
@@ -146,10 +113,6 @@ function Main() {
             </ImgBox>
           </List>
           <List>
-            <ImgBox imgSrc={"react.png"}>
-              <h3>React</h3>
-              <a href="https://ko.wikipedia.org/wiki/%EB%A6%AC%EC%95%A1%ED%8A%B8_(%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8_%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC)"></a>
-            </ImgBox>
             <ImgBox imgSrc={"mysql.png"}>
               <h3>Mysql</h3>
             </ImgBox>
