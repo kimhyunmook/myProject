@@ -74,56 +74,62 @@ function Main() {
         style={{ height: winSize.height + "px" }}
       >
         <div className="bg">
-          <div className="textbox">
-            <h2>My Project</h2>
-            <p>
-              오늘의 계획을 Calendar에 저장하고 Test를 통해 하루를 돌아보세요.
-            </p>
-          </div>
-          <div className="imgbox">
-            <img src="../img/bg_2.jpg" alt="" />
-            <div className="disNo">
-              Bich Tran님의 사진: https://www.pexels.com/ko-kr/photo/1059383/
+          <div className="content-cover">
+            <div className="textbox">
+              <h2>My Project</h2>
+              <p>
+                오늘의 계획을 Calendar에 저장하고 Test를 통해 하루를 돌아보세요.
+              </p>
+            </div>
+            <div className="imgbox">
+              <img src="../img/bg_2.jpg" alt="" />
+              <div className="disNo">
+                Bich Tran님의 사진: https://www.pexels.com/ko-kr/photo/1059383/
+              </div>
             </div>
           </div>
         </div>
       </Section>
       <Section index="4" className="useLang">
-        <h2>Used Language</h2>
-        <Slider2 {...settings}>
-          <List>
-            {/* <ImgBox imgSrc={"html.png"}>
+        <div className="content-cover">
+          <h2>Used Language</h2>
+
+          <Slider2 {...settings}>
+            <List>
+              {/* <ImgBox imgSrc={"html.png"}>
               <h3>HTML</h3>
               <a href="https://ko.wikipedia.org/wiki/HTML"></a>
             </ImgBox> */}
-            <ImgBox imgSrc={"react.png"}>
-              <h3>React</h3>
-              <a href="https://ko.wikipedia.org/wiki/%EB%A6%AC%EC%95%A1%ED%8A%B8_(%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8_%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC)"></a>
-            </ImgBox>
-            <ImgBox imgSrc={"css.png"}>
-              <h3>CSS3</h3>
-              <a href="https://ko.wikipedia.org/wiki/CSS"></a>
-            </ImgBox>
-            <ImgBox imgSrc={"js.png"}>
-              <h3>Javascript</h3>
-            </ImgBox>
-            <ImgBox imgSrc={"nodejs.png"}>
-              <h3>NodeJs</h3>
-              <a href="https://ko.wikipedia.org/wiki/Node.js"></a>
-            </ImgBox>
-          </List>
-          <List>
-            <ImgBox imgSrc={"mysql.png"}>
-              <h3>Mysql</h3>
-            </ImgBox>
-            <ImgBox imgSrc={"sass.png"}>
-              <h3>Sass</h3>
-            </ImgBox>
-            {/* <ImgBox imgSrc={"java.png"}>
+              <ImgBox imgSrc={"react.png"}>
+                <h3>React</h3>
+                <a href="https://ko.wikipedia.org/wiki/%EB%A6%AC%EC%95%A1%ED%8A%B8_(%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8_%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC)"></a>
+              </ImgBox>
+              <ImgBox imgSrc={"css.png"}>
+                <h3>CSS3</h3>
+                <a href="https://ko.wikipedia.org/wiki/CSS"></a>
+              </ImgBox>
+              <ImgBox imgSrc={"js.png"}>
+                <h3>Javascript</h3>
+              </ImgBox>
+              <ImgBox imgSrc={"nodejs.png"}>
+                <h3>NodeJs</h3>
+                <a href="https://ko.wikipedia.org/wiki/Node.js"></a>
+              </ImgBox>
+            </List>
+            <List>
+              <ImgBox imgSrc={"mysql.png"}>
+                <h3>Mysql</h3>
+              </ImgBox>
+              <ImgBox imgSrc={"sass.png"}>
+                <h3>Sass</h3>
+              </ImgBox>
+              {/* <ImgBox imgSrc={"java.png"}>
               <h3>Java</h3>
             </ImgBox> */}
-          </List>
-        </Slider2>
+            </List>
+          </Slider2>
+
+        </div>
       </Section>
       <Section index={10}>
         <Likes
