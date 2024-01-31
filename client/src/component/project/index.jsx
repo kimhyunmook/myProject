@@ -17,6 +17,7 @@ import util from "../../util";
 import { useNavigate } from "react-router-dom";
 import TestView from "./testView";
 import Auth from "../common/Auth";
+import LeaningView from "./leaningView";
 
 export default function ProjectS() {
   const [value, OnChange] = useState(new Date());
@@ -202,24 +203,26 @@ export default function ProjectS() {
               formatDay={(locale, date) => moment(date).format("D")}
               showNavigation={true}
               onClickDay={(value, event) => {
+                dispatch(
+                  notToday({
+                    url: `/calendar/info`,
+                    userId: userInfo.id,
+                    date: moment(value).format(format),
+                  })
+                );
                 if (
                   moment(value).format(format) === moment(korNow).format(format)
                 ) {
                   setModal_dis(true);
                   setView("training");
                   navigate(`?inserLength=1`);
+
                   setView_button([
                     { Name: "닫기", Click: dayClick },
                     { Name: "학습", Click: submit_ },
                     // { Name: "test", Click: secondsubmit },
                   ]);
                 } else {
-                  dispatch(
-                    notToday({
-                      url: `/calendar/info`,
-                      date: moment(value).format(format),
-                    })
-                  );
                   setModal_dis(true);
                   setView("leaned");
                   setView_button({ Name: "", Click: dayClick });
@@ -240,63 +243,62 @@ export default function ProjectS() {
             <Modal
               display={modal_dis}
               className={"calendar-modal"}
-              title={"🤗 Today English"}
+              title={"🤗 Today Plan"}
               button={view_button}
             >
               {view === "training" ? (
-                <form action="">
-                  <ul ref={ul}>
-                    <li>
-                      {/* <BtnArea
-                        info={[
-                          { Name: "+", Click: plushandle },
-                          { Name: "-", Click: miushandle },
-                        ]}
-                      /> */}
-                    </li>
-                    {list.map((v, i) => {
-                      return (
-                        <li key={`list_${v}_${i}`}>
-                          <div className="line">
-                            <input
-                              name={"subject"}
-                              type="text"
-                              onChange={callBack}
-                              data-index={i}
-                              required
-                            />
-                            <label htmlFor="subject">영문장</label>
-                            <span></span>
-                          </div>
-                          <div className="line">
-                            <input
-                              name={"content"}
-                              type="text"
-                              onChange={callBack}
-                              data-index={i}
-                              required
-                            />
-                            <label htmlFor="content">뜻</label>
-                            <span></span>
-                          </div>
-                          <div className="line">
-                            <input
-                              name={"description"}
-                              type="text"
-                              // placeholder="description"
-                              onChange={callBack}
-                              data-index={i}
-                              required
-                            />
-                            <label htmlFor="description">설명</label>
-                            <span></span>
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </form>
+                <LeaningView target={list} change={callBack} />
               ) : (
+                // <ul ref={ul}>
+                //   <li>
+                //     {/* <BtnArea
+                //         info={[
+                //           { Name: "+", Click: plushandle },
+                //           { Name: "-", Click: miushandle },
+                //         ]}
+                //       /> */}
+                //   </li>
+                //   {list.map((v, i) => {
+                //     return (
+                //       <li key={`list_${v}_${i}`}>
+                //         <div className="line">
+                //           <input
+                //             name={"subject"}
+                //             type="text"
+                //             onChange={callBack}
+                //             data-index={i}
+                //             required
+                //           />
+                //           <label htmlFor="subject">영문장</label>
+                //           <span></span>
+                //         </div>
+                //         <div className="line">
+                //           <input
+                //             name={"content"}
+                //             type="text"
+                //             onChange={callBack}
+                //             data-index={i}
+                //             required
+                //           />
+                //           <label htmlFor="content">뜻</label>
+                //           <span></span>
+                //         </div>
+                //         <div className="line">
+                //           <input
+                //             name={"description"}
+                //             type="text"
+                //             // placeholder="description"
+                //             onChange={callBack}
+                //             data-index={i}
+                //             required
+                //           />
+                //           <label htmlFor="description">설명</label>
+                //           <span></span>
+                //         </div>
+                //       </li>
+                //     );
+                //   })}
+                // </ul>
                 <Leaned_view view={calendar_info.lookData} />
               )}
             </Modal>
@@ -324,33 +326,32 @@ export default function ProjectS() {
       </Auth>
     </Container2>
   );
-
-  function Leaned_view({ view }) {
-    const Box = ({ children, title }) => {
-      return (
-        <div>
-          <b>{title} : </b>
-          {children}
-        </div>
-      );
-    };
+}
+function Leaned_view({ view }) {
+  const Box = ({ children, title }) => {
     return (
-      <div className="leaned_view">
-        <h2>학습한 내용</h2>
-        {calendar_info.lookData?.length > 0 ? (
-          calendar_info.lookData.map((v, i) => {
-            return (
-              <div className="" key={`leaned_view_${i}`}>
-                <Box title={"영문장"}>{v.subject}</Box>
-                <Box title={"뜻"}>{v.content}</Box>
-                <Box title={"설명"}>{v.description}</Box>
-              </div>
-            );
-          })
-        ) : (
-          <div>학습된 내용이 없습니다.</div>
-        )}
+      <div>
+        <b>{title} : </b>
+        {children}
       </div>
     );
-  }
+  };
+  return (
+    <div className="leaned_view">
+      <h2>학습한 내용</h2>
+      {view?.length > 0 ? (
+        view.map((v, i) => {
+          return (
+            <div className="" key={`leaned_view_${i}`}>
+              <Box title={"영문장"}>{v.subject}</Box>
+              <Box title={"뜻"}>{v.content}</Box>
+              <Box title={"설명"}>{v.description}</Box>
+            </div>
+          );
+        })
+      ) : (
+        <div>학습된 내용이 없습니다.</div>
+      )}
+    </div>
+  );
 }

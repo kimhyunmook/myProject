@@ -63,8 +63,6 @@ router.post("/info", async (req, res) => {
   let userid = req.body.userId;
   let target_db = userid !== "admin" ? "calendar" : "calendar_dev";
   try {
-    console.log(date);
-
     let where =
       date !== undefined
         ? `date="${date}" AND userId="${userid}"`
@@ -74,6 +72,7 @@ router.post("/info", async (req, res) => {
     data = data[0];
 
     sql = sqlText.SELECT(target_db, where);
+    console.log(sql);
     lookData = await conn.query(sql);
     lookData = lookData[0];
 
@@ -82,6 +81,7 @@ router.post("/info", async (req, res) => {
     let json_file = [];
     let training_data = {};
 
+    // back up data insert
     if (training_dir.length > 1 && data.length === 0) {
       training_dir.map((v) =>
         v.split(".")[v.split(".").length - 1] === "json"

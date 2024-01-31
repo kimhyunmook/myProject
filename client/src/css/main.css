@@ -73,9 +73,28 @@ input {
     left: 0;
     width: 100%;
     z-index: 9999;
-    background-color: #fff; }
+    transition: .5s; }
+    #root header .logo {
+      border-radius: 50%;
+      padding: 3px; }
+      #root header .logo a {
+        text-shadow: 3px 1px 5px #000;
+        color: #babfff; }
     #root header.on {
+      background-color: #fff;
       border-bottom: .5px solid #999; }
+      #root header.on .header-nav-menu li a {
+        color: #000;
+        text-shadow: none; }
+      #root header.on b {
+        color: #000;
+        text-shadow: none; }
+      #root header.on .login-box a {
+        color: #000 !important;
+        text-shadow: none; }
+      #root header.on .login-box b {
+        color: #000 !important;
+        text-shadow: inherit !important; }
     #root header .header {
       margin: auto;
       max-width: 1400px;
@@ -95,18 +114,20 @@ input {
           min-width: 80px;
           margin: 0 13px; }
           #root header .header-nav-menu li a {
+            color: #babfff;
+            text-shadow: 3px 1px 3px #000;
             text-align: center;
             display: block;
             width: 100%;
             height: 100%;
             transition: .5s;
             font-size: 19px;
-            font-family: "sans-serif";
-            font-weight: 400; }
+            font-family: "TheJamsil";
+            font-weight: 700; }
           #root header .header-nav-menu li:hover a {
             transform: scale(1.2);
             font-weight: 700;
-            color: #babfff; }
+            color: #ff9d9d; }
     #root header .login-box {
       position: absolute;
       z-index: 999;
@@ -115,19 +136,28 @@ input {
       transform: translateY(-50%);
       display: flex;
       align-items: center;
-      justify-content: flex-end;
-      width: 100%;
-      max-width: 400px;
-      padding-right: 3%; }
+      justify-content: center;
+      width: auto;
+      max-width: 280px;
+      padding: .5%;
+      border-radius: 25px;
+      background: #eee;
+      border: 2px solid #000; }
       #root header .login-box li {
         display: flex;
         margin: 0 10px; }
+        #root header .login-box li a {
+          text-shadow: 3px 1px 3px #000;
+          color: #babfff; }
         #root header .login-box li.id b {
+          color: #babfff;
           margin: 0 4px; }
           #root header .login-box li.id b:first-of-type {
             color: orangered; }
         #root header .login-box li.icon-box .icon-list {
           display: flex; }
+          #root header .login-box li.icon-box .icon-list a {
+            color: #babfff; }
           #root header .login-box li.icon-box .icon-list .logout {
             cursor: pointer; }
   #root .Container2 {
@@ -162,7 +192,8 @@ input {
     font-family: 'PartialSansKR-Regular';
     font-weight: 100; }
   #root section {
-    width: 100%; }
+    width: 100%;
+    overflow: hidden; }
     #root section article {
       margin: auto;
       height: 100%;
@@ -172,7 +203,7 @@ input {
         text-shadow: none;
         color: rgba(0, 0, 0, 0.7);
         font-size: 40px;
-        font-family: 'PartialSansKR-Regular';
+        font-family: "OKDDUNG";
         font-weight: 100;
         margin: 10px 0 30px; }
       #root section article.section-pad {
@@ -184,42 +215,44 @@ input {
     #root section#section1 {
       height: 710px; }
       #root section#section1 article {
-        display: flex;
         width: 100%;
-        position: relative; }
-        #root section#section1 article .aboutMe {
-          position: relative;
-          width: 100%;
-          height: 100%; }
-          #root section#section1 article .aboutMe .position {
-            width: 100%;
-            position: absolute;
-            left: 50%;
-            top: 40%;
-            transform: translate(-50%, -50%);
-            padding-left: 50px; }
-            #root section#section1 article .aboutMe .position h1 {
-              font-size: 50px;
-              margin-bottom: 15px; }
-            #root section#section1 article .aboutMe .position p {
-              font-size: 25px;
-              color: #111; }
-        #root section#section1 article .gear {
-          width: 100px;
-          height: 100px;
+        position: relative;
+        background: url("../../public/img/bg_3.jpg") no-repeat center;
+        background-size: 100%; }
+        #root section#section1 article .textbox {
           position: absolute;
-          top: 85%;
-          right: 1%;
-          background: url("../../public/img/gear2.png") no-repeat center/cover;
-          animation: gear1 60s infinite ease;
-          cursor: pointer;
-          border-radius: 50%; }
-
-@keyframes gear1 {
-  0% {
-    transform: rotate(0deg); }
-  100% {
-    transform: rotate(2160deg); } }
+          left: 5%;
+          top: 40%;
+          transform: translateY(-50%);
+          width: 45%;
+          margin: 0; }
+          #root section#section1 article .textbox h2 {
+            text-align: left;
+            margin: 0;
+            color: #fff;
+            font-family: "OKDDUNG";
+            font-size: 70px;
+            text-shadow: 3px 1px 5px #000; }
+          #root section#section1 article .textbox p {
+            text-shadow: 3px 1px 5px #000;
+            word-break: keep-all;
+            color: #fff;
+            padding-top: 30px;
+            font-size: 35px; }
+        #root section#section1 article .bg {
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.4); }
+          #root section#section1 article .bg .imgbox {
+            position: absolute;
+            width: 50%;
+            max-width: 500px;
+            height: 50%;
+            left: 75%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            overflow: hidden;
+            border-radius: 5px; }
         #root section#section1 article .imgBox {
           position: relative;
           min-width: 750px;
@@ -986,8 +1019,7 @@ input {
     margin-bottom: 100px;
     padding-bottom: 10px; }
     #root .react-calendar .react-calendar__tile {
-      padding-top: 35px;
-      padding-bottom: 35px; }
+      height: 125px; }
       #root .react-calendar .react-calendar__tile--now {
         border-radius: 5px; }
     #root .react-calendar abbr {
@@ -1017,17 +1049,16 @@ input {
       font-size: 16px; }
     #root .react-calendar .react-calendar__tile--active {
       background: #ff9d9d;
-      border-radius: 15px; }
+      border-radius: 10px; }
     #root .react-calendar .calendar-dot {
       margin: 5px 0;
       background: #ff9d9d;
-      border-radius: 15px;
+      border-radius: 10px;
       width: 100%;
       height: 10px; }
     #root .react-calendar .react-calendar__tile:enabled:hover, #root .react-calendar .react-calendar__tile:enabled:focus {
       background-color: #b2d3ff;
-      border-radius: 15px;
-      box-shadow: 3px 1px 5px #000; }
+      border-radius: 10px; }
       #root .react-calendar .react-calendar__tile:enabled:hover abbr, #root .react-calendar .react-calendar__tile:enabled:focus abbr {
         display: block;
         color: #ff9d9d;
