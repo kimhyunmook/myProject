@@ -15,7 +15,7 @@ const calendarSlice = createSlice({
     calendarInfo: (state, action) => {
       state.action = action.type;
     },
-    notToday: (state, action) => {
+    addPlan: (state, action) => {
       state.action = action.type;
     },
     testRequest: (state, action) => {
@@ -25,7 +25,7 @@ const calendarSlice = createSlice({
       state.data = action.payload.data;
       state.lookData = action.payload.lookData;
     },
-    getNotTodayData: (state, action) => {
+    getAddPlanData: (state, action) => {
       state.lookData = action.payload.lookData;
     },
     getTestResponse: (state, action) => {
@@ -40,8 +40,8 @@ const calendarSlice = createSlice({
 export const {
   calendarInfo,
   getCalendarData,
-  notToday,
-  getNotTodayData,
+  addPlan,
+  getAddPlanData,
   lookDataReset,
   testRequest,
   getTestResponse,

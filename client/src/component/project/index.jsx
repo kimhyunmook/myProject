@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { BtnArea, Container2, Modal } from "../common/commonUi";
-import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
@@ -8,9 +7,9 @@ import moment from "moment";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  addPlan,
   calendarInfo,
   lookDataReset,
-  notToday,
   testRequest,
 } from "../../store/calendarSlice";
 import util from "../../util";
@@ -25,10 +24,6 @@ export default function ProjectS() {
   const listFirst = [{ type: "english" }];
   const [list, setList] = useState([{ type: "english" }]);
   const cal = useRef(null);
-  const curr = new Date();
-  const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
-  const utc = curr.getTime() + curr.getTimezoneOffset() * 60 * 1000;
-  const korNow = new Date(utc + KR_TIME_DIFF);
   const format = "YYYY-MM-DD";
   const dispatch = useDispatch();
   const store = useSelector((state) => state);
@@ -41,12 +36,16 @@ export default function ProjectS() {
   const [question, setQuestion] = useState(false);
   const listRef = useRef(list);
   let task = window.location.search.split("task=")[1];
+  let urlParma = window.location.search.split("?");
 
   let body = {};
   const callBack = useCallback((event) => {
     const target = event.currentTarget;
     const lt = list[target.dataset.index];
     switch (target.name) {
+      case "type":
+        lt.type = target.value;
+        break;
       case "subject":
         lt.subject = target.value;
         break;
@@ -55,6 +54,9 @@ export default function ProjectS() {
         break;
       case "description":
         lt.description = target.value;
+        break;
+      case "color":
+        lt.color = target.value;
         break;
     }
     setList(list);
@@ -83,17 +85,19 @@ export default function ProjectS() {
   //   }
   // };
 
-  function dayClick() {
+  function closeModal() {
     setModal_dis(false);
-    setList([{ type: "english" }]);
+    setList([{}]);
     dispatch(lookDataReset());
     navigate("/project/calendar");
   }
+
   function submit_(event) {
     event.preventDefault();
     console.log(listRef.current);
     body = {
       userId: userInfo.id,
+      kind: window.location.search.split("?")[1],
       data: listRef.current,
     };
     let triger = true;
@@ -105,17 +109,18 @@ export default function ProjectS() {
       }
     }
     body.data.map((v, i) => {
-      triger_confirm(v.subject, "주제를 입력해주세요");
-      triger_confirm(v.content, "뜻을 입력해주세요");
+      triger_confirm(v.type, "계획의 종류를 입력해주세요");
+      triger_confirm(v.subject, "계획의 제목을 입력해주세요");
+      triger_confirm(v.content, "내용을 입력해주세요");
       if (v.description === undefined) v.description = "";
       v.userId = userInfo.id;
-      v.date = moment(korNow).format(format);
     });
 
+    console.log(body);
     if (triger) {
       setList(listFirst);
       window.location.reload();
-      axios.post(`/api/calendar/study`, body);
+      axios.post(`/api/calendar/add`, body);
       dispatch(calendarInfo({ url: `/calendar/info` }));
       setModal_dis(false);
       alert("입력되었습니다.");
@@ -124,6 +129,9 @@ export default function ProjectS() {
 
   const calendarRef = useRef(null);
   const testRef = useRef(null);
+  const [modalTitle, setModalTitle] = useState("");
+  let btn;
+
   useEffect(() => {
     body = {
       userId: userInfo.id,
@@ -163,8 +171,20 @@ export default function ProjectS() {
     navigate("?task=0");
   };
 
-  const ul = useRef(null);
+  const behavior = (event) => {
+    event.preventDefault();
+    let type = event.currentTarget.className;
+    navigate(`?${type}`);
+    setView(type);
+  };
 
+  const back = (event) => {
+    event.preventDefault();
+    navigate("?behavior");
+    setView("behavior");
+  };
+
+  console.log("view", view);
   return (
     <Container2
       info={{
@@ -196,109 +216,81 @@ export default function ProjectS() {
               prev2Label={null}
               showNeighboringMonth={false}
               navigationAriaLive="polite"
-              // formatWeekday={(locale, date) => moment(date).format("DDDD")}
               formatMonthYear={(locale, date) =>
                 moment(date).format("YYYY MMMM")
               }
-              formatDay={(locale, date) => moment(date).format("D")}
               showNavigation={true}
               onClickDay={(value, event) => {
+                navigate("?behavior");
                 dispatch(
-                  notToday({
+                  addPlan({
                     url: `/calendar/info`,
                     userId: userInfo.id,
                     date: moment(value).format(format),
                   })
                 );
-                if (
-                  moment(value).format(format) === moment(korNow).format(format)
-                ) {
-                  setModal_dis(true);
-                  setView("training");
-                  navigate(`?inserLength=1`);
+                listRef.current.map((v) => {
+                  v.date = moment(value).format(format);
+                });
 
-                  setView_button([
-                    { Name: "닫기", Click: dayClick },
-                    { Name: "학습", Click: submit_ },
-                    // { Name: "test", Click: secondsubmit },
-                  ]);
-                } else {
-                  setModal_dis(true);
-                  setView("leaned");
-                  setView_button({ Name: "", Click: dayClick });
-                }
+                setModal_dis(true);
+                setView("behavior");
+                setModalTitle(moment(value).format("MM월DD일"));
               }}
               tileContent={({ date, view }) => {
+                let d = moment(date).format(format);
                 let html = [];
-                if (
-                  calendar_info.data
-                    .map((v) => v.date)
-                    .find((x) => x === moment(date).format(format))
-                ) {
-                  html.push(<div className={"calendar-dot"} key={date}></div>);
-                }
+                calendar_info.data?.map((v, i) => {
+                  if (d === v.date)
+                    html.push(
+                      <div
+                        key={d + i}
+                        className="calendar-dot"
+                        style={{ background: v.color }}
+                      ></div>
+                    );
+                });
                 return <div>{html}</div>;
               }}
             />
             <Modal
               display={modal_dis}
               className={"calendar-modal"}
-              title={"🤗 Today Plan"}
-              button={view_button}
+              title={`🤗 ${modalTitle} Plan`}
+              button={
+                view === "behavior"
+                  ? { Name: "close", Click: closeModal }
+                  : view === "plan"
+                  ? [
+                      { Name: "Add", Click: submit_ },
+                      { Name: "Back", Click: back },
+                      { Name: "Close", Click: closeModal },
+                    ]
+                  : [
+                      { Name: "Back", Click: back },
+                      {
+                        Name: "Close",
+                        Click: closeModal,
+                      },
+                    ]
+              }
             >
-              {view === "training" ? (
+              {view === "behavior" ? (
+                <ul className="behavior-list">
+                  <li>
+                    <a className="look" href="/look" onClick={behavior}>
+                      Plan 보기
+                    </a>
+                  </li>
+                  <li>
+                    <a className="plan" href="/insert" onClick={behavior}>
+                      Plan 추가하기
+                    </a>
+                  </li>
+                </ul>
+              ) : view === "plan" ? (
                 <LeaningView target={list} change={callBack} />
               ) : (
-                // <ul ref={ul}>
-                //   <li>
-                //     {/* <BtnArea
-                //         info={[
-                //           { Name: "+", Click: plushandle },
-                //           { Name: "-", Click: miushandle },
-                //         ]}
-                //       /> */}
-                //   </li>
-                //   {list.map((v, i) => {
-                //     return (
-                //       <li key={`list_${v}_${i}`}>
-                //         <div className="line">
-                //           <input
-                //             name={"subject"}
-                //             type="text"
-                //             onChange={callBack}
-                //             data-index={i}
-                //             required
-                //           />
-                //           <label htmlFor="subject">영문장</label>
-                //           <span></span>
-                //         </div>
-                //         <div className="line">
-                //           <input
-                //             name={"content"}
-                //             type="text"
-                //             onChange={callBack}
-                //             data-index={i}
-                //             required
-                //           />
-                //           <label htmlFor="content">뜻</label>
-                //           <span></span>
-                //         </div>
-                //         <div className="line">
-                //           <input
-                //             name={"description"}
-                //             type="text"
-                //             // placeholder="description"
-                //             onChange={callBack}
-                //             data-index={i}
-                //             required
-                //           />
-                //           <label htmlFor="description">설명</label>
-                //           <span></span>
-                //         </div>
-                //       </li>
-                //     );
-                //   })}
-                // </ul>
                 <Leaned_view view={calendar_info.lookData} />
               )}
             </Modal>

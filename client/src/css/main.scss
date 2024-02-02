@@ -693,7 +693,7 @@ body {
                     width: 100%;        
                     position: relative;
                     background: url("../../public/img/bg_3.jpg")  no-repeat center;
-                    background-size: 100%;
+                    background-size: cover;
                     //bg_3 Leeloo The First님의 사진: https://www.pexels.com/ko-kr/photo/5386754/
                     //bg_1 Jessica Lewis 🦋 thepaintedsquare님의 사진: https://www.pexels.com/ko-kr/photo/3361483/
            
@@ -2222,17 +2222,61 @@ body {
     }
     .calendar-modal {
         border:0;
+        width:60%;
+        height:90%;
+        overflow-y: scroll;
         box-shadow: 2px 3px 5px #000;
         border-radius:5px;
         h2 {
-            font-family: $font2;
+            font-family: $font3;
             text-shadow: 3px 0px 5px rgb(255, 204, 108);
         }
+
       
         ul {
             padding: 20px 20px;
             width:100%;
             margin:auto;
+            &.behavior-list {
+                li {
+                    $px :1px;
+                    border-bottom: $px solid #aaa;
+                    margin:15px;
+                    &:hover {
+                        a {
+                            color:#666;
+                            font-size:22px;
+                            &::after {
+                                content:"";
+                                border-bottom: $px solid #666;
+                               
+                                width:100%;
+                         
+                            }
+                        }
+                    }
+                    a {
+                        position: relative;
+                        transition:.5s;
+                        padding:15px;
+                        color:#aaa;
+                        display:block;
+                        font-size:20px;
+                        font-family: $font1;
+                        &::after {
+                            content:"";
+                            padding:0;
+                            position:absolute;
+                            top:0;
+                            left:0;
+                            display:block;
+                            width:0%;
+                            height:100%;
+                            transition:.5s;
+                        }
+                    }
+                }
+            }
             li {
 
                 display:block;
@@ -2804,7 +2848,7 @@ aside {
         }
 
         100% {
-            top: 10%;
+            top: 5%;
             opacity: 1;
         }
     }
