@@ -6,13 +6,21 @@ const fs = require("fs");
 const training = require("../training/training");
 const moment = require("moment");
 
-router.post("/study", async (req, res) => {
+router.post("/add", async (req, res) => {
   const routerName = req.originalUrl;
   let sql;
+  let kind = req.body.kind;
   let insert = {
     table_name: req.body.userId !== "admin" ? "calendar" : "calendar_dev",
     list: req.body.data,
   };
+
+  console.log(insert.list);
+
+  //type reform
+  insert.list.map((v) => {
+    v.type = `${kind}-${v.type}`;
+  });
 
   // add training json
   let training_dir = "server/training/english.json";

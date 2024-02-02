@@ -29,17 +29,18 @@ const util = {
     return value;
   },
   /**
-   * path를 배열로 반환 parameter 에 원하는 index 값 반환 가능
-   * @param index integer
+   * param or index 입력
+   * @param index integer 해당 값 반환, "param" url parameter 반환
    * @returns ['','','']
    */
   path: (index) => {
     const path = window.location.pathname.split("/");
-
-    if (Number.isInteger(index)) {
-      return path[index];
+    switch (index) {
+      case Number.isInteger(index):
+        return path[index];
+      default:
+        return path;
     }
-    return path;
   },
   /**
    * url parameter 을 찾는 용도

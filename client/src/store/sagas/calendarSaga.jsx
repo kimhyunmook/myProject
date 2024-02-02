@@ -2,7 +2,7 @@ import { call, put, all, delay } from "redux-saga/effects";
 import { commonAPi } from "../api/api";
 import {
   getCalendarData,
-  getNotTodayData,
+  getAddPlanData,
   getTestResponse,
 } from "../calendarSlice";
 
@@ -15,10 +15,10 @@ export function* handleCalendarInfo(body) {
   }
 }
 
-export function* handle_notToday(body) {
+export function* handle_addPlan(body) {
   try {
     const res = yield call(commonAPi.post, body);
-    yield put(getNotTodayData(res));
+    yield put(getAddPlanData(res));
   } catch (error) {
     console.error(error);
   }

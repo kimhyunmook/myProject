@@ -222,7 +222,7 @@ input {
         width: 100%;
         position: relative;
         background: url("../../public/img/bg_3.jpg") no-repeat center;
-        background-size: 100%; }
+        background-size: cover; }
         #root section#section1 article .textbox {
           position: absolute;
           left: 5%;
@@ -1070,15 +1070,46 @@ input {
         transform: rotate(15deg) scale(1.5); }
   #root .calendar-modal {
     border: 0;
+    width: 60%;
+    height: 90%;
+    overflow-y: scroll;
     box-shadow: 2px 3px 5px #000;
     border-radius: 5px; }
     #root .calendar-modal h2 {
-      font-family: "OKDDUNG";
+      font-family: "PartialSansKR-Regular";
       text-shadow: 3px 0px 5px #ffcc6c; }
     #root .calendar-modal ul {
       padding: 20px 20px;
       width: 100%;
       margin: auto; }
+      #root .calendar-modal ul.behavior-list li {
+        border-bottom: 1px solid #aaa;
+        margin: 15px; }
+        #root .calendar-modal ul.behavior-list li:hover a {
+          color: #666;
+          font-size: 22px; }
+          #root .calendar-modal ul.behavior-list li:hover a::after {
+            content: "";
+            border-bottom: 1px solid #666;
+            width: 100%; }
+        #root .calendar-modal ul.behavior-list li a {
+          position: relative;
+          transition: .5s;
+          padding: 15px;
+          color: #aaa;
+          display: block;
+          font-size: 20px;
+          font-family: "TheJamsil"; }
+          #root .calendar-modal ul.behavior-list li a::after {
+            content: "";
+            padding: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            width: 0%;
+            height: 100%;
+            transition: .5s; }
       #root .calendar-modal ul li {
         display: block; }
         #root .calendar-modal ul li .line {
@@ -1507,5 +1538,5 @@ aside {
     top: -20%;
     opacity: 0; }
   100% {
-    top: 10%;
+    top: 5%;
     opacity: 1; } }
