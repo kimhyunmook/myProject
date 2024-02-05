@@ -41,10 +41,6 @@ router.post('/settingmenu', async (req, res) => {
     let param = [];
     let query, rows, sql, meesage;
 
-    // try {
-    //     const conn = await db2.getConnection();
-    // } catch (error) {}
-
     db.query(readSQL('menu/select.sql'), param, (err, rows) => {
         if (err) throw err;
         let list = []

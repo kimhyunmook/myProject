@@ -1,0 +1,12 @@
+CREATE TABLE `project` (
+	`num` INT NOT NULL AUTO_INCREMENT,
+	`userId` VARCHAR(30) NOT NULL,
+	`type` VARCHAR(200) NOT NULL,
+	`subject` VARCHAR(200) NOT NULL,
+	`content` VARCHAR(200) NOT NULL,
+	`description` VARCHAR(500) NULL DEFAULT NULL,
+	`date` VARCHAR(70) NOT NULL DEFAULT "00-00-00 ~ 00-00-00",
+	`color` VARCHAR(10) NULL DEFAULT "#ff9d9d",
+	PRIMARY KEY (`num`)
+)
+;
