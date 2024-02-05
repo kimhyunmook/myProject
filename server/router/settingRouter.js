@@ -108,6 +108,12 @@ DB=${req.body.db}
       },
     });
 
+    await existCreateQuery({
+      connect: conn,
+      table_name: "project",
+      read_sql: "project/create.sql",
+    });
+
     sql = sqlText.INSERT(
       "likes",
       "icon,type,hit",

@@ -63,26 +63,38 @@ function PalnView({ change, index }) {
   );
 }
 
-function InsertInput({
+export function InsertInput({
   name,
   type = "text",
   change,
+  focus,
+  click,
   dataIndex,
   children,
+  value,
   placeholder,
+  className = "line",
+  label,
 }) {
   return (
-    <div className="line">
+    <div className={className}>
       <input
         name={name}
         type={type}
         placeholder={placeholder}
+        value={value}
         onChange={change}
+        onBlur={focus}
+        onFocus={focus}
+        onClick={click}
         data-index={dataIndex}
         required
       />
-      <label htmlFor="description">{children}</label>
+      <label htmlFor="description">
+        {!!!label ? children : label}
+      </label>
       <span></span>
+      {!!!label ? label : children}
     </div>
   );
 }
