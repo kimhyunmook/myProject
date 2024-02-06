@@ -55,9 +55,10 @@ export default function ProjectInsertView({ userInfo }) {
       t.content.focus();
       return;
     }
-    console.log(body);
     dispatch(_Project(body));
+    alert('입력되었습니다.')
     navigate("/project/calendar");
+    window.location.reload();
   };
 
   return (

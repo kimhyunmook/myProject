@@ -37,7 +37,7 @@ export default function ProjectS() {
   const navigate = useNavigate();
   const [question, setQuestion] = useState(false);
   const listRef = useRef(list);
-  let haveProject = userInfo?.project;
+  let haveProject = calendar_info?.projectData;
   let task = window.location.search.split("task=")[1];
 
   let body = {};
@@ -70,8 +70,8 @@ export default function ProjectS() {
       userId: userInfo.id,
     };
     dispatch(_ProjectInfo(body));
-    console.log(calendar_info.projectData);
   }, []);
+  console.log(store.calendarInfo.projectData);
 
   function closeModal() {
     setModal_dis(false);
@@ -117,15 +117,6 @@ export default function ProjectS() {
   const calendarRef = useRef(null);
   const [modalTitle, setModalTitle] = useState("");
 
-  useEffect(() => {
-    body = {
-      userId: userInfo?.id,
-      url: `/calendar/info`,
-    };
-    dispatch(calendarInfo(body));
-    setQuestion(calendar_info.testData?.subject);
-  }, []);
-
   const menuClick = (event) => {
     event.preventDefault();
     let target = event.currentTarget;
@@ -159,7 +150,7 @@ export default function ProjectS() {
       }}
     >
       <Auth>
-        {!!!haveProject ? (
+        {haveProject.length ===0 ? (
           <ProjectInsertView userInfo={userInfo} />
         ) : (
           <>

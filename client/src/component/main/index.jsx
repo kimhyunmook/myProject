@@ -52,7 +52,7 @@ function Main() {
   }, []);
 
   let ContainerStyle = {
-    width: "100%",
+    // width: "100%",
     marginLeft: 0,
   };
 

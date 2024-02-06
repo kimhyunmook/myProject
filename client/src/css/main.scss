@@ -624,7 +624,7 @@ body {
         .content-cover {
             margin: auto;
             width: 100%;
-            max-width: 1500px;
+            max-width: 1200px;
             height: 100%;
             position: relative;
         }
@@ -2175,6 +2175,11 @@ body {
     }
 
     .pi-view {
+        background-color: #fff;
+        max-width:800px;
+        padding:30px;
+        border-radius:10px;
+        margin: auto;
         h2 {
             display:initial;
             font-family: sans-serif;
@@ -2199,7 +2204,7 @@ body {
         }
         .box {
             margin: 50px 0;
-            @include inputs(60%);
+            @include inputs();
         }
         .pi-createbtn {
             border:0;
@@ -2210,6 +2215,7 @@ body {
             min-width:75px;
             padding: 10px 20px;
             box-shadow: 1px 1px 1px #888;
+            cursor:pointer;
         }
         .calendar-box {
             display: none;
@@ -2217,6 +2223,7 @@ body {
             left:0;
             top:110%;
             min-width:300px;
+            max-width:400px;
             width:100%;
             transition: .5s;
             border:0;
@@ -2235,6 +2242,7 @@ body {
         }
         .react-calendar-insert {
            border:0;
+           width:100%;
            .react-calendar__tile--active {
             background-color: inherit;
             color:inherit;
