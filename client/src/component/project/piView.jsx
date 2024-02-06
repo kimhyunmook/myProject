@@ -2,50 +2,104 @@ import { useDispatch } from "react-redux";
 import { BtnArea } from "../common/commonUi";
 import CalendarView from "./calendarView";
 import { InsertInput } from "./leaningView";
-import { useRef,useState } from "react";
+import { useRef, useState } from "react";
+import { _Project } from "../../store/userSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function ProjectInsertView({ userInfo }) {
-    const [date,setDate] =useState("");
-    const dispatch = useDispatch();
-    const id = !!!userInfo ? '미확인' : userInfo.id
-    const dateView = (event) => {
-        event.preventDefault();
-        const cal = event.currentTarget.nextSibling.nextSibling.nextSibling;
-        if (cal.className.includes('on')) cal.classList.remove('on');
-        else cal.classList.add('on');
+  const form = useRef(null);
+  const [date, setDate] = useState("");
+  const dispatch = useDispatch();
+  const id = !!!userInfo ? "미확인" : userInfo.id;
+  const navigate = useNavigate();
+  const dateView = (event) => {
+    event.preventDefault();
+    const cal = event.currentTarget.nextSibling.nextSibling.nextSibling;
+    if (cal.className.includes("on")) cal.classList.remove("on");
+    else cal.classList.add("on");
+  };
+  const dateValue = (t) => {
+    setDate(`${t.start} ~ ${t.last}`);
+  };
+  //   const dateHandler = ()
+  const submit_ = (event) => {
+    event.preventDefault();
+    const t = form.current;
+    let triger = false;
+    let body = {
+      url: "/project/add",
+      userId: id,
+      type: t.type.value,
+      subject: t.subject.value,
+      date: date,
+      content: t.content.value,
+      description: t.description.value,
+    };
+    if (!!!body.type) {
+      alert("type을 입력해주세요");
+      t.type.focus();
+      return;
     }
-    const dateValue =(event) =>{
-        event.preventDefault();
+    if (!!!body.subject) {
+      alert("이름을 입력해주세요");
+      t.subject.focus();
+      return;
     }
-    const submit_ = (event) => {
-        event.preventDefault();
+    if (!!!body.date) {
+      alert("기간을 정해주세요");
+      t.date.focus();
+      return;
     }
-    const calClose = (event) =>{
-        event.preventDefault();
-        event.currentTarget.parentNode.parentNode.parentNode.classList.remove('on');
+    if (!!!body.content) {
+      alert("계획의 내용을 입력해주세요");
+      t.content.focus();
+      return;
     }
-    const calConfirm = (event)=>{
-        event.preventDefault()
-    }
+    console.log(body);
+    dispatch(_Project(body));
+    navigate("/project/calendar");
+  };
 
-    return (
-        <form className="project-insert-view">
-            <h2 className="">
-                안녕하세요 <b className="userid">{id}</b>님 <br />
-                현재 진행 중인 Project가 없습니다.
-            </h2>
-            <p>
-                새로운 Project를 만들고 계획을 세우고 관리하며 실천해보세요.
-            </p>
-            <InsertInput className="box" label={'Project 이름'}>
-            </InsertInput>
-            <InsertInput className="box" click={dateView} label={'기간'} value={date} change={dateValue}>
-                <div className="calendar-box">
-                    <CalendarView />
-                    <BtnArea info={[{Name:"확인",Click:calConfirm},{Name:"닫기",Click: calClose}]} />
-                </div>
-            </InsertInput>
-            <button className="" onClick={submit_}>Create</button>
-        </form>
-    )
+  return (
+    <form className="pi-view" ref={form}>
+      <h2 className="">
+        안녕하세요 <b className="userid">{id}</b>님 <br />
+        현재 진행 중인 Project가 없습니다.
+      </h2>
+      <p>새로운 Project를 만들어 계획을 세우고 관리하며 실천해보세요.</p>
+      <InsertInput
+        className="box"
+        name={"type"}
+        label={"Project type"}
+      ></InsertInput>
+      <InsertInput
+        className="box"
+        name={"subject"}
+        label={"Project 이름"}
+      ></InsertInput>
+      <InsertInput
+        className="box"
+        name="date"
+        click={dateView}
+        label={"Project 기간"}
+        value_={date}
+        keypress={(event) => event.preventDefault()}
+      >
+        <CalendarView dateValue={dateValue} />
+      </InsertInput>
+      <InsertInput
+        className="box"
+        name={"content"}
+        label={"Project 내용"}
+      ></InsertInput>
+      <InsertInput
+        className="box"
+        name={"description"}
+        label={"Project 설명"}
+      ></InsertInput>
+      <button className="pi-createbtn" onClick={submit_}>
+        Create
+      </button>
+    </form>
+  );
 }

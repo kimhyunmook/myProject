@@ -7,6 +7,7 @@ import moment from "moment";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  _ProjectInfo,
   addPlan,
   calendarInfo,
   lookDataReset,
@@ -36,15 +37,9 @@ export default function ProjectS() {
   const navigate = useNavigate();
   const [question, setQuestion] = useState(false);
   const listRef = useRef(list);
-  let haveProject = userInfo.project;
+  let haveProject = userInfo?.project;
   let task = window.location.search.split("task=")[1];
 
-  // haveProject = []
-  if (!!!haveProject) {
-    console.log('부정')
-  } else {
-    console.log('긍정')
-  }
   let body = {};
   const callBack = useCallback((event) => {
     const target = event.currentTarget;
@@ -69,6 +64,14 @@ export default function ProjectS() {
     setList(list);
     listRef.current = list;
   });
+  useEffect(() => {
+    body = {
+      url: "/project/info",
+      userId: userInfo.id,
+    };
+    dispatch(_ProjectInfo(body));
+    console.log(calendar_info.projectData);
+  }, []);
 
   function closeModal() {
     setModal_dis(false);
@@ -112,12 +115,11 @@ export default function ProjectS() {
   }
 
   const calendarRef = useRef(null);
-  const testRef = useRef(null);
   const [modalTitle, setModalTitle] = useState("");
 
   useEffect(() => {
     body = {
-      userId: userInfo.id,
+      userId: userInfo?.id,
       url: `/calendar/info`,
     };
     dispatch(calendarInfo(body));
@@ -132,26 +134,8 @@ export default function ProjectS() {
       ""
     );
     if (target_href !== window.location.pathname) {
-      if (target_href === "/project/calendar") {
-        if (Number(task) >= 1)
-          if (!window.confirm("시험이 초기화 됩니다. 괜찮으신가요?")) {
-            return;
-          }
-      }
-      setQuestion(false);
       navigate(target_href);
     }
-  };
-  const startTest = () => {
-    body = {
-      userId: userInfo.id,
-      type: "english",
-      url: "/calendar/study_test",
-    };
-
-    dispatch(testRequest(body));
-    setQuestion(true);
-    navigate("?task=0");
   };
 
   const behavior = (event) => {
@@ -175,7 +159,9 @@ export default function ProjectS() {
       }}
     >
       <Auth>
-        {!!!haveProject ? <ProjectInsertView userInfo={userInfo} /> :
+        {!!!haveProject ? (
+          <ProjectInsertView userInfo={userInfo} />
+        ) : (
           <>
             <ul className="project-menu">
               <li>
@@ -184,8 +170,8 @@ export default function ProjectS() {
                 </a>
               </li>
               <li>
-                <a href="/project/test" onClick={menuClick}>
-                  📝 Test
+                <a href="/project/add" onClick={menuClick}>
+                  📝 Add Project
                 </a>
               </li>
             </ul>
@@ -193,7 +179,7 @@ export default function ProjectS() {
               <div ref={calendarRef} className="cover-box-calendar">
                 <Calendar
                   locale="en"
-                  className={'react-calendar-main'}
+                  className={"react-calendar-main"}
                   ref={cal}
                   onChange={OnChange}
                   value={value}
@@ -246,12 +232,12 @@ export default function ProjectS() {
                     view === "behavior"
                       ? { Name: "close", Click: closeModal }
                       : view === "plan"
-                        ? [
+                      ? [
                           { Name: "Add", Click: submit_ },
                           { Name: "Back", Click: back },
                           { Name: "Close", Click: closeModal },
                         ]
-                        : [
+                      : [
                           { Name: "Back", Click: back },
                           {
                             Name: "Close",
@@ -281,27 +267,10 @@ export default function ProjectS() {
                 </Modal>
               </div>
             ) : (
-              <div ref={testRef} className="cover-box-test">
-                {question ? (
-                  <div className="answer">
-                    <TestView viewData={calendar_info.testData}></TestView>
-                  </div>
-                ) : (
-                  <div className="question">
-                    <h3>
-                      <b className="userId">{userInfo.id}</b>
-                      님 안녕하세요! <br />
-                      지금 까지 학습한 내용들을 Test 할거에요.
-                      <br />
-                      문제를 풀고 점수를 확인하세요 😏
-                    </h3>
-                    <button onClick={startTest}>Test Start</button>
-                  </div>
-                )}
-              </div>
+              <ProjectInsertView userInfo={userInfo} />
             )}
           </>
-        }
+        )}
       </Auth>
     </Container2>
   );

@@ -44,6 +44,8 @@ textarea {
   box-sizing: border-box;
   line-height: 1.5em;
   letter-spacing: -.5px;
+  font-family: sans-serif;
+  font-weight: 400;
   font-family: 'TheJamsil';
   font-weight: 100; }
 
@@ -1010,24 +1012,29 @@ input {
         transition: .5s;
         font-family: 'OKDDUNG';
         text-shadow: #ff9d9d 1px 3px 10px; }
-  #root .project-insert-view h2 {
+  #root .pi-view h2 {
     display: initial;
+    font-family: sans-serif;
+    font-weight: 700;
     font-size: 35px; }
-    #root .project-insert-view h2 b.userid {
+    #root .pi-view h2 b.userid {
       color: #babfff;
       font-family: "OKDDUNG";
       font-size: 0.8em;
       text-shadow: 3px 0 2px #000; }
-    #root .project-insert-view h2::before {
+    #root .pi-view h2::before {
       content: "";
       display: none; }
-  #root .project-insert-view > p {
-    font-size: 25px; }
-  #root .project-insert-view .box {
-    margin: 40px 0;
+  #root .pi-view > p {
+    font-family: sans-serif;
+    font-size: 25px;
+    color: #aaa;
+    font-weight: 400; }
+  #root .pi-view .box {
+    margin: 50px 0;
     position: relative;
     width: 60%; }
-    #root .project-insert-view .box input {
+    #root .pi-view .box input {
       font-size: 15px;
       color: #222;
       width: 100%;
@@ -1038,11 +1045,11 @@ input {
       position: relative;
       background: none;
       z-index: 5; }
-    #root .project-insert-view .box input::placeholder {
+    #root .pi-view .box input::placeholder {
       color: #aaa; }
-    #root .project-insert-view .box input:focus {
+    #root .pi-view .box input:focus {
       outline: none; }
-    #root .project-insert-view .box > span {
+    #root .pi-view .box > span {
       display: block;
       position: absolute;
       bottom: 0;
@@ -1052,37 +1059,56 @@ input {
       height: 2px;
       border-radius: 2px;
       transition: 0.5s; }
-    #root .project-insert-view .box label {
+    #root .pi-view .box label {
       position: absolute;
       color: #aaa;
       left: 10px;
       font-size: 20px;
       bottom: 8px;
       transition: all .2s; }
-    #root .project-insert-view .box input:focus ~ label,
-    #root .project-insert-view .box input:valid ~ label {
+    #root .pi-view .box input:focus ~ label,
+    #root .pi-view .box input:valid ~ label {
       font-size: 16px;
       bottom: 40px;
       color: #4b1010a6;
       font-weight: bold; }
-    #root .project-insert-view .box input:focus ~ span,
-    #root .project-insert-view .box input:valid ~ span {
+    #root .pi-view .box input:focus ~ span,
+    #root .pi-view .box input:valid ~ span {
       width: 100%; }
-  #root .project-insert-view .calendar-box {
+  #root .pi-view .pi-createbtn {
+    border: 0;
+    background-color: #babfff;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 5px;
+    min-width: 75px;
+    padding: 10px 20px;
+    box-shadow: 1px 1px 1px #888; }
+  #root .pi-view .calendar-box {
     display: none;
     position: absolute;
     left: 0;
     top: 110%;
+    min-width: 300px;
+    width: 100%;
     transition: .5s;
     border: 0;
     z-index: 99;
     background-color: #fff;
     border: 1px solid #aaa;
     padding: 10px; }
-    #root .project-insert-view .calendar-box.on {
+    #root .pi-view .calendar-box.on {
       display: block; }
-  #root .project-insert-view .react-calendar-insert {
+    #root .pi-view .calendar-box p.date-view {
+      margin: 10px 0;
+      font-size: 15px; }
+  #root .pi-view .react-calendar-insert {
     border: 0; }
+    #root .pi-view .react-calendar-insert .react-calendar__tile--active {
+      background-color: inherit;
+      color: inherit; }
+    #root .pi-view .react-calendar-insert .react-calendar__tile--now:enabled:hover, #root .pi-view .react-calendar-insert .react-calendar__tile--now:enabled:focus, #root .pi-view .react-calendar-insert .react-calendar__tile--now {
+      background-color: inherit; }
   #root .react-calendar-main {
     width: 100%;
     max-width: 850px;
