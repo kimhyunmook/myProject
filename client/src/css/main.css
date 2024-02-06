@@ -337,7 +337,7 @@ input {
               align-items: center; }
               #root section#section4 article .list .flex-box .imgBox:hover {
                 transition: .5s;
-                transition-property: width, height, opacity, border-radius, background-color;
+                transition-property: width, height, opacity, border-radius, background-color;
                 margin: auto 0;
                 box-shadow: 2px 2px 10px #babfff;
                 background-color: #fff;
