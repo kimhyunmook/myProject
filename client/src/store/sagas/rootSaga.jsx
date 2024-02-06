@@ -5,8 +5,16 @@ import {
   handleLoginUser,
   handleDeleteUser,
   handleRegisterUser,
+  handleProject,
 } from "../sagas/userSaga";
-import { _Login, _Edit, _Logout, _Delete, _Register } from "../userSlice";
+import {
+  _Login,
+  _Edit,
+  _Logout,
+  _Delete,
+  _Register,
+  _Project,
+} from "../userSlice";
 import { _Condtion, _CreateMenu } from "../menuSlice";
 import { handleCreateMenu, handleMenu } from "./menuSaga";
 import {
@@ -27,10 +35,16 @@ import { basicInfo } from "../basicSlice";
 import { handleBasic } from "./basicSaga";
 import { _GetLike } from "../likeSlice";
 import { handleLike } from "./likeSaga";
-import { getSetting } from "../settingSlice";
-import { addPlan, calendarInfo, testRequest } from "../calendarSlice";
+// import { getSetting } from "../settingSlice";
+import {
+  _ProjectInfo,
+  addPlan,
+  calendarInfo,
+  testRequest,
+} from "../calendarSlice";
 import {
   handleCalendarInfo,
+  handleProjectInfo,
   handle_addPlan,
   handle_testRequest,
 } from "./calendarSaga";
@@ -43,6 +57,7 @@ export default function* rootSaga() {
     yield takeLatest(_Edit.type, handleEditUser),
     yield takeLatest(_Delete.type, handleDeleteUser),
     yield takeLatest(_Register.type, handleRegisterUser),
+    yield takeLatest(_Project.type, handleProject),
 
     //menu
     yield takeLatest(_Condtion.type, handleMenu),
@@ -67,5 +82,6 @@ export default function* rootSaga() {
     yield takeLatest(calendarInfo.type, handleCalendarInfo),
     yield takeLatest(addPlan.type, handle_addPlan),
     yield takeLatest(testRequest.type, handle_testRequest),
+    yield takeLatest(_ProjectInfo.type, handleProjectInfo),
   ];
 }

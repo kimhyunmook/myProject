@@ -162,6 +162,8 @@ $starbucks:#1e3932;
     box-sizing: border-box;
     line-height: 1.5em;
     letter-spacing: -.5px;
+    font-family: sans-serif;
+    font-weight:400;
     @include basicFont(100);
 }
 
@@ -2172,50 +2174,75 @@ body {
         }
     }
 
-    .project {
-        &-insert-view {
-            h2 {
-                display:initial;
-                font-size:35px;
-                b.userid {
-                    color:$main;
-                    font-family: $font2;
-                    font-size:0.8em;
-                    text-shadow:3px 0 2px #000;
-                }
-                &::before {
-                    content: "";
-                    display: none;
-                }
+    .pi-view {
+        h2 {
+            display:initial;
+            font-family: sans-serif;
+            font-weight:700;
+            font-size:35px;
+            b.userid {
+                color:$main;
+                font-family: $font2;
+                font-size:0.8em;
+                text-shadow:3px 0 2px #000;
             }
-            >p {
-                font-size:25px;
-            }
-            .box {
-
-                margin: 40px 0;
-                @include inputs(60%);
-            }
-            .calendar-box {
+            &::before {
+                content: "";
                 display: none;
-                position:absolute;
-                left:0;
-                top:110%;
-                transition: .5s;
-                border:0;
-                z-index:99;
-                background-color: #fff;
-                border:1px solid #aaa;
-                padding:10px;
-                &.on {
-                    display: block;
-                }
             }
-            .react-calendar-insert {
-               border:0;
-          
+        }
+        >p {
+            font-family:sans-serif;
+            font-size:25px;
+            color:#aaa;
+            font-weight:400;
+        }
+        .box {
+            margin: 50px 0;
+            @include inputs(60%);
+        }
+        .pi-createbtn {
+            border:0;
+            background-color:$main;
+            font-size: 20px;
+            font-weight: 700;
+            border-radius:5px;
+            min-width:75px;
+            padding: 10px 20px;
+            box-shadow: 1px 1px 1px #888;
+        }
+        .calendar-box {
+            display: none;
+            position:absolute;
+            left:0;
+            top:110%;
+            min-width:300px;
+            width:100%;
+            transition: .5s;
+            border:0;
+            z-index:99;
+            background-color: #fff;
+            border:1px solid #aaa;
+            padding:10px;
+            &.on {
+                display: block;
+            }
+            p.date-view {
+                margin: 10px 0;
+                font-size:15px;
+                
+            }
+        }
+        .react-calendar-insert {
+           border:0;
+           .react-calendar__tile--active {
+            background-color: inherit;
+            color:inherit;
+           }
+           .react-calendar__tile--now:enabled:hover, .react-calendar__tile--now:enabled:focus, .react-calendar__tile--now {
+            background-color: inherit;
+           }
 
-            }
         }
     }
 

@@ -6,6 +6,7 @@ let initialState = {
   data: [],
   lookData: [],
   testData: [],
+  projectData: [],
 };
 
 const calendarSlice = createSlice({
@@ -34,6 +35,13 @@ const calendarSlice = createSlice({
     lookDataReset: (state, action) => {
       state.lookData = initialState.lookData;
     },
+
+    _ProjectInfo: (state, action) => {
+      state.action = action.type;
+    },
+    getProjectInfo: (state, action) => {
+      state.projectData = action.payload.data;
+    },
   },
 });
 
@@ -45,5 +53,7 @@ export const {
   lookDataReset,
   testRequest,
   getTestResponse,
+  _ProjectInfo,
+  getProjectInfo,
 } = calendarSlice.actions;
 export default calendarSlice.reducer;

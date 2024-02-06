@@ -69,9 +69,10 @@ export function InsertInput({
   change,
   focus,
   click,
+  keypress,
   dataIndex,
   children,
-  value,
+  value_,
   placeholder,
   className = "line",
   label,
@@ -82,17 +83,16 @@ export function InsertInput({
         name={name}
         type={type}
         placeholder={placeholder}
-        value={value}
+        defaultValue={value_}
         onChange={change}
         onBlur={focus}
         onFocus={focus}
         onClick={click}
+        onKeyDown={keypress}
         data-index={dataIndex}
         required
       />
-      <label htmlFor="description">
-        {!!!label ? children : label}
-      </label>
+      <label htmlFor="description">{!!!label ? children : label}</label>
       <span></span>
       {!!!label ? label : children}
     </div>
