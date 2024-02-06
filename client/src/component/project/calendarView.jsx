@@ -30,6 +30,7 @@ export default function CalendarView({ att, type, dateValue }) {
     colorReset();
     dateMemo.start = "";
     dateMemo.last = "";
+    document.querySelector('.date-view').innerHTML="";
   };
   const calConfirm = (event) => {
     event.preventDefault();
@@ -54,14 +55,20 @@ export default function CalendarView({ att, type, dateValue }) {
     navigationAriaLive: "polite",
     formatMonthYear: (locale, date) => moment(date).format("YYYY MMMM"),
     onClickDay: (value, event) => {
+      const today = moment(new Date()).format(format);
       value = moment(value).format(format);
       const target = event.currentTarget;
+      if(today > value) {
+        alert('지난 날짜를 지정할 수 없습니다.');
+        return;
+      }
       if (!!!dateMemo.start) {
         //start가 없는 경우
         dateMemo.start = value;
         target.style.backgroundColor = startColor.background;
         target.style.color = startColor.font;
       } else {
+   
         if (!!dateMemo.start && !!dateMemo.last) {
           colorReset();
           dateMemo.start = value;
@@ -69,6 +76,15 @@ export default function CalendarView({ att, type, dateValue }) {
           target.style.color = startColor.font;
           dateMemo.last = "";
         } else {
+          if(dateMemo.start > value) {
+            alert('시작일 보다 작을 수 없습니다.');
+            return;
+          }
+          else if(dateMemo.start === value) {
+            dateMemo.start ="";
+            colorReset();
+            return;
+          }
           dateMemo.last = value;
           target.style.backgroundColor = lastColor.background;
           target.style.color = lastColor.font;
@@ -76,9 +92,6 @@ export default function CalendarView({ att, type, dateValue }) {
       }
     },
   };
-  //   useEffect(() => {
-  //     console.log(dateMemo);
-  //   }, [dateMemo]);
 
   return (
     <div className="calendar-box">

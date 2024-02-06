@@ -58,13 +58,7 @@ router.post("/info", async (req, res) => {
   let data = [];
   const conn = await db2.getConnection();
   try {
-    let sql = sqlText.SELECT("users", "id=?", "project");
-    // project name
-    let pn = await conn.query(sql, req.body.userId);
-    pn = pn[0][0].project;
-    pn = pn.map((v, i) => (i !== 0 ? `OR \"${v}\" ` : `subject=\"${v}\"`));
-    pn = pn.join(" ");
-    console.log(pn);
+
     sql = sqlText.SELECT("project", `userId=?`);
     data = await conn.query(sql, req.body.userId);
     data = data[0];
