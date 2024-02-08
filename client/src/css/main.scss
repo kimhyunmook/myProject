@@ -634,7 +634,7 @@ body {
 
     .container-normal {
         max-width: $maxW;
-        padding: 25px 200px 100px;
+        // padding: 25px 200px 100px;
         margin: auto;
         margin-top: $topNav;
 
@@ -2140,14 +2140,31 @@ body {
         }
     }
 
-
+    .project-select {
+        background:transparent;
+        border:0;
+        border-bottom: 3px solid $calendar_color;
+        // color:$calendar_color;
+        font-family: $font2;
+        max-width: 300px;
+        min-width:150px;
+        padding:3px;
+        width:50%;
+        margin:auto;
+        display:block;
+        font-size:22px;
+        outline:none;
+        text-align:center;
+        option {
+        }
+    }
     .project-menu {
         display: flex;
         justify-content: space-around;
         height: 50px;
         width: 70%;
         max-width: 1000px;
-        margin: 20px auto 40px;
+        margin: 20px auto 80px;
         align-items: center;
         font-size: 27px;
 
@@ -2257,7 +2274,9 @@ body {
 
     .react-calendar-main {
         $border: 3px solid #390000;
-        $bgc: #fdf0f0;
+        $bgc:transparent;
+        $todaycolor: #351313;
+
         width: 100%;
         max-width: 850px;
         margin: auto;
@@ -2267,26 +2286,125 @@ body {
         overflow: hidden;
         background-color: $bgc;
         font-family: 'OKDDUNG';
-        margin-bottom: 100px;
-        padding-bottom: 10px;
-
+        padding-bottom: 100px;
+        .react-calendar__month-view__days{
+            background-color:#fff1e3;
+            border-radius: 10px;
+        }
         .react-calendar__tile {
-            // $p :35px;
-            // padding :40px 0;
             height: 125px;
-            ;
+            padding:0;
+            position:relative;
+        
+            abbr {
+                color:#c4c4c4;
+            }
 
-            // padding-top: $p;
-            // padding-bottom:$p;
-            &--now {
-                border-radius: 5px;
+            &:has(div.dateBg) {
+                background-color:rgb(254, 222, 208);
+                abbr {
+                    
+                    color:$calendar_color;
+                }
+            }
+            &--now.react-calendar__month-view__days__day {
+                background-color:#ffbf8f;
+                abbr {
+                    color:$calendar_color
+                }
+                &::after {
+                    content:"today";
+                    font-family: $font2;
+                    font-size:0.9em;
+                    display:block;
+                    color:$todaycolor;
+                    position:absolute;
+                    top:73%;
+                    left:50%;
+                    transform:translate(-50%,-50%);
+                }   
+                &:has(.dateBg.today) {
+                    &::after {
+                        display:none;
+                    }
+                }
             }
         }
-
         abbr {
             transition: .5s;
             font-family: 'OKDDUNG';
-            color: $calendar_color;
+            position:relative;
+            color:$calendar_color;
+            z-index: 3;
+        }
+
+        .dateBg {
+            width:100%;
+            height:5px;
+            background:#FC9F42;
+            z-index: 1;
+            // border-radius:15px;
+            // transition:.5s;
+        }
+        $c:#485252;
+        .dateBg.today {
+            background:$todaycolor;
+            &::after {
+                content:"today";
+                font-family: $font2;
+                font-size:0.9em;
+                display:block;
+                color:$todaycolor;
+                position:absolute;
+                top:73%;
+                left:50%;
+                transform:translate(-50%,-50%);
+            }
+        }
+        .dateBg.start {
+            background:$c;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            &::after {
+                content:"start";
+                font-family: $font2;
+                font-size:0.9em;
+                display:block;
+                color:$c;
+                position:absolute;
+                top:73%;
+                left:50%;
+                transform:translate(-50%,-50%);
+            }
+        }
+        .dateBg.start.today {
+            &::before {
+                content:"today";
+                font-family: $font2;
+                font-size:0.9em;
+                display:block;
+                color:$todaycolor;
+                position:absolute;
+                top:88%;
+                left:50%;
+                transform:translate(-50%,-50%);
+            }
+        }
+        .dateBg.last {
+            background:$c;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            &::after {
+                content:"end";
+                font-family: $font2;
+                font-size:0.9em;
+                display:block;
+                color:$c;
+                position:absolute;
+                top:73%;
+                left:50%;
+                transform:translate(-50%,-50%);
+            }
         }
 
         $calendar_p :40px;
@@ -2335,13 +2453,15 @@ body {
 
         .react-calendar__tile--active {
             background: $active_color;
-            border-radius: $radius;
+            abbr {
+                color:$calendar_color;
+            }
         }
 
         .calendar-dot {
             margin: 5px 0;
             background: $active_color;
-            border-radius: $radius;
+            // border-radius: $radius;
             width: 100%;
             height: 10px
         }
@@ -2349,7 +2469,7 @@ body {
         .react-calendar__tile:enabled:hover,
         .react-calendar__tile:enabled:focus {
             background-color: rgb(178, 211, 255);
-            border-radius: $radius;
+            // border-radius: $radius;
             // box-shadow: 3px 1px 5px #000;
 
             abbr {
@@ -2358,12 +2478,19 @@ body {
                 text-shadow: 3px 0px 5px #000;
                 transform: rotate(15deg)scale(1.5)
             }
+            .dateBg {
+                // margin-top:10px;
+                height:0;
+                // transform:translateX(-50%);
+                background:$active_color;
+            }
         }
     }
 
     .calendar-modal {
         border: 0;
         width: 60%;
+        max-width: 700px;
         height: 90%;
         overflow-y: scroll;
         box-shadow: 2px 3px 5px #000;
@@ -2374,7 +2501,28 @@ body {
             text-shadow: 3px 0px 5px rgb(255, 204, 108);
         }
 
-
+        .execution-view {
+            li {
+                .line {
+                    margin-bottom:10px;
+                }
+                .textarea {
+                    margin-top:30px;
+                    textarea {
+                        width:100%;
+                        height:100%;
+                        min-height:300px;
+                        border:0;
+                        outline:none;
+                        background-color:#faebeb;
+                        font-size:17px;
+                        font-weight:100;
+                        padding:10px;
+                        border-radius:10px;
+                    }
+                }
+            }
+        }
         ul {
             padding: 20px 20px;
             width: 100%;
@@ -2426,9 +2574,7 @@ body {
             }
 
             li {
-
                 display: block;
-
                 .line {
                     position: relative;
                     width: 100%;
