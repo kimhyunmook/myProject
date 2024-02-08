@@ -1,12 +1,12 @@
 import { useDispatch } from "react-redux";
 import { BtnArea } from "../common/commonUi";
 import CalendarView from "./calendarView";
-import { InsertInput } from "./leaningView";
+import { InsertInput } from "./executionView";
 import { useRef, useState } from "react";
 import { _Project } from "../../store/userSlice";
 import { useNavigate } from "react-router-dom";
 
-export default function ProjectInsertView({ userInfo }) {
+export default function ProjectInsertView({ userInfo, title }) {
   const form = useRef(null);
   const [date, setDate] = useState("");
   const dispatch = useDispatch();
@@ -21,6 +21,9 @@ export default function ProjectInsertView({ userInfo }) {
   const dateValue = (t) => {
     setDate(`${t.start} ~ ${t.last}`);
   };
+  function dateHandle(event) {
+    event.preventDefault();
+  }
   //   const dateHandler = ()
   const submit_ = (event) => {
     event.preventDefault();
@@ -56,18 +59,28 @@ export default function ProjectInsertView({ userInfo }) {
       return;
     }
     dispatch(_Project(body));
-    alert('입력되었습니다.')
+    alert("입력되었습니다.");
     navigate("/project/calendar");
     window.location.reload();
   };
 
   return (
     <form className="pi-view" ref={form}>
-      <h2 className="">
-        안녕하세요 <b className="userid">{id}</b>님 <br />
-        현재 진행 중인 Project가 없습니다.
-      </h2>
-      <p>새로운 Project를 만들어 계획을 세우고 관리하며 실천해보세요.</p>
+      {!!!title ? (
+        <>
+          <h2 className="">
+            안녕하세요 <b className="userid">{id}</b>님 <br />
+            현재 진행 중인 Project가 없습니다.
+          </h2>
+          <p>새로운 Project를 만들어 계획을 세우고 관리하며 실천해보세요.</p>
+        </>
+      ) : (
+        <>
+          <h2>새로운 프로젝트</h2>
+          {/* 명언 넣어볼 예정 */}
+          <p className="wiseSaying">새로운 Project를 입력해주세요</p>
+        </>
+      )}
       <InsertInput
         className="box"
         name={"type"}
@@ -84,6 +97,7 @@ export default function ProjectInsertView({ userInfo }) {
         click={dateView}
         label={"Project 기간"}
         value_={date}
+        change={dateHandle}
         keypress={(event) => event.preventDefault()}
       >
         <CalendarView dateValue={dateValue} />

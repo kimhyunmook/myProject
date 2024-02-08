@@ -114,6 +114,12 @@ DB=${req.body.db}
       read_sql: "project/create.sql",
     });
 
+    await existCreateQuery({
+      connect: conn,
+      table_name: "project_calendar",
+      read_sql: "project/project_calendar.sql",
+    });
+
     sql = sqlText.INSERT(
       "likes",
       "icon,type,hit",

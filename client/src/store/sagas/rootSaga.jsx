@@ -37,6 +37,7 @@ import { _GetLike } from "../likeSlice";
 import { handleLike } from "./likeSaga";
 // import { getSetting } from "../settingSlice";
 import {
+  _ProjectCalendarInfo,
   _ProjectInfo,
   addPlan,
   calendarInfo,
@@ -44,6 +45,7 @@ import {
 } from "../calendarSlice";
 import {
   handleCalendarInfo,
+  handleProjectCalendarInfo,
   handleProjectInfo,
   handle_addPlan,
   handle_testRequest,
@@ -83,5 +85,6 @@ export default function* rootSaga() {
     yield takeLatest(addPlan.type, handle_addPlan),
     yield takeLatest(testRequest.type, handle_testRequest),
     yield takeLatest(_ProjectInfo.type, handleProjectInfo),
+    yield takeLatest(_ProjectCalendarInfo.type, handleProjectCalendarInfo),
   ];
 }

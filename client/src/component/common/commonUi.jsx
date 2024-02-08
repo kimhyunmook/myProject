@@ -146,26 +146,19 @@ export function LoadingPage({ style, children }) {
  * @param className classname "on" <- display:block; Default display:none;
  * @returns Modal
  */
-export function Modal({
-  display = false,
-  title,
-  className,
-  children,
-  button,
-  ref = null,
-}) {
+export function Modal({ display = false, title, className, children, button }) {
   let clan = "modal";
   const bg = useRef(null);
-  let info;
-  Array.isArray(info)
-    ? (info = button)
-    : (info = {
-        Name: button.Name ? button.Name : "닫기",
-        Click: button.Click !== undefined ? button.Click : close,
-      });
-  if (className !== undefined) clan = `modal ${className}`;
-  if (Array.isArray(button)) {
-    info = button;
+  let btnInfo = {};
+  if (!!button) {
+    Array.isArray(btnInfo)
+      ? (btnInfo = button)
+      : (btnInfo = {
+          Name: button.Name ? button.Name : "닫기",
+          Click: button.Click !== undefined ? button.Click : close,
+        });
+    if (className !== undefined) clan = `modal ${className}`;
+    if (Array.isArray(button)) btnInfo = button;
   }
 
   useEffect(() => {
@@ -182,7 +175,7 @@ export function Modal({
       <div className={clan}>
         <h2>{title}</h2>
         {children}
-        {<BtnArea info={info} />}
+        {!!!button ? null : <BtnArea info={btnInfo} />}
       </div>
     </div>
   );
