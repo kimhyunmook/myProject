@@ -1155,6 +1155,10 @@ input {
         background-color: #feded0; }
         #root .react-calendar-main .react-calendar__tile:has(div.dateBg) abbr {
           color: #4b1010a6; }
+      #root .react-calendar-main .react-calendar__tile:has(div.dateBg.exe) {
+        background-color: #ffffff; }
+        #root .react-calendar-main .react-calendar__tile:has(div.dateBg.exe) .dateBg.exe {
+          background: #babfff; }
       #root .react-calendar-main .react-calendar__tile--now.react-calendar__month-view__days__day {
         background-color: #ffbf8f; }
         #root .react-calendar-main .react-calendar__tile--now.react-calendar__month-view__days__day abbr {
@@ -1178,10 +1182,12 @@ input {
       color: #4b1010a6;
       z-index: 3; }
     #root .react-calendar-main .dateBg {
-      width: 100%;
+      width: 30%;
       height: 5px;
       background: #FC9F42;
-      z-index: 1; }
+      z-index: 1;
+      margin: auto;
+      border-radius: 15px; }
     #root .react-calendar-main .dateBg.today {
       background: #351313; }
       #root .react-calendar-main .dateBg.today::after {
@@ -1232,6 +1238,12 @@ input {
         top: 73%;
         left: 50%;
         transform: translate(-50%, -50%); }
+    #root .react-calendar-main .dateBg.exe .exe_box {
+      position: absolute;
+      top: 1%;
+      left: 1%;
+      font-size: 20px;
+      text-shadow: 3px 0px 5px #aaa; }
     #root .react-calendar-main .react-calendar__viewContainer {
       padding: 0 40px; }
     #root .react-calendar-main .react-calendar__navigation {
@@ -1257,14 +1269,9 @@ input {
       background: #ff9d9d; }
       #root .react-calendar-main .react-calendar__tile--active abbr {
         color: #4b1010a6; }
-    #root .react-calendar-main .calendar-dot {
-      margin: 5px 0;
-      background: #ff9d9d;
-      width: 100%;
-      height: 10px; }
     #root .react-calendar-main .react-calendar__tile:enabled:hover,
     #root .react-calendar-main .react-calendar__tile:enabled:focus {
-      background-color: #b2d3ff; }
+      background-color: #b2d3ff !important; }
       #root .react-calendar-main .react-calendar__tile:enabled:hover abbr,
       #root .react-calendar-main .react-calendar__tile:enabled:focus abbr {
         display: block;
@@ -1275,6 +1282,19 @@ input {
       #root .react-calendar-main .react-calendar__tile:enabled:focus .dateBg {
         height: 0;
         background: #ff9d9d; }
+  #root .textarea {
+    margin-top: 30px; }
+    #root .textarea textarea {
+      width: 100%;
+      height: 100%;
+      min-height: 300px;
+      border: 0;
+      outline: none;
+      background-color: #faebeb;
+      font-size: 17px;
+      font-weight: 100;
+      padding: 10px;
+      border-radius: 10px; }
   #root .calendar-modal {
     border: 0;
     width: 60%;
@@ -1286,11 +1306,11 @@ input {
     #root .calendar-modal h2 {
       font-family: "PartialSansKR-Regular";
       text-shadow: 3px 0px 5px #ffcc6c; }
-    #root .calendar-modal .execution-view li .line {
+    #root .calendar-modal .execution-insert-view li .line {
       margin-bottom: 10px; }
-    #root .calendar-modal .execution-view li .textarea {
+    #root .calendar-modal .execution-insert-view li .textarea {
       margin-top: 30px; }
-      #root .calendar-modal .execution-view li .textarea textarea {
+      #root .calendar-modal .execution-insert-view li .textarea textarea {
         width: 100%;
         height: 100%;
         min-height: 300px;
@@ -1301,6 +1321,51 @@ input {
         font-weight: 100;
         padding: 10px;
         border-radius: 10px; }
+    #root .calendar-modal .execution-look-view {
+      padding: 10px;
+      margin-top: 30px; }
+      #root .calendar-modal .execution-look-view li {
+        position: relative;
+        border: 1px solid #000;
+        border-radius: 10px;
+        overflow: hidden;
+        width: 90%;
+        padding: 10px;
+        margin: 10px auto; }
+        #root .calendar-modal .execution-look-view li p {
+          background: #faebeb;
+          border-radius: 10px;
+          display: flex;
+          word-break: break-word;
+          margin: 10px 0;
+          padding: 10px; }
+          #root .calendar-modal .execution-look-view li p.execution-subject::before {
+            content: "제목";
+            word-break: keep-all;
+            color: #333;
+            display: block;
+            padding-right: 15px; }
+          #root .calendar-modal .execution-look-view li p.execution-content {
+            min-height: 100px; }
+            #root .calendar-modal .execution-look-view li p.execution-content::before {
+              content: "내용";
+              word-break: keep-all;
+              color: #333;
+              display: block;
+              padding-right: 15px; }
+        #root .calendar-modal .execution-look-view li button {
+          cursor: pointer; }
+          #root .calendar-modal .execution-look-view li button.achieve-button {
+            background: #fff;
+            color: #999;
+            border: 0;
+            box-shadow: none; }
+            #root .calendar-modal .execution-look-view li button.achieve-button.active {
+              color: #4b1010a6;
+              cursor: inherit;
+              text-shadow: 3px 1px 5px #aaa; }
+          #root .calendar-modal .execution-look-view li button:hover {
+            color: #ff9d9d; }
     #root .calendar-modal ul {
       padding: 20px 20px;
       width: 100%;

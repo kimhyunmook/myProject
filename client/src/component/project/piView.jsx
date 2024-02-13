@@ -108,9 +108,11 @@ export default function ProjectInsertView({ userInfo, title }) {
         label={"Project 내용"}
       ></InsertInput>
       <InsertInput
-        className="box"
+        type="textarea"
+        className="box textarea"
         name={"description"}
-        label={"Project 설명"}
+        // label={"Project 설명"}
+        placeholder={"Project 설명"}
       ></InsertInput>
       <button className="pi-createbtn" onClick={submit_}>
         Create
