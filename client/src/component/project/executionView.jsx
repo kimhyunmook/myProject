@@ -14,12 +14,12 @@ export default function ExecutionView({
   viewDate,
   closeEvent,
   userInfo,
+  modalDisplay=false
 }) {
   const urlParam = window.location.search;
   const initParma = `?project=${project?.subject}&modal=display`;
   const form = useRef(null);
   const dispatch = useDispatch();
-  let modalDisplay = urlParam?.split("&")[1]?.split("modal=")[1];
   const navigate = useNavigate();
   let submitinit = {
     url: "/project/projectCalendar",
@@ -30,7 +30,6 @@ export default function ExecutionView({
     date: "",
   };
   let body = {};
-  const type = urlParam.split("type=");
 
   const submitData = useMemo(() => {
     return submitinit;
@@ -49,7 +48,7 @@ export default function ExecutionView({
     }
   });
   function close_() {
-    if (type.includes("insert")) {
+    if (urlParam.includes("insert")) {
       form.current.subject.value = "";
       form.current.content.value = "";
     }
@@ -61,12 +60,12 @@ export default function ExecutionView({
     const target = form.current;
 
     if (!!!target.subject.value) {
-      alert("빈칸을 입력해주세요.");
+      alert("제목을 입력해주세요.");
       target.subject.focus();
       return;
     }
     if (!!!target.content.value) {
-      alert("빈칸을 입력해주세요");
+      alert("자세한 내용을 입력해주세요");
       target.content.focus();
       return;
     }
@@ -82,8 +81,9 @@ export default function ExecutionView({
     console.log(body);
     dispatch(_ProjectCalendarInfo(body));
     alert("입력되었습니다.");
-    navigate(urlParam.split("&modal=display", 1));
+    
   }
+  // console.log(urlParam.split("&modal=display", 1))
   function achieve(event) {
     event.preventDefault();
     if (window.confirm("달성으로 변경 하시겠습니까?")) {
@@ -116,12 +116,12 @@ export default function ExecutionView({
         <h3>{moment(viewDate).format("MM월DD일")}</h3>
         <ProjectMenu
           arr={[
-            { href: `${initParma}&type=insert`, text: "Insert" },
-            { href: `${initParma}&type=look`, text: "Look" },
+            { href: `?insert`, text: "Insert" },
+            { href: `?look`, text: "Look" },
           ]}
         />
 
-        {type.includes("insert") ? (
+        {urlParam.includes("insert") ? (
           <ul className="execution-insert-view">
             <li>
               <InsertInput

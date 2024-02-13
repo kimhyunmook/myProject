@@ -27,8 +27,9 @@ export default function ProjectS() {
   const [executionDate, setExeDate] = useState(
     executionData?.map((v) => v.date)
   ); //date
+  const [projectName, setProjectName] = useState("");
   const projectTarget = projectData?.filter((v) => {
-    if (urlParam?.split("project=")[1]?.split("&").includes(v.subject))
+    if (projectName === v.subject)
       return v;
   })[0];
   const targetDate = !!projectTarget?.date
@@ -45,49 +46,43 @@ export default function ProjectS() {
   const path = util.path();
   const navigate = useNavigate();
   const today = moment(new Date()).format(format);
-  const projectName = urlParam?.split("project=")[1];
   const [todayExecutionData, setTodayExecutionDaya] = useState([]);
-  let executionBody = {
-    url: "/project/projectCalendarInfo",
-    projectName: projectName,
-    userId: userInfo.id,
-  };
-  let body = {};
+  const [modalDisplay, setModalDisplay] = useState(false);
+  let executionBody, body = {};
 
   useEffect(() => {
     body = {
       url: "/project/info",
       userId: userInfo.id,
     };
-    dispatch(_ProjectCalendarInfo(executionBody));
-    dispatch(_ProjectInfo(body));
-    setExeDate(executionData.map((v) => v.date));
-  }, []);
-
-  const projectInfoHandle = (event) => {
-    event.preventDefault();
-    projectData?.map((v, i) => {
-      if (v.subject === event.currentTarget.value) {
-        navigate(`?project=${v.subject}`);
-      } else if (!!!event.currentTarget.value) navigate("");
-    });
-
-    //이거 왜이럼 ?
     executionBody = {
       url: "/project/projectCalendarInfo",
       projectName: projectName,
       userId: userInfo.id,
     };
-    console.log(executionBody);
+    dispatch(_ProjectCalendarInfo(executionBody));
+    dispatch(_ProjectInfo(body));
+    setExeDate(executionData.map((v) => v.date));
+  }, [projectName]);
+
+  //select event
+  const projectInfoHandle = (event) => {
+    event.preventDefault();
+
+    setProjectName(event.currentTarget.value)
+    executionBody = {
+      url: "/project/projectCalendarInfo",
+      projectName: event.currentTarget.value,
+      userId: userInfo.id,
+    };
 
     dispatch(_ProjectCalendarInfo(executionBody));
     setExeDate(executionData.map((v) => v.date));
   };
   const closeModal = (event) => {
-    navigate(urlParam.split("&modal=display", 1).join(""));
-  };
-
-  console.log(calendar_info);
+    setModalDisplay(false)
+    navigate(window.location.pathname);
+  }
 
   const calednarAtt = {
     locale: "en",
@@ -122,13 +117,13 @@ export default function ProjectS() {
       setTodayExecutionDaya(
         executionData.filter((x) => (x.date === dateValue ? x : null))
       );
+      setModalDisplay(true);
       setClickDate(value);
-      navigate(`${urlParam}&modal=display`);
+      navigate('?look');
     },
     tileContent: ({ date, view }) => {
       let value = moment(date).format(format);
       let className = "dateBg";
-
       if (value === today) className += " today";
       if (start === value) className += " start";
       let exeDate = [
@@ -194,7 +189,7 @@ export default function ProjectS() {
                   onChange={projectInfoHandle}
                   value={projectName}
                 >
-                  <option value="">Project를 선택해주세요</option>
+                  <option value="" disabled>Project를 선택해주세요</option>
                   {projectData?.map((v, i) => {
                     return (
                       <option key={`${v}_${i}`} value={v.subject}>
@@ -210,6 +205,7 @@ export default function ProjectS() {
                   userInfo={userInfo}
                   viewDate={clickDate}
                   closeEvent={closeModal}
+                  modalDisplay={modalDisplay}
                 />
               </div>
             ) : (
