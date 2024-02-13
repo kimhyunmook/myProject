@@ -6,13 +6,17 @@ import {
   faAnglesRight,
   faBars,
   faChalkboard,
+  faClover,
   faHouse,
   faList,
   faPen,
   faPenNib,
   faPerson,
   faPersonDress,
+  faPlay,
   faScrewdriverWrench,
+  faStamp,
+  faStar,
   faTrash,
   faUnlockKeyhole,
   faUser,
@@ -23,9 +27,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export function FontAwsome(props) {
-  let data = props.data;
-  let type = props.type;
+export function FontAwsome({ data, type }) {
   let fontData = [
     ["default", "😊"],
     ["fa-user", faUser],
@@ -49,6 +51,9 @@ export function FontAwsome(props) {
     ["fa-screwdriver-wrench", faScrewdriverWrench], //admin
     ["fa-angles-right", faAnglesRight],
     ["fa-angles-left", faAnglesLeft],
+    ["fa-start", faStamp],
+    ["fa-play", faPlay],
+    ["fa-clover", faClover],
   ];
 
   if (data !== "default")
@@ -62,7 +67,7 @@ export function FontAwsome(props) {
     return {
       _data: fontData,
     };
-  else if (type === "element" || type === undefined) {
+  else if (type === "element" || !!!type) {
     if (data === "default" || data === "") {
       return fontData[0][1];
     } else {

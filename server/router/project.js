@@ -56,8 +56,8 @@ router.post("/add", async (req, res) => {
 router.post("/info", async (req, res) => {
   const routerName = req.originalUrl;
   let data = [];
-  const conn = await db2.getConnection();
   try {
+    const conn = await db2.getConnection();
     sql = sqlText.SELECT("project", `userId=?`);
     data = await conn.query(sql, req.body.userId);
     data = data[0];
@@ -99,16 +99,43 @@ router.post("/projectCalendarInfo", async (req, res) => {
   try {
     let sql = sqlText.SELECT(
       "project_calendar",
-      `userId="${req.body.userId}" AND date="${req.body.date}"`
+      `userId="${req.body.userId}" AND project_name="${req.body.projectName}"`
     );
     let data = await conn.query(sql);
+
     data = data[0];
-    console.log(data);
     res.status(200).json({
       condition: "SUCCESS",
       data,
     });
-    await correctMessage(routerName, "info good");
+    correctMessage(routerName, "execution data");
+    await conn.release();
+  } catch (error) {
+    await conn.release();
+
+    errorMessage(routerName, error);
+  }
+});
+
+router.post("/projectCalendarEdit", async (req, res) => {
+  const routerName = req.originalUrl;
+  const conn = await db2.getConnection();
+  try {
+    let sql = sqlText.UPDATE(
+      "project_calendar",
+      `achieve="${req.body.achieve}"`,
+      `num=${req.body.num}`
+    );
+    await conn.query(sql);
+    let data;
+    sql = sqlText.SELECT("project_calendar", `userId="${req.body.userId}"`);
+    data = await conn.query(sql);
+    data = data[0];
+    res.status(200).json({
+      data,
+    });
+    correctMessage(routerName, "execution Edit");
+    await conn.release();
   } catch (error) {
     errorMessage(routerName, error);
   }

@@ -6,7 +6,7 @@ CREATE TABLE `project_calendar` (
 	-- `description` VARCHAR(500) NULL DEFAULT NULL,
 	`date` VARCHAR(70) NOT NULL,
 	`userId` VARCHAR(30) NOT NULL,
-	-- `color` VARCHAR(10) NULL DEFAULT "#ff9d9d",
+	`achieve` VARCHAR(10) NULL,
 	PRIMARY KEY (`num`)
 )
 ;
