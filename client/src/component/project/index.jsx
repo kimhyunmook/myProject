@@ -22,16 +22,13 @@ export default function ProjectS() {
   const store = useSelector((state) => state);
   const userInfo = store.userInfo.data;
   const calendar_info = store.calendarInfo;
-  const projectData = calendar_info?.projectData;
-  const executionData = calendar_info?.projectExecution;
-  const [executionDate, setExeDate] = useState(
-    executionData?.map((v) => v.date)
-  ); //date
-  const [projectName, setProjectName] = useState("");
-  const projectTarget = projectData?.filter((v) => {
-    if (projectName === v.subject)
-      return v;
-  })[0];
+  const projectData = calendar_info.projectData;
+  const [executionData, setExecutionData] = useState(
+    calendar_info.projectExecution
+  );
+
+  const [projectTarget, setProjectTarget] = useState("");
+
   const targetDate = !!projectTarget?.date
     ? projectTarget?.date
     : "0000-00-00 ~ 0000-00-00";
@@ -46,43 +43,52 @@ export default function ProjectS() {
   const path = util.path();
   const navigate = useNavigate();
   const today = moment(new Date()).format(format);
-  const [todayExecutionData, setTodayExecutionDaya] = useState([]);
   const [modalDisplay, setModalDisplay] = useState(false);
-  let executionBody, body = {};
-
+  let executionBody,
+    body = {};
   useEffect(() => {
     body = {
       url: "/project/info",
       userId: userInfo.id,
     };
+    dispatch(_ProjectInfo(body));
+  }, []);
+
+  useEffect(() => {
     executionBody = {
       url: "/project/projectCalendarInfo",
-      projectName: projectName,
+      projectName: projectTarget.subject,
       userId: userInfo.id,
     };
+
     dispatch(_ProjectCalendarInfo(executionBody));
-    dispatch(_ProjectInfo(body));
-    setExeDate(executionData.map((v) => v.date));
-  }, [projectName]);
+  }, [projectTarget]);
+
+  useEffect(() => {
+    setExecutionData(calendar_info.projectExecution);
+  }, [store]);
 
   //select event
   const projectInfoHandle = (event) => {
     event.preventDefault();
+    if (!event.currentTarget.children[0].disabled)
+      event.currentTarget.children[0].disabled = true;
+    let projectValue = JSON.parse(event.currentTarget.value);
+    setProjectTarget(projectValue);
 
-    setProjectName(event.currentTarget.value)
     executionBody = {
       url: "/project/projectCalendarInfo",
-      projectName: event.currentTarget.value,
+      projectName: projectValue.subject,
       userId: userInfo.id,
     };
 
     dispatch(_ProjectCalendarInfo(executionBody));
-    setExeDate(executionData.map((v) => v.date));
   };
+
   const closeModal = (event) => {
-    setModalDisplay(false)
+    setModalDisplay(false);
     navigate(window.location.pathname);
-  }
+  };
 
   const calednarAtt = {
     locale: "en",
@@ -107,29 +113,18 @@ export default function ProjectS() {
           return;
         }
       }
-      // dispatch(
-      //   addPlan({
-      //     url: `/project/add`,
-      //     userId: userInfo.id,
-      //     date: dateValue,
-      //   })
-      // );
-      setTodayExecutionDaya(
-        executionData.filter((x) => (x.date === dateValue ? x : null))
-      );
+
       setModalDisplay(true);
       setClickDate(value);
-      navigate('?look');
+      navigate("?look");
     },
     tileContent: ({ date, view }) => {
       let value = moment(date).format(format);
       let className = "dateBg";
       if (value === today) className += " today";
       if (start === value) className += " start";
+
       let exeDate = [
-        ...new Set(executionDate.filter((x) => (x === value ? value : null))),
-      ][0];
-      let test = [
         ...new Set(
           executionData
             ?.map((v) => (value === v.date ? v.date : null))
@@ -139,7 +134,7 @@ export default function ProjectS() {
 
       if (last === value) className += " last";
       if (start <= value && last >= value) {
-        if (value === exeDate || test === value) {
+        if (exeDate === value) {
           className += " exe";
           return (
             <div className={className}>
@@ -175,7 +170,7 @@ export default function ProjectS() {
                 { href: "/project/calendar", text: "🗓️ Calendar" },
                 { href: "/project/add", text: "📝 Add Project" },
               ]}
-            ></ProjectMenu>
+            />
 
             {path[path.length - 1] === "calendar" ? (
               <div
@@ -187,12 +182,13 @@ export default function ProjectS() {
                   name="project-select"
                   className="project-select"
                   onChange={projectInfoHandle}
-                  value={projectName}
+                  // value={projectName}
                 >
-                  <option value="" disabled>Project를 선택해주세요</option>
+                  <option value={""}>Project를 선택해주세요</option>
                   {projectData?.map((v, i) => {
+                    let value = JSON.stringify(v);
                     return (
-                      <option key={`${v}_${i}`} value={v.subject}>
+                      <option key={`${v}_${i}`} value={value}>
                         {v.subject}
                       </option>
                     );
@@ -201,7 +197,6 @@ export default function ProjectS() {
                 <Calendar {...calednarAtt} />
                 <ExecutionView
                   project={!!!projectTarget ? {} : projectTarget}
-                  projectInfo={todayExecutionData}
                   userInfo={userInfo}
                   viewDate={clickDate}
                   closeEvent={closeModal}

@@ -83,10 +83,10 @@ router.post("/projectCalendar", async (req, res) => {
     values = values.map((v) => `"${v}"`);
     sql = sqlText.INSERT("project_calendar", keys, `(${values})`);
     await conn.query(sql);
+    await correctMessage(routerName, "insert good");
     res.status(200).json({
       condition: "SUCCESS",
     });
-    await correctMessage(routerName, "insert good");
   } catch (error) {
     errorMessage(routerName, error);
   }

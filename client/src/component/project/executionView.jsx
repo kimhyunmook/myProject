@@ -3,34 +3,35 @@ import { Link, useNavigate } from "react-router-dom";
 import { Modal } from "../common/commonUi";
 import moment from "moment";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { _ProjectCalendarInfo } from "../../store/calendarSlice";
 import { ProjectMenu } from ".";
 import { BtnArea } from "../common/commonUi";
 
 export default function ExecutionView({
   project,
-  projectInfo = [],
   viewDate,
   closeEvent,
   userInfo,
-  modalDisplay=false
+  modalDisplay = false,
 }) {
   const urlParam = window.location.search;
-  const initParma = `?project=${project?.subject}&modal=display`;
   const form = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const store = useSelector((state) => state);
+  const [list, setList] = useState([]);
+
   let submitinit = {
     url: "/project/projectCalendar",
-    project_name: project?.subject,
+    project_name: project.subject,
     userId: userInfo.id,
     subject: "",
     content: "",
     date: "",
   };
   let body = {};
-
+  const projectDate = moment(viewDate).format("YYYY-MM-DD");
   const submitData = useMemo(() => {
     return submitinit;
   }, []);
@@ -47,16 +48,16 @@ export default function ExecutionView({
         break;
     }
   });
+
   function close_() {
     if (urlParam.includes("insert")) {
-      form.current.subject.value = "";
-      form.current.content.value = "";
+      submitData.subject = "";
+      submitData.content = "";
     }
     closeEvent();
   }
   function submit_(event) {
     event.preventDefault();
-    const subDate = moment(viewDate).format("YYYY-MM-DD");
     const target = form.current;
 
     if (!!!target.subject.value) {
@@ -69,21 +70,35 @@ export default function ExecutionView({
       target.content.focus();
       return;
     }
-    form.current.subject.value = "";
-    form.current.content.value = "";
-    submitData.date = subDate;
-    axios.post("/api/project/projectCalendar", submitData);
+
+    submitData.date = projectDate;
+    submitData.project_name = project.subject;
+
     let body = {
       url: "/project/projectCalendarInfo",
       userId: userInfo.id,
-      projectName: project?.subject,
+      projectName: project.subject,
     };
-    console.log(body);
-    dispatch(_ProjectCalendarInfo(body));
-    alert("입력되었습니다.");
-    
+    axios.post("/api/project/projectCalendar", submitData).then((res) => {
+      submitData.subject = "";
+      submitData.content = "";
+
+      dispatch(_ProjectCalendarInfo(body));
+      alert("입력되었습니다.");
+      navigate("?look");
+    });
   }
-  // console.log(urlParam.split("&modal=display", 1))
+
+  useEffect(() => {
+    let d = store.calendarInfo.projectExecution.reduce((a, c, i) => {
+      if (c.date === projectDate) {
+        a.push(c);
+      }
+      return a;
+    }, []);
+    setList(d);
+  }, [store, window.location.search]);
+
   function achieve(event) {
     event.preventDefault();
     if (window.confirm("달성으로 변경 하시겠습니까?")) {
@@ -101,16 +116,22 @@ export default function ExecutionView({
   function Fix(event) {
     event.preventDefault();
   }
+  function Delete(event) {
+    event.preventDefault();
+  }
+  let modalBtn = urlParam.includes("insert")
+    ? [
+        { Name: "Add", Click: submit_ },
+        { Name: "Close", Click: close_ },
+      ]
+    : [{ Name: "Close", Click: close_ }];
 
   return (
     <Modal
       display={!!!modalDisplay ? false : true}
       className={"calendar-modal"}
       title={`🤗 ${project?.subject}`}
-      button={[
-        { Name: "Add", Click: submit_ },
-        { Name: "Close", Click: close_ },
-      ]}
+      button={modalBtn}
     >
       <form ref={form}>
         <h3>{moment(viewDate).format("MM월DD일")}</h3>
@@ -145,17 +166,16 @@ export default function ExecutionView({
           </ul>
         ) : (
           <ul className="execution-look-view">
-            {projectInfo.length === 0 ? (
+            {list.length === 0 ? (
               <li>
                 <h3>Projectd의 상세 계획이 없습니다.</h3>
               </li>
             ) : (
-              projectInfo.map((v, i) => {
+              list.map((v, i) => {
                 return (
                   <li key={`execution_${v}_${i}`} data-num={v.num}>
                     <p className="execution-subject">{v.subject}</p>
                     <p className="execution-content">{v.content}</p>
-                    {/* <p className="execution-achieve"></p> */}
                     <BtnArea
                       info={[
                         {
@@ -164,11 +184,9 @@ export default function ExecutionView({
                           className: "achieve-button",
                         },
                         { Name: "수정", Click: Fix },
+                        { Name: "삭제", Click: Delete },
                       ]}
                     ></BtnArea>
-                    {/* <button className="achieve-button" onClick={achieve}>
-                      {!!!v.achieve ? "미달성" : "달성"}
-                    </button> */}
                   </li>
                 );
               })
