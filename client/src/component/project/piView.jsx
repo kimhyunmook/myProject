@@ -99,6 +99,7 @@ export default function ProjectInsertView({ userInfo, title }) {
         value_={date}
         change={dateHandle}
         keypress={(event) => event.preventDefault()}
+        autocomplete="off"
       >
         <CalendarView dateValue={dateValue} />
       </InsertInput>

@@ -208,7 +208,7 @@ const sqlText = {
     return sql;
   },
   DELETE: (tableName = "", where) => {
-    let sql = `DELETE FROM ${tableName};`;
+    let sql = `DELETE FROM ${tableName}`;
     if (where !== undefined) sql += ` WHERE ${where}`;
     return sql;
   },

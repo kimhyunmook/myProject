@@ -139,7 +139,7 @@ export default function ProjectS() {
           return (
             <div className={className}>
               <div className="exe_box">
-                <FontAwsome data={"fa-clover"} />
+                {/* <FontAwsome data={"fa-clover"} /> */}
               </div>
             </div>
           );
@@ -154,9 +154,9 @@ export default function ProjectS() {
       info={{
         className: "container-normal",
         style: {
-          background: "#feded0",
+          // background: "#feded0",
           maxWidth: "100%",
-          padding: "50px 0",
+          padding: "30px 0 100px",
         },
       }}
     >
@@ -176,13 +176,12 @@ export default function ProjectS() {
               <div
                 ref={calendarRef}
                 className="cover-box-calendar"
-                style={{ backgroundColor: "#feded0" }}
+                // style={{ backgroundColor: "#feded0" }}
               >
                 <select
                   name="project-select"
                   className="project-select"
                   onChange={projectInfoHandle}
-                  // value={projectName}
                 >
                   <option value={""}>Project를 선택해주세요</option>
                   {projectData?.map((v, i) => {
@@ -201,6 +200,12 @@ export default function ProjectS() {
                   viewDate={clickDate}
                   closeEvent={closeModal}
                   modalDisplay={modalDisplay}
+                />
+                <BtnArea
+                  info={[
+                    { Name: "수정", Clcik: "" },
+                    { Name: "삭제", Click: "" },
+                  ]}
                 />
               </div>
             ) : (

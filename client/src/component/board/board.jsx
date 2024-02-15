@@ -47,7 +47,7 @@ function Board({ className }) {
     dispatch(_GetList(body));
     setList(boardInfo.data);
     setPageNum(
-      boardInfo.pageNavi.slice(
+      boardInfo?.pageNavi.slice(
         0 + maxP * (pageCondtion - 1),
         maxP * pageCondtion
       )

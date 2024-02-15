@@ -120,15 +120,27 @@ router.post("/projectCalendarInfo", async (req, res) => {
 router.post("/projectCalendarEdit", async (req, res) => {
   const routerName = req.originalUrl;
   const conn = await db2.getConnection();
+  console.log(req.body);
+  let update, sql;
   try {
-    let sql = sqlText.UPDATE(
-      "project_calendar",
-      `achieve="${req.body.achieve}"`,
-      `num=${req.body.num}`
-    );
+    if (!!req.body.achieve)
+      sql = sqlText.UPDATE(
+        "project_calendar",
+        `achieve="${req.body.achieve}"`,
+        `num=${req.body.num}`
+      );
+    else
+      sql = sqlText.UPDATE(
+        "project_calendar",
+        `subject="${req.body.subject}", content="${req.body.content}"`,
+        `num=${req.body.num} AND userId="${req.body.userId}"`
+      );
     await conn.query(sql);
     let data;
-    sql = sqlText.SELECT("project_calendar", `userId="${req.body.userId}"`);
+    sql = sqlText.SELECT(
+      "project_calendar",
+      `project_name="${req.body.project_name}" AND userId="${req.body.userId}"`
+    );
     data = await conn.query(sql);
     data = data[0];
     res.status(200).json({
@@ -136,6 +148,31 @@ router.post("/projectCalendarEdit", async (req, res) => {
     });
     correctMessage(routerName, "execution Edit");
     await conn.release();
+  } catch (error) {
+    errorMessage(routerName, error);
+  }
+});
+
+router.post("/projectCalendarDelete", async (req, res) => {
+  const routerName = req.originalUrl;
+  let sql, data;
+  try {
+    const conn = await db2.getConnection();
+    sql = sqlText.DELETE(
+      "project_calendar",
+      `project_name="${req.body.project_name}" AND userId="${req.body.userId}" AND num=${req.body.num}`
+    );
+    await conn.query(sql);
+    sql = sqlText.SELECT(
+      "project_calendar",
+      `project_name="${req.body.project_name}" AND userId="${req.body.userId}"`
+    );
+    data = await conn.query(sql);
+    data = data[0];
+    res.status(200).json({
+      data,
+    });
+    correctMessage(routerName, "s");
   } catch (error) {
     errorMessage(routerName, error);
   }

@@ -4,7 +4,7 @@ import { loginToken } from "../../actions/type";
 import { FontAwsome } from "./fontawsome";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "./logo";
+import Logo, { homelink } from "./logo";
 import util from "../../util";
 
 function Header(props) {
@@ -12,15 +12,12 @@ function Header(props) {
   const loginCookieName = loginToken;
   const [userInfo, setUserInfo] = useState({});
   const [menu, setMenu] = useState([]);
-  // const [depthMenu, setDepthMenu] = useState("");
   const path = util.path();
   const menuInfo = store.menuInfo.data;
-  let body, i;
   const header = useRef(null);
   const [id, setId] = useState("header");
-  const p = useRef(path);
   const [scrollY, setScrollY] = useState(0);
-  // const [scrollToggle, setScrollToggle] = useState(false);
+  const navigate = useNavigate();
 
   // scroll
   useEffect(() => {
@@ -36,19 +33,30 @@ function Header(props) {
       }
     }
   }, [store]);
-  useEffect(() => {
-    // console.log(p.current);
-  }, [p]);
+
+  function homelink(event) {
+    event.preventDefault();
+    header.current.style.backgroundColor = "transparent";
+    navigate("/");
+  }
+
   return (
     <>
       <header
         id={id}
         ref={header}
-        className={scrollY > 0 ? "on" : ""}
-        style={{ height: 90 }}
+        className={scrollY < 0 ? "on" : ""}
+        style={{
+          height: 90,
+          backgroundColor: header.current?.nextSibling.className.includes(
+            "index"
+          )
+            ? "transparent"
+            : "#333",
+        }}
       >
         <div className="header">
-          <Logo></Logo>
+          <Logo click={homelink}></Logo>
           <nav className="header-nav">
             <ul className="header-nav-menu">
               {userInfo?.role === 1
@@ -62,7 +70,10 @@ function Header(props) {
                   })
                 : null}
               <li>
-                <Link to="/">홈</Link>
+                <a href="/" onClick={homelink}>
+                  홈
+                </a>
+                {/* <Link to="/">홈</Link> */}
               </li>
               {menu?.map((el, index) => {
                 let info;

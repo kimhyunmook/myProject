@@ -24,13 +24,11 @@ export function BtnArea({ info, className }) {
     <div className="btnArea">
       {isarr ? (
         info.map((el, index) => {
-          if (!!el.className) classN += ` ${el.className}`;
+          let c = classN;
+          if (!!el.className) c += ` ${el.className}`;
           function Btn() {
             return (
-              <button
-                className={classN}
-                onClick={!!!el.Click ? null : el.Click}
-              >
+              <button className={c} onClick={!!!el.Click ? null : el.Click}>
                 {el.Name}
               </button>
             );

@@ -36,9 +36,6 @@ function Main() {
       if (!res.Download) window.location.href = "/download?task=0";
     });
 
-    const header = document.querySelector("header");
-
-    header.classList.add("index");
     const handleResize = () => {
       setWinSize({
         width: window.innerWidth,
@@ -65,7 +62,7 @@ function Main() {
   };
 
   return (
-    <Container2 info={{ style: ContainerStyle }}>
+    <Container2 info={{ style: ContainerStyle, className: "index" }}>
       <Section
         index="1"
         useRef={section1}

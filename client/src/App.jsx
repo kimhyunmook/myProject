@@ -20,12 +20,10 @@ import Footer from "./component/common/footer";
 import About from "./component/about";
 import ProjectS from "./component/project";
 import Aside from "./component/aside";
-import util from "./util";
+import Index2 from "./component/main/index2";
 
 function App() {
   const [headerCofirm, setHeaderCofirm] = useState(true);
-  const path = window.location.pathname;
-  // const path = util.path();
   useEffect(() => {
     let path = window.location.pathname.split("/");
     if (path[1] === "download") {
@@ -38,6 +36,7 @@ function App() {
     <Router>
       {headerCofirm === true ? <Header /> : null}
       <Routes>
+        {/* <Route path="/" element={<Index2 />} /> */}
         <Route path="/" element={<Main />} />
         <Route path="/adm" element={<ADM />} />
         <Route path="/download" element={<NeedDownLoad />} />
@@ -61,7 +60,7 @@ function App() {
         {/* <Route path={`/board/gallery/:name/write`} element={<WriteGallery />} /> */}
       </Routes>
       {headerCofirm === true ? <Aside /> : null}
-      {headerCofirm === true ? <Footer /> : null}
+      {/* {headerCofirm === true ? <Footer /> : null} */}
     </Router>
   );
 }
