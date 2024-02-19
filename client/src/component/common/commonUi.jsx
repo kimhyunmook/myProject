@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Skeleton from "react-loading-skeleton";
 import { getSetting } from "../../store/settingSlice";
+import { mobileSize } from "../../size";
 
 const headerH = 90;
 const footerH = 125;
@@ -178,4 +179,11 @@ export function Modal({ display = false, title, className, children, button }) {
       </div>
     </div>
   );
+}
+
+export function MobileUi({ children, windowWidth, reverse = false }) {
+  console.log(windowWidth, reverse);
+  if (reverse) {
+    if (windowWidth > mobileSize) return children;
+  } else if (windowWidth <= mobileSize) return children;
 }

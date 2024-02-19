@@ -20,7 +20,6 @@ import Footer from "./component/common/footer";
 import About from "./component/about";
 import ProjectS from "./component/project";
 import Aside from "./component/aside";
-import Index2 from "./component/main/index2";
 
 function App() {
   const [headerCofirm, setHeaderCofirm] = useState(true);
