@@ -68,6 +68,10 @@ export default function ProjectS() {
     setExecutionData(calendar_info.projectExecution);
   }, [store]);
 
+  useEffect(() => {
+    setProjectTarget("");
+  }, [path[path.length - 1]]);
+
   //select event
   const projectInfoHandle = (event) => {
     event.preventDefault();
@@ -139,7 +143,7 @@ export default function ProjectS() {
           return (
             <div className={className}>
               <div className="exe_box">
-                {/* <FontAwsome data={"fa-clover"} /> */}
+                ★{/* <FontAwsome data={"fa-clover"} /> */}
               </div>
             </div>
           );
@@ -218,8 +222,9 @@ export default function ProjectS() {
   );
 }
 
-export function ProjectMenu({ arr = [{ href: "", text: "" }] }) {
+export function ProjectMenu({ arr = [{ href: "", text: "" }], resetData }) {
   const navigate = useNavigate();
+
   const menuClick = (event) => {
     event.preventDefault();
     let target = event.currentTarget;
@@ -227,6 +232,7 @@ export function ProjectMenu({ arr = [{ href: "", text: "" }] }) {
       String(window.location.origin),
       ""
     );
+
     if (target_href !== window.location.pathname) {
       navigate(target_href);
     }

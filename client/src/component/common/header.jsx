@@ -6,8 +6,10 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Logo, { homelink } from "./logo";
 import util from "../../util";
+import { headerSize, mobileSize } from "../../size";
+import { MobileUi } from "./commonUi";
 
-function Header(props) {
+function Header({}) {
   const store = useSelector((state) => state);
   const loginCookieName = loginToken;
   const [userInfo, setUserInfo] = useState({});
@@ -16,15 +18,20 @@ function Header(props) {
   const menuInfo = store.menuInfo.data;
   const header = useRef(null);
   const [id, setId] = useState("header");
+  const [winW, setWinW] = useState(window.outerWidth);
   const [scrollY, setScrollY] = useState(0);
   const navigate = useNavigate();
+  const navMenu = useRef(null);
 
   // scroll
   useEffect(() => {
     window.addEventListener("scroll", () => {
       setScrollY(window.scrollY);
     });
-  }, [scrollY]);
+    window.addEventListener("resize", () => {
+      setWinW(window.outerWidth);
+    });
+  }, [winW, scrollY]);
   useEffect(() => {
     setUserInfo(store.userInfo.data);
     if (path[1].split("?")[0] !== "download") {
@@ -36,8 +43,16 @@ function Header(props) {
 
   function homelink(event) {
     event.preventDefault();
-    header.current.style.backgroundColor = "transparent";
     navigate("/");
+  }
+  function openMobilemenu(event) {
+    event.preventDefault();
+    navMenu.current.classList.add("on");
+  }
+
+  function closeMobileMenu(event) {
+    event.preventDefault();
+    navMenu.current.classList.remove("on");
   }
 
   return (
@@ -45,35 +60,27 @@ function Header(props) {
       <header
         id={id}
         ref={header}
-        className={scrollY < 0 ? "on" : ""}
+        className={scrollY > 0 ? "on" : ""}
         style={{
-          height: 90,
-          backgroundColor: header.current?.nextSibling.className.includes(
-            "index"
-          )
-            ? "transparent"
-            : "#333",
+          height: winW <= mobileSize ? headerSize.mobile : headerSize.desktop,
         }}
       >
         <div className="header">
           <Logo click={homelink}></Logo>
           <nav className="header-nav">
-            <ul className="header-nav-menu">
-              {userInfo?.role === 1
-                ? menu?.map((el, index) => {
-                    if (el.admin === 1)
-                      return (
-                        <MenuLi key={`admin_${index}`} href={el.href}>
-                          el.name
-                        </MenuLi>
-                      );
-                  })
-                : null}
+            <MobileUi windowWidth={winW}>
+              <div className="hambuger-menu" onClick={openMobilemenu}>
+                <FontAwsome data={"fa-hambuger"} />
+              </div>
+            </MobileUi>
+            <ul className="header-nav-menu" ref={navMenu}>
+              <MobileUi windowWidth={winW}>
+                <li className="closeBtn" onClick={closeMobileMenu}></li>
+              </MobileUi>
               <li>
                 <a href="/" onClick={homelink}>
                   홈
                 </a>
-                {/* <Link to="/">홈</Link> */}
               </li>
               {menu?.map((el, index) => {
                 let info;
@@ -94,9 +101,18 @@ function Header(props) {
                 if (el.depth !== 1 && el.admin !== 1 && index !== 0)
                   return <MenuLi {...info}>{el.name}</MenuLi>;
               })}
+              {/* <MobileUi windowWidth={winW}>
+                <li className="login-li">
+                  <LoginList
+                    loginCookieName={loginCookieName}
+                    userInfo={userInfo}
+                  />
+                </li>
+              </MobileUi> */}
             </ul>
           </nav>
           <LoginList loginCookieName={loginCookieName} userInfo={userInfo} />
+          <MobileUi windowWidth={winW} reverse={true}></MobileUi>
         </div>
       </header>
     </>

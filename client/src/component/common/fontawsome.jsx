@@ -7,6 +7,7 @@ import {
   faBars,
   faChalkboard,
   faClover,
+  faHamburger,
   faHouse,
   faList,
   faPen,
@@ -54,6 +55,7 @@ export function FontAwsome({ data, type }) {
     ["fa-start", faStamp],
     ["fa-play", faPlay],
     ["fa-clover", faClover],
+    ["fa-hambuger", faBars],
   ];
 
   if (data !== "default")

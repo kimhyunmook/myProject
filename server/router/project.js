@@ -120,7 +120,6 @@ router.post("/projectCalendarInfo", async (req, res) => {
 router.post("/projectCalendarEdit", async (req, res) => {
   const routerName = req.originalUrl;
   const conn = await db2.getConnection();
-  console.log(req.body);
   let update, sql;
   try {
     if (!!req.body.achieve)
