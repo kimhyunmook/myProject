@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import Auth from "../common/Auth";
 import ProjectInsertView from "./piView";
 import ExecutionView from "./executionView";
+import Side from "./side";
 
 export default function ProjectS() {
   const urlParam = window.location.search;
@@ -158,13 +159,13 @@ export default function ProjectS() {
       info={{
         className: "container-normal",
         style: {
-          // background: "#feded0",
           maxWidth: "100%",
-          padding: "30px 0 100px",
+          padding: "30px 20px 100px",
         },
       }}
     >
       <Auth>
+        <Side project={projectData} />
         {projectData?.length === 0 ? (
           <ProjectInsertView userInfo={userInfo} />
         ) : (

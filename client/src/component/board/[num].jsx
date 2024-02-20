@@ -74,6 +74,7 @@ function ContentBoard() {
     await setReplyState(false);
     await dispatch(_InsertWrite(body));
     await setReplyView(store.boardInfo.reply);
+    await setReplyText("");
   };
 
   const replyVarValueEventHandler = (event) => {

@@ -87,89 +87,99 @@ function Board({ className }) {
   let boardClass = `board-type-${path[1]}`;
 
   return (
-    <Container2 info={{ className: "container-normal" }}>
-      <h2>
-        {reducer.menuInfo.data.map((el) => {
-          let href = el.href;
-          href = href.split("/")[2];
-          if (href === path[2]) {
-            return el.name;
-          }
-        })}
-      </h2>
-      <div className={`board ${boardClass}`}>
-        <ul className={className}>
-          <li className="tag_name">
-            <Link to="#">😉 글을 작성해주세요</Link>
-          </li>
-          {list.length === 0 ? (
-            <Board_Normal
-              key={""}
-              num="0"
-              subject={"글을 작성해주세요~"}
-              user={"admin"}
-              hit={"0"}
-              replyCount={0}
-              time={"00.00 00:00"}
-            />
-          ) : (
-            <Normal />
-          )}
-        </ul>
+    <Container2
+      info={{ className: "container-normal", style: { padding: "1px" } }}
+    >
+      <div className="board-cover">
+        <h2>
+          {reducer.menuInfo.data.map((el) => {
+            let href = el.href;
+            href = href.split("/")[2];
+            if (href === path[2]) {
+              return el.name;
+            }
+          })}
+        </h2>
+        <div className={`board ${boardClass}`}>
+          <ul className={className}>
+            <li className="tag_name">
+              <Link to="#">😉 글을 작성해주세요</Link>
+            </li>
+            {list.length === 0 ? (
+              <Board_Normal
+                key={""}
+                num="0"
+                subject={"글을 작성해주세요~"}
+                user={"admin"}
+                hit={"0"}
+                replyCount={0}
+                time={"00.00 00:00"}
+              />
+            ) : (
+              <Normal />
+            )}
+          </ul>
 
-        <div className="board-bottom">
-          <div className="board-nav">
-            {path[path?.length - 1] !== "1" ? (
-              <div className="arrow">
-                {pageCondtion === 1 ? null : (
-                  <Link className="" to={previousPage2}>
-                    <FontAwsome data={"fa-angles-left"} />
+          <div className="board-bottom">
+            <div className="board-nav">
+              {path[path?.length - 1] !== "1" ? (
+                <div className="arrow">
+                  {pageCondtion === 1 ? null : (
+                    <Link className="" to={previousPage2}>
+                      <FontAwsome data={"fa-angles-left"} />
+                    </Link>
+                  )}
+                  <Link className="left" to={previousPage}>
+                    <FontAwsome data={"fa-angle-left"} />
                   </Link>
-                )}
-                <Link className="left" to={previousPage}>
-                  <FontAwsome data={"fa-angle-left"} />
-                </Link>
+                </div>
+              ) : null}
+
+              <div className="numbers">
+                {pageNum?.map((el, index) => {
+                  let style;
+                  if (
+                    path[3] === String(index + 1 + maxP * (pageCondtion - 1))
+                  ) {
+                    style = {
+                      color: "orange",
+                      fontWeight: 700,
+                    };
+                  }
+                  return (
+                    <Link
+                      key={`page-nation-${el}`}
+                      to={`/board/${path[2]}/${el}`}
+                      style={style}
+                    >
+                      {` ${el} `}
+                    </Link>
+                  );
+                })}
               </div>
-            ) : null}
-
-            <div className="numbers">
-              {pageNum?.map((el, index) => {
-                let style;
-                if (path[3] === String(index + 1 + maxP * (pageCondtion - 1))) {
-                  style = {
-                    color: "orange",
-                    fontWeight: 700,
-                  };
-                }
-                return (
-                  <Link
-                    key={`page-nation-${el}`}
-                    to={`/board/${path[2]}/${el}`}
-                    style={style}
-                  >
-                    {` ${el} `}
+              {path[path.length - 1] !== String(boardInfo.pageNavi?.length) ? (
+                <div className={"arrow"}>
+                  <Link className="right" to={nextPage}>
+                    <FontAwsome data={"fa-angle-right"} />
                   </Link>
-                );
-              })}
+                  {Math.ceil(boardInfo.pageNavi?.length / maxP) >
+                  pageCondtion ? (
+                    <Link to={nextPage2}>
+                      <FontAwsome data={"fa-angles-right"} />
+                    </Link>
+                  ) : null}
+                </div>
+              ) : null}
             </div>
-            {path[path.length - 1] !== String(boardInfo.pageNavi?.length) ? (
-              <div className={"arrow"}>
-                <Link className="right" to={nextPage}>
-                  <FontAwsome data={"fa-angle-right"} />
-                </Link>
-                {Math.ceil(boardInfo.pageNavi?.length / maxP) > pageCondtion ? (
-                  <Link to={nextPage2}>
-                    <FontAwsome data={"fa-angles-right"} />
-                  </Link>
-                ) : null}
-              </div>
+            {reducer.userInfo.login === true ? (
+              <BtnArea
+                info={{
+                  Name: <FontAwsome data={"fa-pen"} />,
+                  Click: moveWrite,
+                }}
+              />
             ) : null}
           </div>
-          {reducer.userInfo.login === true ? (
-            <BtnArea
-              info={{ Name: <FontAwsome data={"fa-pen"} />, Click: moveWrite }}
-            />
-          ) : null}
         </div>
       </div>
     </Container2>
