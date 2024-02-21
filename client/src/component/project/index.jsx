@@ -165,7 +165,7 @@ export default function ProjectS() {
       }}
     >
       <Auth>
-        <Side project={projectData} />
+        <Side project={projectTarget} />
         {projectData?.length === 0 ? (
           <ProjectInsertView userInfo={userInfo} />
         ) : (
@@ -181,7 +181,6 @@ export default function ProjectS() {
               <div
                 ref={calendarRef}
                 className="cover-box-calendar"
-                // style={{ backgroundColor: "#feded0" }}
               >
                 <select
                   name="project-select"

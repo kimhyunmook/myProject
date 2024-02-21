@@ -2108,15 +2108,78 @@ body {
     }
     .project-side {
         position:fixed;
-        right: 1%;
-        top:30%;
+        right: 50px;
+        top:20%;
         z-index:999;
-        width: 200px;
+        width: 300px;
         height: auto;
-        max-height: 60vh;
-        overflow:scroll;
-        // background:$active_color;
+        max-height: 70vh;
+        // overflow: hidden;
+        border-radius:5px;
+        box-shadow: 3px 3px 10px #aaa;
+        overflow-y:scroll;
+        &::-webkit-scrollbar {
+            display:none;
+        }
+        background:rgb(255, 255, 195);
         min-height:0;
+
+        $padding: 5px 10px;
+        .menu-bar {
+            padding: $padding;
+            background:rgb(247, 247, 127);
+            position:relative;
+            button {
+                position:relative;
+                background:0;
+                border:0;
+                cursor: pointer;
+                margin-right: 15px;
+                font-size:16px;
+                &:hover {
+                    color:$main;
+                }
+                &.closeBtn {
+                    position: absolute;
+                    width:15px;
+                    height:15px;
+                    margin-right:0;
+                    top:50%;
+                    right:10px;
+                    transform:translateY(-50%);
+                    &::after,&::before {
+                        height:1px;
+                    }
+                }
+            }
+        }
+        ul {
+            padding:$padding;
+            li {
+                border-bottom: 1px solid #aaa;
+                padding: 3px 0;
+                display:flex;
+                font-size: 14px;
+                b {
+                    font-weight:100;
+                    margin-right:7px;
+                    color:#888;
+                    display:flex;
+                    align-items: end;
+                }
+                p {
+                    font-size:1.1em;
+                    &.subject {
+                        font-family: $font2;;
+                    }
+                }
+
+                &.des {
+                    border:0;
+                    margin: 5px 0;
+                }
+            }
+        }
         
     }
 

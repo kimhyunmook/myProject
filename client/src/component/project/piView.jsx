@@ -15,7 +15,6 @@ export default function ProjectInsertView({ userInfo, title }) {
   const dateView = (event) => {
     event.preventDefault();
     const cal = event.currentTarget.nextSibling.nextSibling.nextSibling;
-    console.log(event);
 
     if (event.type === "focus") cal.classList.add("on");
   };
