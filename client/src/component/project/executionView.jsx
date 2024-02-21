@@ -50,7 +50,6 @@ export default function ExecutionView({
         // submitData.content = target.value;
         break;
     }
-    console.log(submitData.content);
   });
   const callBack2 = useCallback((event) => {
     event.preventDefault();
@@ -102,7 +101,7 @@ export default function ExecutionView({
   }
 
   useEffect(() => {
-    let d = store.calendarInfo.projectExecution.reduce((a, c, i) => {
+    let d = store.calendarInfo?.projectExecution?.reduce((a, c, i) => {
       if (c.date === projectDate) {
         a.push(c);
       }
@@ -307,8 +306,8 @@ export function InsertInput({
           placeholder={placeholder}
           defaultValue={value_}
           onChange={change}
-          onBlur={focus}
-          onFocus={focus}
+          // onBlur={focus}
+          onFocusCapture={focus}
           onClick={click}
           onKeyDown={keypress}
           data-index={dataIndex}

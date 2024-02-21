@@ -30,7 +30,7 @@ export default function CalendarView({ att, type, dateValue }) {
     colorReset();
     dateMemo.start = "";
     dateMemo.last = "";
-    document.querySelector('.date-view').innerHTML="";
+    document.querySelector(".date-view").innerHTML = "";
   };
   const calConfirm = (event) => {
     event.preventDefault();
@@ -58,8 +58,8 @@ export default function CalendarView({ att, type, dateValue }) {
       const today = moment(new Date()).format(format);
       value = moment(value).format(format);
       const target = event.currentTarget;
-      if(today > value) {
-        alert('지난 날짜를 지정할 수 없습니다.');
+      if (today > value) {
+        alert("지난 날짜를 지정할 수 없습니다.");
         return;
       }
       if (!!!dateMemo.start) {
@@ -68,7 +68,6 @@ export default function CalendarView({ att, type, dateValue }) {
         target.style.backgroundColor = startColor.background;
         target.style.color = startColor.font;
       } else {
-   
         if (!!dateMemo.start && !!dateMemo.last) {
           colorReset();
           dateMemo.start = value;
@@ -76,12 +75,11 @@ export default function CalendarView({ att, type, dateValue }) {
           target.style.color = startColor.font;
           dateMemo.last = "";
         } else {
-          if(dateMemo.start > value) {
-            alert('시작일 보다 작을 수 없습니다.');
+          if (dateMemo.start > value) {
+            alert("시작일 보다 작을 수 없습니다.");
             return;
-          }
-          else if(dateMemo.start === value) {
-            dateMemo.start ="";
+          } else if (dateMemo.start === value) {
+            dateMemo.start = "";
             colorReset();
             return;
           }
@@ -90,6 +88,11 @@ export default function CalendarView({ att, type, dateValue }) {
           target.style.color = lastColor.font;
         }
       }
+    },
+    tileContent: ({ date, view }) => {
+      let value = moment(date).format(format);
+      const today = moment(new Date()).format(format);
+      if (today === value) return <div className="today">today</div>;
     },
   };
 

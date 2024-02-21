@@ -11,7 +11,8 @@
     "client_n": "cd client_n && npm start",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "dev_next": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client_n\"",
-    "sass": "node-sass -w client/src/css/main.scss client/src/css/main.css"
+    "sass": "node-sass -w client/src/css/main.scss client/src/css/main.css",
+    "mobile_sass": "node-sass -w client/src/css/mobile.scss client/src/css/mobile.css"
   },
   "repository": {
     "type": "git",

@@ -3,9 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 export default function Logo({ click }) {
   return (
     <div className="logo">
-      <a href="/" onClick={click}>
+      <Link to="/" onClick={click}>
         MP
-      </a>
+      </Link>
     </div>
   );
 }

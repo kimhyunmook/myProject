@@ -1,200 +1,117 @@
 @charset "UTF-8";
-@font-face {
-  font-family: 'PartialSansKR-Regular';
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal; }
-
-@font-face {
-  font-family: 'TheJamsil';
-  src: url("../../public/font/The_Jamsil_OTF/Regular.otf") format("woff2"); }
-
-@font-face {
-  font-family: 'OKDDUNG';
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/OKDDUNG.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal; }
-
-ul li,
-ol li {
-  list-style: none; }
-
-a {
-  text-decoration: none;
-  color: #000; }
-
-img {
-  width: 100%; }
-
-.disNo {
-  display: none; }
-
-.disYes {
-  display: block; }
-
-textarea {
-  resize: none; }
-
-.flex-box {
-  display: flex; }
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  line-height: 1.5em;
-  letter-spacing: -.5px;
-  font-family: sans-serif;
-  font-weight: 400;
-  font-family: 'TheJamsil';
-  font-weight: 100; }
-
-input {
-  font-family: 'Times New Roman', Times, serif; }
-
-#root {
-  width: 100%; }
+@media screen and (max-width: 768px) {
   #root .logo {
-    z-index: 22;
-    display: flex;
-    align-items: center;
-    margin: 0 3%; }
-    #root .logo a {
-      text-align: center;
-      font-size: 45px;
-      letter-spacing: initial;
-      display: flex;
-      font-family: "OKDDUNG";
-      color: #111; }
-      #root .logo a img {
-        margin-left: 2px;
-        width: 60px; }
-  #root:has(.container2.index) header {
-    background: transparent; }
+    display: none; }
+  #root:has(.container2.index) header .header .hambuger-menu {
+    color: #fff; }
   #root header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 9999;
-    transition: .5s;
-    background-color: #333; }
-    #root header .logo {
-      border-radius: 50%;
-      padding: 3px; }
-      #root header .logo a {
-        text-shadow: 3px 1px 5px #000;
-        color: #babfff; }
+    background-color: transparent; }
     #root header.on {
-      background-color: #333 !important; }
+      background-color: transparent; }
+      #root header.on .header-nav .hambuger-menu {
+        color: #fff; }
       #root header.on .header-nav-menu li a {
         color: #fff;
         text-shadow: none; }
       #root header.on b {
         color: #fff;
         text-shadow: none; }
-      #root header.on .login-box a {
-        color: #000 !important;
-        text-shadow: none; }
-      #root header.on .login-box b {
-        color: #000 !important;
-        text-shadow: inherit !important; }
     #root header .header {
-      margin: auto;
-      max-width: 1400px;
-      position: relative;
-      display: flex;
-      width: 100%;
-      height: 100%; }
+      max-width: 768px; }
+      #root header .header-nav .hambuger-menu {
+        position: absolute;
+        top: 50%;
+        left: 3%;
+        color: #333;
+        font-size: 40px;
+        transform: translateY(-50%); }
       #root header .header-nav-menu {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        flex-wrap: wrap;
+        position: absolute;
+        top: 0;
+        z-index: 1111;
+        left: -100%;
+        background: #333;
         width: 100%;
-        height: 100%;
-        padding: 0 20px;
-        transition: .5s; }
-        #root header .header-nav-menu li {
-          min-width: 80px;
-          margin: 0 13px;
-          padding: 10px 0; }
-          #root header .header-nav-menu li a {
+        height: 100vh;
+        padding: 125px 0 110px; }
+        #root header .header-nav-menu.on {
+          left: 0; }
+        #root header .header-nav-menu > li {
+          width: 100%; }
+          #root header .header-nav-menu > li.closeBtn {
+            min-width: inherit;
+            width: 30px;
+            right: 5px; }
+            #root header .header-nav-menu > li.closeBtn::after, #root header .header-nav-menu > li.closeBtn::before {
+              background-color: #fff; }
+          #root header .header-nav-menu > li a {
             color: #fff;
             text-align: center;
             display: block;
             width: 100%;
             height: 100%;
             transition: .5s;
-            font-size: 19px;
-            font-family: "TheJamsil";
+            font-size: 23px;
             font-weight: 700; }
-          #root header .header-nav-menu li:hover a {
+          #root header .header-nav-menu > li:has(.login-box) {
+            position: absolute;
+            top: 1%;
+            left: 1%;
+            width: 50%; }
+            #root header .header-nav-menu > li:has(.login-box) .login-box {
+              position: relative;
+              background: transparent;
+              transform: inherit;
+              display: block; }
+              #root header .header-nav-menu > li:has(.login-box) .login-box li {
+                display: block;
+                padding: 5px 0; }
+                #root header .header-nav-menu > li:has(.login-box) .login-box li b {
+                  color: #fff !important;
+                  font-size: 19px; }
+                #root header .header-nav-menu > li:has(.login-box) .login-box li.icon-box li {
+                  width: 10%;
+                  min-width: auto; }
+                  #root header .header-nav-menu > li:has(.login-box) .login-box li.icon-box li a {
+                    font-size: 17px;
+                    text-align: left;
+                    color: #fff !important; }
+          #root header .header-nav-menu > li:hover a {
             transform: scale(1.2);
-            font-weight: 700;
-            color: #ff9d9d; }
-    #root header .login-box {
-      position: absolute;
-      z-index: 999;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: auto;
-      max-width: 280px;
-      padding: .5%;
-      border-radius: 25px;
-      background: #fff; }
-      #root header .login-box li {
-        display: flex;
-        margin: 0 10px; }
-        #root header .login-box li a {
-          color: #000; }
-        #root header .login-box li.id b {
-          color: #000;
-          margin: 0 4px; }
-          #root header .login-box li.id b:first-of-type {
-            color: orangered; }
-        #root header .login-box li.icon-box .icon-list {
-          display: flex; }
-          #root header .login-box li.icon-box .icon-list a {
-            color: #000; }
-          #root header .login-box li.icon-box .icon-list .logout {
-            cursor: pointer; }
-  #root .container2 {
-    position: relative;
-    width: 100%;
-    background: #fff; }
-    #root .container2 .content-cover {
-      margin: auto;
-      width: 100%;
-      max-width: 1200px;
-      height: 100%;
-      position: relative; }
+            font-weight: 700; }
+      #root header .header .login-box {
+        max-width: inherit;
+        padding: 10px 5px; }
+        #root header .header .login-box li.id b {
+          font-size: 17px; }
+        #root header .header .login-box .icon-list li a {
+          font-size: 17px; }
+        #root header .header .login-box .icon-list li b {
+          font-size: 20px; }
+  #root .container2 .content-cover {
+    max-width: 768px; }
   #root .container-normal {
-    max-width: 1400px;
-    margin: auto;
-    margin-top: 90px; }
+    max-width: 768px;
+    margin-top: 90px;
+    padding: 0 10px; }
     #root .container-normal h2 {
       margin: 4% 0 2%;
-      font-size: 40px;
-      display: flex; }
+      font-size: 25px; }
       #root .container-normal h2::before {
         content: "🖍";
         font-size: 0.8em;
         transform: rotate(-50deg);
         display: block; }
   #root .onePage {
-    max-width: 1400px;
     min-height: 500px;
-    margin: auto;
-    padding: 2% 12.5%; }
-    @media screen and (min-width: 1820px) {
-      #root .onePage {
-        padding: 2% 0; } }
+    margin: auto; } }
+  @media screen and (max-width: 768px) and (min-width: 1820px) {
+    #root .onePage {
+      padding: 2% 0; } }
+
+@media screen and (max-width: 768px) {
   #root h1 {
-    font-family: 'PartialSansKR-Regular';
     font-weight: 100; }
   #root section {
     width: 100%;
@@ -204,13 +121,8 @@ input {
       height: 100%;
       position: relative; }
       #root section article h2 {
-        text-align: center;
-        text-shadow: none;
-        color: rgba(0, 0, 0, 0.7);
         font-size: 40px;
-        font-family: "OKDDUNG";
-        font-weight: 100;
-        margin: 10px 0 30px; }
+        margin: 10px 0 20px; }
       #root section article.section-pad {
         position: relative; }
       #root section article .imgBox img {
@@ -218,107 +130,26 @@ input {
       #root section article .imgBox a {
         display: none; }
     #root section#section1 {
-      height: 710px; }
-      #root section#section1 article {
-        width: 100%;
+      height: 100vh; }
+      #root section#section1 article .textbox {
+        width: 75%; }
+        #root section#section1 article .textbox h2 {
+          text-align: left;
+          font-size: 45px; }
+        #root section#section1 article .textbox p {
+          font-size: 30px; }
+      #root section#section1 article .imgBox {
         position: relative;
-        background: url("../../public/img/bg_3.jpg") no-repeat center;
-        background-size: cover; }
-        #root section#section1 article .textbox {
+        min-width: 750px;
+        width: 50%; }
+        #root section#section1 article .imgBox img {
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
           position: absolute;
-          left: 5%;
-          top: 40%;
-          transform: translateY(-50%);
-          width: 45%;
-          margin: 0; }
-          #root section#section1 article .textbox h2 {
-            text-align: left;
-            margin: 0;
-            color: #fff;
-            font-family: "OKDDUNG";
-            font-size: 70px;
-            text-shadow: 3px 1px 5px #000; }
-          #root section#section1 article .textbox p {
-            text-shadow: 3px 1px 5px #000;
-            word-break: keep-all;
-            color: #fff;
-            padding-top: 30px;
-            font-size: 35px; }
-        #root section#section1 article .bg {
-          width: 100%;
-          height: 100%;
-          background: rgba(0, 0, 0, 0.4); }
-          #root section#section1 article .bg .imgbox {
-            position: absolute;
-            width: 50%;
-            max-width: 500px;
-            height: 50%;
-            left: 75%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            overflow: hidden;
-            border-radius: 5px; }
-        #root section#section1 article .imgBox {
-          position: relative;
-          min-width: 750px;
-          width: 50%; }
-          #root section#section1 article .imgBox img {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            position: absolute;
-            width: 100%; }
-    #root section#section2 {
-      padding: 20px 12.5%;
-      margin: auto;
-      background: rgba(196, 196, 196, 0.2); }
-      #root section#section2 article {
-        padding: 10px 1%; }
-      #root section#section2 h2 {
-        color: rgba(0, 0, 0, 0.7); }
-      #root section#section2 svg rect.bar {
-        color: #babfff; }
-      #root section#section2 svg text {
-        font-size: 20px;
-        color: rgba(0, 0, 0, 0.7); }
-    #root section#section3 .section3_div {
-      display: none; }
-      #root section#section3 .section3_div .imgBox {
-        width: 25%;
-        margin: auto; }
-        #root section#section3 .section3_div .imgBox img {
-          max-width: 250px;
-          margin: auto;
-          display: block;
-          border-radius: 10px; }
-      #root section#section3 .section3_div .detail {
-        width: 60%;
-        margin: 0 auto; }
-        #root section#section3 .section3_div .detail .overlap {
-          display: inline-flex;
-          box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3), -2px -2px 6px rgba(0, 0, 0, 0.3);
-          margin: 10px 5px;
-          padding: 7.5px 20px;
-          border-radius: 15px;
-          font-size: 21px; }
-          #root section#section3 .section3_div .detail .overlap .name {
-            margin-right: 2px; }
-    #root section#section3 table {
-      display: flex;
-      border-collapse: collapse;
-      border-spacing: 0; }
-      #root section#section3 table tr {
-        display: flex;
-        flex-wrap: wrap; }
-        #root section#section3 table tr th,
-        #root section#section3 table tr td {
-          padding: 0;
-          margin: 0;
-          border: 1px solid #0009; }
-        #root section#section3 table tr th {
-          width: 25%; }
+          width: 100%; }
     #root section#section4 {
-      padding: 30px 0;
+      padding: 10px 0;
       background: rgba(170, 176, 255, 0.35); }
       #root section#section4 article {
         max-width: initial;
@@ -327,23 +158,18 @@ input {
           display: flex;
           padding: 0 3%; }
           #root section#section4 article .list .flex-box {
-            width: 100%; }
+            width: 100%;
+            flex-wrap: wrap; }
             #root section#section4 article .list .flex-box .imgBox {
-              width: 25%;
-              height: 350px;
+              width: 50%;
+              height: 250px;
               overflow: hidden;
               position: relative;
               display: flex;
               justify-content: center;
               align-items: center; }
               #root section#section4 article .list .flex-box .imgBox:hover {
-                transition: .5s;
-                transition-property: width, height, opacity, border-radius, background-color;
-                margin: auto 0;
-                box-shadow: 2px 2px 10px #babfff;
-                background-color: #fff;
-                border-radius: 10px;
-                border: 5px solid #1e3932; }
+                border-radius: 5px; }
                 #root section#section4 article .list .flex-box .imgBox:hover::before {
                   content: "";
                   display: block;
@@ -351,8 +177,7 @@ input {
                   width: 10px;
                   height: 10px;
                   top: 10px;
-                  left: 10px;
-                  background: #1e3932; }
+                  left: 10px; }
                 #root section#section4 article .list .flex-box .imgBox:hover::after {
                   content: "";
                   display: block;
@@ -360,11 +185,10 @@ input {
                   width: 10px;
                   height: 10px;
                   bottom: 10px;
-                  right: 10px;
-                  background: #1e3932; }
+                  right: 10px; }
                 #root section#section4 article .list .flex-box .imgBox:hover img {
                   background: transparent;
-                  transform: scale(1.2);
+                  transform: scale(1.1);
                   opacity: 1; }
                 #root section#section4 article .list .flex-box .imgBox:hover h3 {
                   color: transparent;
@@ -386,7 +210,7 @@ input {
                 left: 50%;
                 transform: translate(-50%, -50%);
                 font-weight: 700;
-                font-size: 36px;
+                font-size: 32px;
                 transition: .5; }
                 #root section#section4 article .list .flex-box .imgBox h3::after {
                   content: "";
@@ -400,138 +224,11 @@ input {
                   width: 130%;
                   height: 30%;
                   background: #aab0ff; }
-  #root .download {
-    width: 70%;
-    margin: auto; }
-    #root .download > form {
-      width: 100%;
-      height: 60vh;
-      position: relative;
-      overflow: hidden;
-      transition: 0.5s; }
-      #root .download > form h1 {
-        padding: 0 1%;
-        margin-bottom: 20px; }
-      #root .download > form > div.setting_cover {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        flex-wrap: nowrap;
-        display: flex;
-        transition: 0.5s; }
-        #root .download > form > div.setting_cover div {
-          padding: 0 1%;
-          width: 100%; }
-      #root .download > form > div p.terms {
-        margin: 20px auto;
-        background: #eee;
-        border: 3px solid #999;
-        border-radius: 5px;
-        width: 95%;
-        height: 50%;
-        padding: 5px;
-        overflow-y: scroll; }
-      #root .download > form > div h3 {
-        text-align: right; }
-        #root .download > form > div h3 .custom-slick-next {
-          position: inherit; }
-      #root .download > form ul li {
-        border-top: 1px solid #cecdcd;
-        margin: 0;
-        height: 60px; }
-        #root .download > form ul li:last-of-type {
-          border-bottom: 1px solid #cecdcd; }
-        #root .download > form ul li label {
-          width: 25%;
-          margin: 0;
-          padding-left: 2%;
-          display: flex;
-          align-items: center; }
-          #root .download > form ul li label span {
-            padding-left: 6%;
-            width: 100%; }
-            #root .download > form ul li label span::before {
-              content: "▶";
-              margin-right: 20px; }
-        #root .download > form ul li .insert-box {
-          padding-left: 2%;
-          display: flex;
-          align-items: center;
-          width: 75%; }
-          #root .download > form ul li .insert-box input {
-            width: 40%;
-            font-size: 16px;
-            padding-left: 1%;
-            margin: 0; }
-  #root .adm {
-    height: 82vh;
-    width: 65%;
-    margin: auto; }
-    #root .adm-list {
-      overflow: hidden;
-      cursor: pointer;
-      border: 1px solid #000;
-      border-bottom: 0; }
-      #root .adm-list:last-of-type {
-        border-bottom: 1px solid #000; }
-      #root .adm-list.on {
-        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3), -5px -5px 10px rgba(170, 176, 255, 0.3);
-        border: 0;
-        transition: .5s; }
-        #root .adm-list.on .adm-list-name {
-          transition: .5s;
-          border: 0;
-          background: #babfff;
-          color: #000; }
-          #root .adm-list.on .adm-list-name::after {
-            content: "✔";
-            display: block; }
-        #root .adm-list.on .adm-list-content {
-          height: inherit; }
-      #root .adm-list-name {
-        padding: 10px;
-        display: flex;
-        justify-content: space-between; }
-        #root .adm-list-name::after {
-          content: "";
-          display: block; }
-      #root .adm-list-content {
-        height: 0;
-        transition: .5s; }
-        #root .adm-list-content form {
-          padding-bottom: 10px; }
-          #root .adm-list-content form ul {
-            margin: 0 auto; }
-            #root .adm-list-content form ul li {
-              padding: 10px;
-              padding-left: 40px;
-              border-bottom: 1px solid #9e9e9e;
-              margin: 0; }
-              #root .adm-list-content form ul li label::before {
-                content: "▶";
-                margin-right: 20px; }
-              #root .adm-list-content form ul li input {
-                width: 35%;
-                height: 30px;
-                padding-left: 2.5px;
-                border-radius: 3px;
-                border: 1px solid #9e9e9e; }
-              #root .adm-list-content form ul li select {
-                border: 1px solid #9e9e9e;
-                height: 30px; }
   #root .login {
-    border: 1px solid #000;
-    width: 27.5%;
-    padding: 2%;
-    position: absolute;
-    left: 50%;
-    top: 40%;
-    transform: translate(-50%, -50%);
-    border-radius: 10px;
-    border: 1px solid rgba(68, 68, 68, 0.4); }
+    width: 65%;
+    padding: 3%; }
     #root .login h2 {
-      margin-bottom: 20px; }
+      font-size: 30px; }
     #root .login .loginForm {
       width: 95% !important;
       margin: auto; }
@@ -542,10 +239,10 @@ input {
           padding: 10px 15px; }
           #root .login .loginForm ul li label {
             width: 10%;
-            font-size: 16px;
+            font-size: 19px;
             text-align: center; }
           #root .login .loginForm ul li input {
-            font-size: 16px;
+            font-size: 19px;
             width: 90%;
             border: 0;
             padding-left: 1%;
@@ -569,7 +266,7 @@ input {
           color: #000;
           font-weight: 700; }
   #root .register {
-    padding: 2% 15px;
+    padding: 2% 30px 100px;
     max-width: 1400px; }
     #root .register h2 {
       margin-bottom: 30px; }
@@ -577,43 +274,30 @@ input {
       width: 100%;
       margin: 0 auto;
       border-bottom: 1px solid #cecdcd; }
-      #root .register-ui li {
-        border-top: 1px solid #cecdcd;
+      #root .register-ui li.gender .gender-box {
+        width: 30%; }
+        #root .register-ui li.gender .gender-box input {
+          width: 17px; }
+      #root .register-ui li label {
+        width: 30%;
         margin: 0;
-        height: 60px; }
-        #root .register-ui li:first-of-type {
-          border-top: 1px solid #cecdcd; }
-        #root .register-ui li.gender .gender-box {
-          width: 30%; }
-          #root .register-ui li.gender .gender-box label {
-            display: inline;
-            text-align: center;
-            font-size: 25px;
+        padding-left: 2%;
+        display: flex;
+        align-items: center; }
+        #root .register-ui li label span {
+          padding-left: 6%;
+          width: 100%; }
+          #root .register-ui li label span::before {
+            content: "▶";
             margin-right: 20px; }
-          #root .register-ui li.gender .gender-box input {
-            width: 15px; }
-        #root .register-ui li label {
-          width: 25%;
-          margin: 0;
-          padding-left: 2%;
-          display: flex;
-          align-items: center; }
-          #root .register-ui li label span {
-            padding-left: 6%;
-            width: 100%; }
-            #root .register-ui li label span::before {
-              content: "▶";
-              margin-right: 20px; }
-        #root .register-ui li .insert-box {
-          padding-left: 2%;
-          display: flex;
-          align-items: center;
-          width: 75%; }
-          #root .register-ui li .insert-box input {
-            width: 40%;
-            font-size: 16px;
-            padding-left: 1%;
-            margin: 0; }
+      #root .register-ui li .insert-box {
+        padding-left: 3%;
+        width: 70%; }
+        #root .register-ui li .insert-box input {
+          width: 70%;
+          font-size: 18px;
+          padding-left: 1%;
+          margin: 0; }
     #root .register .btnArea {
       margin-top: 30px; }
   #root .myName {
@@ -630,31 +314,12 @@ input {
       position: relative;
       z-index: -1; }
   #root .myPage {
-    width: 50%;
-    margin: 20px auto;
-    border: 1px solid rgba(68, 68, 68, 0.4);
-    border-radius: 5px;
+    width: 80%;
     overflow: hidden; }
     #root .myPage li {
-      border-top: 1px solid rgba(68, 68, 68, 0.4);
       display: flex; }
       #root .myPage li p {
-        font-size: 18px;
-        padding: 20px;
-        padding-right: 0;
-        color: #000; }
-        #root .myPage li p:first-of-type {
-          width: 35%;
-          font-weight: 700; }
-        #root .myPage li p:last-of-type {
-          width: 65%;
-          border-left: 1px solid rgba(68, 68, 68, 0.4); }
-      #root .myPage li:first-of-type {
-        border: 0; }
-  #root .board-cover {
-    padding-bottom: 50px;
-    max-width: 1200px;
-    margin: auto; }
+        font-size: 16px; }
   #root .board {
     width: 100%;
     min-height: 500px;
@@ -663,7 +328,6 @@ input {
     #root .board-Mini {
       padding-top: 50px;
       width: 90%;
-      max-width: 800px;
       margin: auto;
       margin-bottom: 0px !important;
       padding-bottom: 0px !important; }
@@ -673,11 +337,9 @@ input {
         width: 100%;
         overflow: hidden; }
         #root .board-type-board ul li {
-          border-bottom: 1px solid #dddcdc;
           padding: 1% 0;
           display: flex; }
           #root .board-type-board ul li.tag_name {
-            background: #babfff;
             padding-left: 2%; }
           #root .board-type-board ul li a {
             display: flex;
@@ -710,9 +372,7 @@ input {
         overflow: hidden; }
         #root .board-type-board table tbody tr th {
           padding-bottom: 5px;
-          border-bottom: 1px solid #babfff;
-          text-align: center;
-          background: #babfff; }
+          text-align: center; }
           #root .board-type-board table tbody tr th:first-of-type {
             width: 10%; }
           #root .board-type-board table tbody tr th:nth-of-type(2) {
@@ -758,8 +418,7 @@ input {
               width: 100%;
               height: 100%; }
           #root .board-type-gallery table tbody tr td.subject a {
-            font-size: 23px;
-            color: #babfff; }
+            font-size: 23px; }
           #root .board-type-gallery table tbody tr td.user {
             font-size: 13px;
             text-align: right; }
@@ -841,8 +500,7 @@ input {
           padding: 0 20px 20px 0; }
     #root .board-content {
       width: 100%;
-      margin: 10px auto 0;
-      border-top: 3px solid #babfff; }
+      margin: 10px auto 0; }
       #root .board-content .subjectLine {
         justify-content: space-between;
         align-items: center;
@@ -888,7 +546,6 @@ input {
         width: 80px; }
     #root .board .reply {
       margin: 30px 0 50px;
-      border-top: 3px solid #babfff;
       background: #fafafa; }
       #root .board .reply-insert {
         margin: 20px 0;
@@ -896,8 +553,7 @@ input {
         padding-right: 2%;
         display: flex;
         flex-wrap: wrap;
-        justify-content: flex-end;
-        border-bottom: 3px solid #babfff; }
+        justify-content: flex-end; }
         #root .board .reply-insert p {
           display: flex;
           align-items: center;
@@ -913,7 +569,6 @@ input {
           width: 80px;
           padding: 10px 0;
           margin: 1% 2px 0;
-          background-color: #babfff;
           border-radius: 10px;
           font-weight: 700;
           border: 0;
@@ -958,7 +613,6 @@ input {
               #root .board .reply-list .reply-info .reply-varValue .reply-varValue-depth li:first-of-type {
                 border-bottom: 0; }
   #root .about-banner {
-    margin-top: 90px;
     height: 200px;
     position: relative;
     background-image: url("../../public/img/office.jpg");
@@ -989,44 +643,23 @@ input {
         position: absolute;
         left: 0;
         bottom: 0%;
-        background: #babfff;
         width: 8%;
         height: 6px; }
     #root .about section article.greetings p {
       line-height: 2em; }
-  #root .project-side {
-    position: fixed;
-    right: 1%;
-    top: 30%;
-    z-index: 999;
-    width: 200px;
-    height: auto;
-    max-height: 60vh;
-    overflow: scroll;
-    min-height: 0; }
   #root .project-select {
     background: transparent;
-    border: 0;
-    border-bottom: 3px solid #4b1010a6;
-    font-family: "OKDDUNG";
-    max-width: 300px;
-    min-width: 150px;
-    padding: 3px;
-    width: 50%;
-    margin: auto;
-    display: block;
-    font-size: 22px;
-    outline: none;
-    text-align: center; }
-  #root .project-menu {
-    display: flex;
-    justify-content: space-around;
-    height: 50px;
+    max-width: 768px;
+    padding: 10px;
     width: 70%;
-    max-width: 1000px;
-    margin: 20px auto 80px;
+    font-size: 28px; }
+  #root .project-menu {
+    height: auto;
+    width: 80%;
+    max-width: 768px;
+    margin: 0px auto 30px;
     align-items: center;
-    font-size: 27px; }
+    font-size: 4.2vw; }
     #root .project-menu li {
       width: 100%;
       height: 100%;
@@ -1037,8 +670,7 @@ input {
         font-size: 1.2em;
         text-shadow: orange 3px 1px 15px; }
       #root .project-menu li a {
-        transition: .5s;
-        font-family: 'OKDDUNG'; }
+        display: block; }
   #root .pi-view {
     background-color: #fff1e3;
     max-width: 800px;
@@ -1050,8 +682,6 @@ input {
       font-weight: 700;
       font-size: 35px; }
       #root .pi-view h2 b.userid {
-        color: #babfff;
-        font-family: "OKDDUNG";
         font-size: 0.8em;
         text-shadow: 3px 0 2px #000; }
       #root .pi-view h2::before {
@@ -1063,53 +693,9 @@ input {
       color: #aaa;
       font-weight: 400; }
     #root .pi-view .box {
-      margin: 50px 0;
-      position: relative;
-      width: 100%; }
-      #root .pi-view .box input {
-        font-size: 15px;
-        color: #222;
-        width: 100%;
-        border: none;
-        border-bottom: solid #aaa 1px;
-        padding-bottom: 10px;
-        padding-left: 10px;
-        position: relative;
-        background: none;
-        z-index: 5; }
-      #root .pi-view .box input::placeholder {
-        color: #aaa; }
-      #root .pi-view .box input:focus {
-        outline: none; }
-      #root .pi-view .box > span {
-        display: block;
-        position: absolute;
-        bottom: 0;
-        left: 0%;
-        background-color: #666;
-        width: 0;
-        height: 2px;
-        border-radius: 2px;
-        transition: 0.5s; }
-      #root .pi-view .box label {
-        position: absolute;
-        color: #aaa;
-        left: 10px;
-        font-size: 20px;
-        bottom: 8px;
-        transition: all .2s; }
-      #root .pi-view .box input:focus ~ label,
-      #root .pi-view .box input:valid ~ label {
-        font-size: 16px;
-        bottom: 40px;
-        color: #4b1010a6;
-        font-weight: bold; }
-      #root .pi-view .box input:focus ~ span,
-      #root .pi-view .box input:valid ~ span {
-        width: 100%; }
+      margin: 50px 0; }
     #root .pi-view .pi-createbtn {
       border: 0;
-      background-color: #babfff;
       font-size: 20px;
       font-weight: 700;
       border-radius: 5px;
@@ -1118,16 +704,8 @@ input {
       box-shadow: 1px 1px 1px #888;
       cursor: pointer; }
     #root .pi-view .calendar-box {
-      display: none;
-      position: absolute;
-      left: 0;
-      top: 110%;
-      min-width: 300px;
       max-width: 400px;
       width: 100%;
-      transition: .5s;
-      border: 0;
-      z-index: 99;
       background-color: #fff;
       border: 1px solid #aaa;
       padding: 10px; }
@@ -1169,8 +747,6 @@ input {
         background-color: #ffdfbe;
         border-top: 1px dashed #3e0000;
         border-bottom: 1px dashed #3e0000; }
-        #root .react-calendar-main .react-calendar__tile:has(div.dateBg) abbr {
-          color: #4b1010a6; }
       #root .react-calendar-main .react-calendar__tile:has(div.dateBg.start) {
         border-left: 1px dashed #3e0000; }
       #root .react-calendar-main .react-calendar__tile:has(div.dateBg.today)::before {
@@ -1185,15 +761,14 @@ input {
         color: #fff; }
       #root .react-calendar-main .react-calendar__tile:has(div.dateBg.last) {
         border-right: 1px dashed #3e0000; }
-      #root .react-calendar-main .react-calendar__tile:has(div.dateBg.exe) abbr {
+      #root .react-calendar-main .react-calendar__tile #root .react-calendar-main .react-calendar__tile:has(div.dateBg.exe) .dateBg.exe {
+        background: #f89e37; }
+      #root .react-calendar-main .react-calendar__tile #root .react-calendar-main .react-calendar__tile:has(div.dateBg.exe) abbr {
         color: #333; }
-      #root .react-calendar-main .react-calendar__tile--now {
-        background-color: transparent; }
       #root .react-calendar-main .react-calendar__tile--now.react-calendar__month-view__days__day abbr {
         color: #fff; }
       #root .react-calendar-main .react-calendar__tile--now.react-calendar__month-view__days__day::after {
         content: "today";
-        font-family: "OKDDUNG";
         font-size: 0.9em;
         display: block;
         color: #ac5600;
@@ -1217,12 +792,10 @@ input {
       transition: .5s;
       font-family: 'OKDDUNG';
       position: relative;
-      color: #4b1010a6;
       z-index: 3; }
     #root .react-calendar-main .dateBg {
       width: 30%;
       height: 5px;
-      background: #babfff;
       z-index: 1;
       margin: auto;
       border-radius: 15px; }
@@ -1230,7 +803,6 @@ input {
       background: #ac5600; }
       #root .react-calendar-main .dateBg.today::after {
         content: "today";
-        font-family: "OKDDUNG";
         font-size: 0.9em;
         display: block;
         color: #ac5600;
@@ -1238,23 +810,19 @@ input {
         top: 73%;
         left: 50%;
         transform: translate(-50%, -50%); }
-    #root .react-calendar-main .dateBg.start {
-      background: #babfff; }
-      #root .react-calendar-main .dateBg.start::after {
-        content: "start";
-        font-family: "OKDDUNG";
-        font-size: 0.9em;
-        display: block;
-        color: #333;
-        position: absolute;
-        top: 73%;
-        left: 50%;
-        transform: translate(-50%, -50%); }
+    #root .react-calendar-main .dateBg.start::after {
+      content: "start";
+      font-size: 0.9em;
+      display: block;
+      color: #333;
+      position: absolute;
+      top: 73%;
+      left: 50%;
+      transform: translate(-50%, -50%); }
     #root .react-calendar-main .dateBg.start.today {
       background: none; }
       #root .react-calendar-main .dateBg.start.today::before {
         content: "today";
-        font-family: "OKDDUNG";
         font-size: 0.9em;
         display: block;
         color: #ac5600;
@@ -1263,12 +831,10 @@ input {
         left: 50%;
         transform: translate(-50%, -50%); }
     #root .react-calendar-main .dateBg.last {
-      background: #babfff;
       border-top-right-radius: 10px;
       border-bottom-right-radius: 10px; }
       #root .react-calendar-main .dateBg.last::after {
         content: "end";
-        font-family: "OKDDUNG";
         font-size: 0.9em;
         display: block;
         color: #333;
@@ -1290,12 +856,9 @@ input {
       background: #fff1e3; }
     #root .react-calendar-main .react-calendar__navigation {
       height: 150px;
-      border-bottom: 1px dashed #3e0000;
-      margin-bottom: 0;
-      background-color: transparent; }
+      margin-bottom: 0; }
       #root .react-calendar-main .react-calendar__navigation .react-calendar__navigation__label {
-        font-size: 30px;
-        color: #000; }
+        font-size: 30px; }
       #root .react-calendar-main .react-calendar__navigation button {
         font-family: initial; }
       #root .react-calendar-main .react-calendar__navigation .react-calendar__navigation__arrow {
@@ -1308,23 +871,17 @@ input {
       font-size: 16px; }
     #root .react-calendar-main .react-calendar__tile--active {
       background: transparent; }
-    #root .react-calendar-main .react-calendar__tile--active:has(.dateBg) {
-      background: #ff9d9d; }
-      #root .react-calendar-main .react-calendar__tile--active:has(.dateBg) abbr {
-        color: #4b1010a6; }
     #root .react-calendar-main .react-calendar__tile:enabled:hover:has(.dateBg),
     #root .react-calendar-main .react-calendar__tile:enabled:focus:has(.dateBg) {
       background-color: #b2d3ff !important; }
       #root .react-calendar-main .react-calendar__tile:enabled:hover:has(.dateBg) abbr,
       #root .react-calendar-main .react-calendar__tile:enabled:focus:has(.dateBg) abbr {
         display: block;
-        color: #ff9d9d !important;
         text-shadow: 3px 0px 5px #000;
         transform: rotate(15deg) scale(1.5); }
       #root .react-calendar-main .react-calendar__tile:enabled:hover:has(.dateBg) .dateBg,
       #root .react-calendar-main .react-calendar__tile:enabled:focus:has(.dateBg) .dateBg {
-        height: 0;
-        background: #ff9d9d; }
+        height: 0; }
   #root .textarea {
     margin-top: 30px; }
     #root .textarea textarea {
@@ -1339,41 +896,39 @@ input {
       padding: 10px;
       border-radius: 5px; }
   #root .calendar-modal {
-    border: 0;
-    width: 60%;
-    max-width: 700px;
-    height: 90%;
-    overflow-y: scroll;
-    box-shadow: 2px 3px 5px #000;
-    border-radius: 5px; }
+    width: 85%;
+    max-width: 768px;
+    height: 95%; }
     #root .calendar-modal h2 {
       font-size: 40px; }
-    #root .calendar-modal .execution-insert-view li .line {
-      margin-bottom: 10px; }
-    #root .calendar-modal .execution-insert-view li .textarea {
-      margin-top: 30px; }
-      #root .calendar-modal .execution-insert-view li .textarea textarea {
-        width: 100%;
-        height: 100%;
-        min-height: 300px;
-        border: 0;
-        outline: none;
-        background-color: #faebeb;
-        font-size: 17px;
-        font-weight: 100;
-        padding: 10px;
-        border-radius: 10px; }
+    #root .calendar-modal .execution-insert-view li {
+      width: 90%;
+      margin: 10px auto; }
+      #root .calendar-modal .execution-insert-view li .line {
+        margin-bottom: 10px; }
+      #root .calendar-modal .execution-insert-view li .textarea {
+        margin-top: 30px; }
+        #root .calendar-modal .execution-insert-view li .textarea textarea {
+          width: 100%;
+          height: 100%;
+          min-height: 300px;
+          border: 0;
+          outline: none;
+          background-color: #faebeb;
+          font-size: 17px;
+          font-weight: 100;
+          padding: 10px;
+          border-radius: 10px; }
     #root .calendar-modal .execution-look-view {
-      padding: 10px;
-      margin-top: 30px; }
+      margin-top: 20px; }
       #root .calendar-modal .execution-look-view li {
         position: relative;
         border: 1px solid #aaa;
-        border-radius: 10px;
+        border-radius: 5px;
         overflow: hidden;
-        width: 90%;
+        width: 100%;
         padding: 10px;
-        margin: 10px auto; }
+        margin: 10px auto 20px; }
         #root .calendar-modal .execution-look-view li .line {
           margin-bottom: 10px; }
           #root .calendar-modal .execution-look-view li .line:nth-of-type(2) {
@@ -1381,26 +936,18 @@ input {
             #root .calendar-modal .execution-look-view li .line:nth-of-type(2) textarea {
               width: 100%;
               height: 100%;
-              min-height: 150px;
-              border: 0;
-              outline: none;
-              background-color: #faebeb;
-              font-size: 17px;
+              min-height: 200px;
+              font-size: 20px;
               font-weight: 100;
               padding: 10px;
-              border-radius: 10px; }
+              border-radius: 5px; }
         #root .calendar-modal .execution-look-view li p {
-          font-size: 17px;
-          background: #faebeb;
-          border-radius: 10px;
-          display: flex;
-          word-break: break-word;
-          margin: 10px 0;
-          padding: 13px; }
+          font-size: 20px;
+          border-radius: 5px; }
           #root .calendar-modal .execution-look-view li p.execution-subject::before {
             content: "제목";
             word-break: keep-all;
-            color: #333;
+            color: #888;
             display: block;
             padding-right: 15px; }
           #root .calendar-modal .execution-look-view li p.execution-content {
@@ -1408,7 +955,7 @@ input {
             #root .calendar-modal .execution-look-view li p.execution-content::before {
               content: "내용";
               word-break: keep-all;
-              color: #333;
+              color: #888;
               display: block;
               padding-right: 15px; }
         #root .calendar-modal .execution-look-view li button {
@@ -1417,15 +964,13 @@ input {
             background: #fff;
             color: #999;
             border: 0;
-            box-shadow: none; }
+            box-shadow: none;
+            margin: 5px 10px;
+            font-size: 20px; }
             #root .calendar-modal .execution-look-view li button.achieve-button.active {
-              color: #4b1010a6;
-              cursor: inherit;
-              background-color: #ff9d9d; }
-          #root .calendar-modal .execution-look-view li button:hover {
-            color: #ff9d9d; }
+              cursor: inherit; }
     #root .calendar-modal ul {
-      padding: 20px 20px;
+      padding: 0;
       width: 100%;
       margin: auto; }
       #root .calendar-modal ul.behavior-list li {
@@ -1444,8 +989,7 @@ input {
           padding: 15px;
           color: #aaa;
           display: block;
-          font-size: 20px;
-          font-family: "TheJamsil"; }
+          font-size: 20px; }
           #root .calendar-modal ul.behavior-list li a::after {
             content: "";
             padding: 0;
@@ -1498,13 +1042,10 @@ input {
           #root .calendar-modal ul li .line input:valid ~ label {
             font-size: 16px;
             bottom: 40px;
-            color: #4b1010a6;
             font-weight: bold; }
           #root .calendar-modal ul li .line input:focus ~ span,
           #root .calendar-modal ul li .line input:valid ~ span {
             width: 100%; }
-  #root .cover-box-calendar .btnArea button {
-    background-color: #ff9d9d; }
   #root .cover-box-test {
     width: 100%;
     height: 300px; }
@@ -1516,9 +1057,7 @@ input {
       font-size: 25px;
       border-radius: 10px;
       box-shadow: 2px 0px 2px #000;
-      padding: 10px;
-      background-color: #ff9d9d;
-      font-family: "OKDDUNG"; }
+      padding: 10px; }
     #root .cover-box-test .question {
       display: flex;
       align-items: center;
@@ -1531,69 +1070,22 @@ input {
       margin: 20px 0; }
       #root .cover-box-test h3 b.userId {
         font-size: 1.5em;
-        letter-spacing: 1px;
-        color: #4b1010a6; }
+        letter-spacing: 1px; }
     #root .cover-box-test .answer .test-view {
       height: 350px; }
       #root .cover-box-test .answer .test-view-description {
         margin-bottom: 10px;
         font-size: 25px; }
         #root .cover-box-test .answer .test-view-description .question {
-          font-family: "OKDDUNG";
           font-size: 0.9em; }
       #root .cover-box-test .answer .test-view-box {
         padding-top: 20px; }
         #root .cover-box-test .answer .test-view-box-input {
-          position: relative;
-          width: 80%;
           margin: 30px auto;
           width: 70%;
           max-width: 700px; }
-          #root .cover-box-test .answer .test-view-box-input input {
-            font-size: 15px;
-            color: #222;
-            width: 100%;
-            border: none;
-            border-bottom: solid #aaa 1px;
-            padding-bottom: 10px;
-            padding-left: 10px;
-            position: relative;
-            background: none;
-            z-index: 5; }
-          #root .cover-box-test .answer .test-view-box-input input::placeholder {
-            color: #aaa; }
-          #root .cover-box-test .answer .test-view-box-input input:focus {
-            outline: none; }
-          #root .cover-box-test .answer .test-view-box-input > span {
-            display: block;
-            position: absolute;
-            bottom: 0;
-            left: 0%;
-            background-color: #666;
-            width: 0;
-            height: 2px;
-            border-radius: 2px;
-            transition: 0.5s; }
-          #root .cover-box-test .answer .test-view-box-input label {
-            position: absolute;
-            color: #aaa;
-            left: 10px;
-            font-size: 20px;
-            bottom: 8px;
-            transition: all .2s; }
-          #root .cover-box-test .answer .test-view-box-input input:focus ~ label,
-          #root .cover-box-test .answer .test-view-box-input input:valid ~ label {
-            font-size: 16px;
-            bottom: 40px;
-            color: #4b1010a6;
-            font-weight: bold; }
-          #root .cover-box-test .answer .test-view-box-input input:focus ~ span,
-          #root .cover-box-test .answer .test-view-box-input input:valid ~ span {
-            width: 100%; }
       #root .cover-box-test .answer .test-view-question {
-        font-size: 1.5em;
-        color: #4b1010a6;
-        font-family: "TheJamsil"; }
+        font-size: 1.5em; }
         #root .cover-box-test .answer .test-view-question::before {
           content: "Question : ";
           color: #000;
@@ -1607,293 +1099,21 @@ input {
     #root form ul li label {
       width: 40%;
       margin-right: 10px; }
-  #root footer {
-    background-color: #333;
-    border-top: 2px solid #dddcdc;
-    height: 125px; }
-    #root footer .max_container {
-      width: 100%;
-      height: 100%;
-      margin: auto;
-      max-width: 1400px; }
-    #root footer .logo {
-      width: 15%;
-      height: 100%;
-      justify-content: center; }
-      #root footer .logo a {
-        color: #fff;
-        font-size: 45px; }
-
-.description {
-  background: #fff;
-  border: 1px solid #999;
-  border-radius: 5px;
-  position: absolute;
-  font-size: 10px;
-  left: 50%;
-  top: 105%;
-  transform: translateX(-50%);
-  padding: 5px 10px;
-  display: none;
-  z-index: 99;
-  white-space: nowrap; }
-
-.btnArea {
-  margin-top: 10px;
-  display: flex;
-  justify-content: flex-end; }
-  .btnArea .button,
-  .btnArea input[type="submit"],
-  .btnArea input[type="reset"] {
-    min-width: 75px;
-    padding: 8px 3px;
-    margin: 0 4px;
-    background-color: #babfff;
-    border-radius: 7px;
-    font-weight: 700;
-    border: 0;
-    font-family: 'TheJamsil';
-    font-size: 14px;
-    cursor: pointer;
-    box-shadow: 1px 1px 1px #888; }
-
-.closeBtn {
-  border: 0;
-  background: 0;
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  width: 20px;
-  height: 20px;
-  font-size: 0;
-  cursor: pointer; }
-  .closeBtn::after {
-    content: "";
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 3px;
-    background: #000;
-    left: 50%;
-    top: 50%;
-    border-radius: 4px;
-    transform: translate(-50%, -50%) rotate(45deg); }
-  .closeBtn::before {
-    content: "";
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 3px;
-    background: #000;
-    left: 50%;
-    top: 50%;
-    border-radius: 4px;
-    transform: translate(-50%, -50%) rotate(-45deg); }
-
-.adminSide {
-  position: fixed;
-  border-radius: 10px;
-  bottom: 20px;
-  right: 120px;
-  z-index: 9999; }
-  .adminSide .btnArea button {
-    background: #0009;
-    color: #fff; }
-
-aside {
-  position: fixed;
-  bottom: 0px;
-  right: 30px; }
-  aside .aside-icon {
-    text-align: center;
-    height: 100px;
-    width: 85px;
-    position: relative;
-    z-index: 99; }
-    aside .aside-icon ul {
-      position: absolute;
-      width: 100%;
-      transition: .5s;
-      transition-property: top, opacity, width, height;
-      z-index: -1;
-      top: 50%;
-      opacity: 0; }
-      aside .aside-icon ul li {
-        top: 0;
-        border-radius: 10px;
-        background-color: #fff;
+  aside {
+    display: none; }
+  .likes-cover {
+    padding: 10px 0; }
+    .likes-cover .like {
+      max-width: 768px;
+      flex-wrap: wrap;
+      width: 80%;
+      padding-bottom: 50px; }
+      .likes-cover .like-description {
+        margin-bottom: 30px; }
+      .likes-cover .like li {
         margin: 10px auto;
-        width: 100%;
-        cursor: pointer;
-        box-shadow: 3px 0px 5px #000;
-        font-size: 26px; }
-      aside .aside-icon ul.on {
-        width: 100%;
-        height: auto;
-        top: 0%;
-        opacity: 1;
-        display: block; }
-    aside .aside-icon > span {
-      display: block;
-      background: #fff;
-      box-shadow: 3px 1px 5px #000;
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      position: absolute;
-      bottom: 15px;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: 10px; }
-      aside .aside-icon > span button {
-        background-color: transparent;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        width: 100%;
-        height: 100%;
-        transform: translate(-50%, -50%);
-        border: 0;
-        font-size: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center; }
-        aside .aside-icon > span button img {
-          display: block;
-          width: 80%;
-          height: 80%; }
-  aside .aside-content {
-    position: absolute;
-    width: auto;
-    right: -200%;
-    bottom: 20px;
-    border-radius: 10px;
-    transition: 1s;
-    opacity: 0;
-    box-shadow: 5px 0 10px #999; }
-    aside .aside-content > li {
-      width: 100%;
-      transition: .5s;
-      z-index: -1; }
-    aside .aside-content.active {
-      right: 120%;
-      opacity: 1; }
-      aside .aside-content.active li {
-        z-index: 1;
-        left: 100%; }
-        aside .aside-content.active li.on {
-          opacity: 1; }
-  aside .likes-cover .like {
-    width: 90%; }
-
-.likes-cover {
-  width: 100%;
-  text-align: center;
-  padding: 20px 0; }
-  .likes-cover h2 {
-    margin-bottom: 10px; }
-  .likes-cover .like {
-    max-width: 1150px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-    width: 70%;
-    padding-bottom: 20px; }
-    .likes-cover .like-description {
-      font-size: 1.5em;
-      margin-bottom: 20px; }
-    .likes-cover .like li {
-      margin: auto;
-      padding: 25px 0;
-      width: 17%;
-      background-color: #fff;
-      border-radius: 10px; }
-      .likes-cover .like li:hover a {
-        transition: 3;
-        transform: scale(1.2); }
-      .likes-cover .like li:hover .like_hit::after {
-        background: #ff9b38;
-        box-shadow: 1px 1px 2px #000;
-        animation: like-hit .5s linear .1s 1 normal forwards; }
-      .likes-cover .like li a {
-        display: block;
-        font-size: 40px; }
-      .likes-cover .like li .like_hit {
-        transition: .5s;
-        position: relative;
-        font-family: initial;
-        font-weight: 700;
-        font-size: 1.3em;
-        color: #1f222a; }
-
-@keyframes like-hit {
-  0% {
-    left: -10%;
-    width: 0; }
-  100% {
-    left: -10%;
-    width: 120%; } }
-
-@keyframes myName-right {
-  0% {
-    transform: rotate3d(0.1, 0.7, 0.5, 120deg);
-    right: 45%;
-    opacity: 0; }
-  100% {
-    transform: rotate3d(1, 1, 1, 0deg);
-    opacity: 1;
-    right: 0; } }
-
-.auth {
-  max-width: 1400px;
-  padding: 0 30px;
-  margin: auto; }
-  .auth h2::before {
-    content: "🚫" !important;
-    transform: inherit;
-    color: #000; }
-
-.modal-background {
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 99999;
-  display: none; }
-  .modal-background.on {
-    display: block; }
-    .modal-background.on .modal {
-      animation: modal .5s linear .1s 1 normal forwards; }
-  .modal-background .modal {
-    min-width: 35%;
-    width: auto;
-    opacity: 0;
-    position: absolute;
-    border-radius: 15px;
-    padding: 2% 1.5%;
-    left: 50%;
-    top: -20%;
-    background: #fff;
-    transform: translateX(-50%);
-    border: 1px solid #000; }
-    .modal-background .modal h2 {
-      margin: 0 0 10px !important; }
-      .modal-background .modal h2::before {
-        content: "" !important;
-        margin-right: 5px;
-        font-size: 0.7em !important;
-        transform: rotate(-360deg) !important; }
-    .modal-background .modal p b {
-      font-size: 1.5em;
-      color: #ff3a3a; }
-
-@keyframes modal {
-  0% {
-    top: -20%;
-    opacity: 0; }
-  100% {
-    top: 5%;
-    opacity: 1; } }
+        padding: 35px 0;
+        width: 42%;
+        border-radius: 5px; }
+        .likes-cover .like li a {
+          font-size: 50px; } }
