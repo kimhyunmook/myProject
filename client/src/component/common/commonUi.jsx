@@ -182,8 +182,13 @@ export function Modal({ display = false, title, className, children, button }) {
 }
 
 export function MobileUi({ children, windowWidth, reverse = false }) {
-  console.log(windowWidth, reverse);
+  const [winW, setWinW] = useState(window.outerWidth);
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setWinW(window.outerWidth);
+    });
+  }, []);
   if (reverse) {
-    if (windowWidth > mobileSize) return children;
-  } else if (windowWidth <= mobileSize) return children;
+    if (winW > mobileSize) return children;
+  } else if (winW <= mobileSize) return children;
 }

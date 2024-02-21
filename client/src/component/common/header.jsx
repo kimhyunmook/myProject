@@ -8,6 +8,7 @@ import Logo, { homelink } from "./logo";
 import util from "../../util";
 import { headerSize, mobileSize } from "../../size";
 import { MobileUi } from "./commonUi";
+import AdminSide from "./adminSide";
 
 function Header({}) {
   const store = useSelector((state) => state);
@@ -41,10 +42,6 @@ function Header({}) {
     }
   }, [store]);
 
-  function homelink(event) {
-    event.preventDefault();
-    navigate("/");
-  }
   function openMobilemenu(event) {
     event.preventDefault();
     navMenu.current.classList.add("on");
@@ -53,6 +50,9 @@ function Header({}) {
   function closeMobileMenu(event) {
     event.preventDefault();
     navMenu.current.classList.remove("on");
+  }
+  function menuEventHandle(event) {
+    if (event.currentTarget.href !== window.location.href) closeMobileMenu();
   }
 
   return (
@@ -66,21 +66,28 @@ function Header({}) {
         }}
       >
         <div className="header">
-          <Logo click={homelink}></Logo>
+          <Logo click={menuEventHandle}></Logo>
           <nav className="header-nav">
-            <MobileUi windowWidth={winW}>
+            <MobileUi>
               <div className="hambuger-menu" onClick={openMobilemenu}>
                 <FontAwsome data={"fa-hambuger"} />
               </div>
             </MobileUi>
             <ul className="header-nav-menu" ref={navMenu}>
-              <MobileUi windowWidth={winW}>
+              <MobileUi>
                 <li className="closeBtn" onClick={closeMobileMenu}></li>
+                <li>
+                  <LoginList
+                    loginCookieName={loginCookieName}
+                    userInfo={userInfo}
+                  />
+                </li>
               </MobileUi>
+
               <li>
-                <a href="/" onClick={homelink}>
+                <Link to="/" onClick={menuEventHandle}>
                   홈
-                </a>
+                </Link>
               </li>
               {menu?.map((el, index) => {
                 let info;
@@ -99,7 +106,11 @@ function Header({}) {
                 if (el.description !== "") info.description = el.description;
                 // if (el.custom === "fontawsome") info.children = <FontAwsome data={el.custom_comment} />;
                 if (el.depth !== 1 && el.admin !== 1 && index !== 0)
-                  return <MenuLi {...info}>{el.name}</MenuLi>;
+                  return (
+                    <MenuLi {...info} onClick={menuEventHandle}>
+                      {el.name}
+                    </MenuLi>
+                  );
               })}
               {/* <MobileUi windowWidth={winW}>
                 <li className="login-li">
@@ -112,37 +123,20 @@ function Header({}) {
             </ul>
           </nav>
           <LoginList loginCookieName={loginCookieName} userInfo={userInfo} />
-          <MobileUi windowWidth={winW} reverse={true}></MobileUi>
+          <MobileUi reverse={true}></MobileUi>
         </div>
+        <AdminSide></AdminSide>
       </header>
     </>
   );
 }
 
 function MenuLi(props) {
-  const dc = props.depthChildren;
-  const noAction = (event) => {
-    // event.preventDefault();
-  };
   return (
-    <li className={dc !== undefined ? "depth_menu" : null}>
-      <Link to={props.href} onClick={dc !== undefined ? noAction : null}>
+    <li>
+      <Link to={props.href} onClick={props.onClick}>
         {props.children}
       </Link>
-      {dc !== undefined ? (
-        <ul className={`depth1`}>
-          <li className="depth1_li">
-            <Link to={props.href}>{props.children}</Link>
-          </li>
-          {dc.map((el, index) => {
-            return (
-              <li className="depth1_li" key={index}>
-                <Link to={el.href + "/1"}>{el.name}</Link>
-              </li>
-            );
-          })}
-        </ul>
-      ) : null}
     </li>
   );
 }

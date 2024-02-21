@@ -15,8 +15,9 @@ export default function ProjectInsertView({ userInfo, title }) {
   const dateView = (event) => {
     event.preventDefault();
     const cal = event.currentTarget.nextSibling.nextSibling.nextSibling;
-    if (cal.className.includes("on")) cal.classList.remove("on");
-    else cal.classList.add("on");
+    console.log(event);
+
+    if (event.type === "focus") cal.classList.add("on");
   };
   const dateValue = (t) => {
     setDate(`${t.start} ~ ${t.last}`);
@@ -28,7 +29,6 @@ export default function ProjectInsertView({ userInfo, title }) {
   const submit_ = (event) => {
     event.preventDefault();
     const t = form.current;
-    let triger = false;
     let body = {
       url: "/project/add",
       userId: id,
@@ -95,6 +95,7 @@ export default function ProjectInsertView({ userInfo, title }) {
         className="box"
         name="date"
         click={dateView}
+        focus={dateView}
         label={"Project 기간"}
         value_={date}
         change={dateHandle}
@@ -115,9 +116,10 @@ export default function ProjectInsertView({ userInfo, title }) {
         // label={"Project 설명"}
         placeholder={"Project 설명"}
       ></InsertInput>
-      <button className="pi-createbtn" onClick={submit_}>
-        Create
-      </button>
+      <BtnArea info={{ Name: "Create", Click: submit_ }}></BtnArea>
+      {/* <button className="pi-createbtn" onClick={submit_}> */}
+      {/* Create */}
+      {/* </button> */}
     </form>
   );
 }

@@ -15,6 +15,7 @@ import SearchUser from "./component/user/search";
 // import WriteGallery from './component/board/write-gallery';
 import NeedDownLoad from "./component/download";
 import "../src/css/main.css";
+import "../src/css/mobile.css";
 import "../src/component/common/canvas/canvas.css";
 import Footer from "./component/common/footer";
 import About from "./component/about";
