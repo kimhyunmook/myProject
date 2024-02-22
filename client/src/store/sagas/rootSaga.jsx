@@ -39,6 +39,7 @@ import { handleLike } from "./likeSaga";
 import {
   _ProjectCalendarInfo,
   _ProjectInfo,
+  _ProjectMemo,
   addPlan,
   calendarInfo,
   testRequest,
@@ -47,6 +48,7 @@ import {
   handleCalendarInfo,
   handleProjectCalendarInfo,
   handleProjectInfo,
+  handleProjectMemo,
   handle_addPlan,
   handle_testRequest,
 } from "./calendarSaga";
@@ -86,5 +88,6 @@ export default function* rootSaga() {
     yield takeLatest(testRequest.type, handle_testRequest),
     yield takeLatest(_ProjectInfo.type, handleProjectInfo),
     yield takeLatest(_ProjectCalendarInfo.type, handleProjectCalendarInfo),
+    yield takeLatest(_ProjectMemo.type, handleProjectMemo),
   ];
 }

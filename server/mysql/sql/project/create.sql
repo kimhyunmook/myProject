@@ -7,6 +7,7 @@ CREATE TABLE `project` (
 	`description` VARCHAR(500) NULL DEFAULT NULL,
 	`date` VARCHAR(70) NOT NULL DEFAULT "00-00-00 ~ 00-00-00",
 	`color` VARCHAR(10) NULL DEFAULT "#ff9d9d",
+	`memo` JSON NULL,
 	PRIMARY KEY (`num`)
 )
 ;

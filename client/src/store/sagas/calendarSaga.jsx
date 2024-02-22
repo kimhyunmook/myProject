@@ -6,6 +6,7 @@ import {
   getTestResponse,
   getProjectInfo,
   getProjectCalendarInfo,
+  getProjectMemo,
 } from "../calendarSlice";
 
 export function* handleCalendarInfo(body) {
@@ -47,6 +48,15 @@ export function* handleProjectCalendarInfo(body) {
   try {
     const res = yield call(commonAPi.post, body);
     yield put(getProjectCalendarInfo(res));
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export function* handleProjectMemo(body) {
+  try {
+    const res = yield call(commonAPi.post, body);
+    yield put(getProjectMemo(res));
   } catch (error) {
     console.error(error);
   }

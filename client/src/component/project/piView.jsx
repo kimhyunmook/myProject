@@ -24,7 +24,6 @@ export default function ProjectInsertView({ userInfo, title }) {
   function dateHandle(event) {
     event.preventDefault();
   }
-  //   const dateHandler = ()
   const submit_ = (event) => {
     event.preventDefault();
     const t = form.current;
@@ -37,29 +36,38 @@ export default function ProjectInsertView({ userInfo, title }) {
       content: t.content.value,
       description: t.description.value,
     };
-    if (!!!body.type) {
-      alert("type을 입력해주세요");
-      t.type.focus();
-      return;
+    function emptyConfirm(obj = {}) {
+      if (!!!obj.target) {
+        alert(obj.alert);
+        obj.focus.focus();
+        return;
+      }
     }
-    if (!!!body.subject) {
-      alert("이름을 입력해주세요");
-      t.subject.focus();
-      return;
-    }
-    if (!!!body.date) {
-      alert("기간을 정해주세요");
-      t.date.focus();
-      return;
-    }
-    if (!!!body.content) {
-      alert("계획의 내용을 입력해주세요");
-      t.content.focus();
-      return;
-    }
+
+    emptyConfirm({
+      target: body.type,
+      alert: "type을 입력해주세요",
+      focus: t.type,
+    });
+    emptyConfirm({
+      target: body.subject,
+      alert: "Project 이름을 입력해주세요.",
+      focus: t.type,
+    });
+    emptyConfirm({
+      target: body.date,
+      alert: "기간을 정해주세요.",
+      focus: t.date,
+    });
+    emptyConfirm({
+      target: body.content,
+      alert: "Project 목표를 정해주세요.",
+      focus: t.content,
+    });
+
     dispatch(_Project(body));
     alert("입력되었습니다.");
-    navigate("/project/calendar");
+    // navigate("/project/calendar");
     window.location.reload();
   };
 
@@ -76,7 +84,6 @@ export default function ProjectInsertView({ userInfo, title }) {
       ) : (
         <>
           <h2>새로운 프로젝트</h2>
-          {/* 명언 넣어볼 예정 */}
           <p className="wiseSaying">새로운 Project를 입력해주세요</p>
         </>
       )}
@@ -106,7 +113,7 @@ export default function ProjectInsertView({ userInfo, title }) {
       <InsertInput
         className="box"
         name={"content"}
-        label={"Project 내용"}
+        label={"Project 목표"}
       ></InsertInput>
       <InsertInput
         type="textarea"
@@ -116,9 +123,6 @@ export default function ProjectInsertView({ userInfo, title }) {
         placeholder={"Project 설명"}
       ></InsertInput>
       <BtnArea info={{ Name: "Create", Click: submit_ }}></BtnArea>
-      {/* <button className="pi-createbtn" onClick={submit_}> */}
-      {/* Create */}
-      {/* </button> */}
     </form>
   );
 }

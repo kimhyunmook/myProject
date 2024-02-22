@@ -9,6 +9,7 @@ import { FontAwsome } from "../common/fontawsome";
 import {
   _ProjectCalendarInfo,
   _ProjectInfo,
+  _ProjectMemo,
   addPlan,
 } from "../../store/calendarSlice";
 import util from "../../util";
@@ -50,7 +51,7 @@ export default function ProjectS() {
   useEffect(() => {
     body = {
       url: "/project/info",
-      userId: userInfo.id,
+      userId: userInfo?.id,
     };
     dispatch(_ProjectInfo(body));
   }, []);
@@ -59,14 +60,23 @@ export default function ProjectS() {
     executionBody = {
       url: "/project/projectCalendarInfo",
       projectName: projectTarget.subject,
-      userId: userInfo.id,
+      userId: userInfo?.id,
+    };
+    dispatch(_ProjectCalendarInfo(executionBody));
+    // setProjectTarget(projectTarget);
+
+    body = {
+      url: `/project/${projectTarget.subject}/memo`,
+      num: projectTarget.num,
+      userId: projectTarget.userId,
+      date: moment(new Date()).format("YYYY-MM-DD"),
     };
 
-    dispatch(_ProjectCalendarInfo(executionBody));
+    dispatch(_ProjectMemo(body));
   }, [projectTarget]);
 
   useEffect(() => {
-    setExecutionData(calendar_info.projectExecution);
+    setExecutionData(calendar_info?.projectExecution);
   }, [store]);
 
   useEffect(() => {
@@ -178,10 +188,7 @@ export default function ProjectS() {
             />
 
             {path[path.length - 1] === "calendar" ? (
-              <div
-                ref={calendarRef}
-                className="cover-box-calendar"
-              >
+              <div ref={calendarRef} className="cover-box-calendar">
                 <select
                   name="project-select"
                   className="project-select"

@@ -7,6 +7,7 @@ import {
   faBars,
   faChalkboard,
   faClover,
+  faFilePen,
   faHamburger,
   faHouse,
   faList,
@@ -42,10 +43,10 @@ export function FontAwsome({ data, type }) {
     ["fa-angle-left", faAngleLeft],
     ["fa-angle-right", faAngleRight],
     ["fa-wrench", faWrench],
-    ["fa-trach", faTrash],
+    ["fa-trash", faTrash],
     ["fa-user-xmark", faUserXmark],
     ["fa-pen-nib", faPenNib],
-    ["fa-plus",faPlus],
+    ["fa-plus", faPlus],
     ["fa-bars", faBars],
     ["fa-person", faPerson],
     ["fa-person-dress", faPersonDress],
@@ -58,6 +59,7 @@ export function FontAwsome({ data, type }) {
     ["fa-play", faPlay],
     ["fa-clover", faClover],
     ["fa-hambuger", faBars],
+    ["fa-file-pen", faFilePen],
   ];
 
   if (data !== "default")
