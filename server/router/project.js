@@ -7,18 +7,27 @@ const moment = require("moment");
 
 router.post("/add", async (req, res) => {
   let routerName = req.originalUrl;
-  let sql, data;
+  let sql;
+  let data = [];
+  let result = {};
+
   const conn = await db2.getConnection();
   delete req.body.url;
+  console.log(req.body.description);
+
   try {
-    sql = sqlText.SELECT("users", `id="${req.body.userId}"`);
-    let searchId = await conn.query(sql);
-    searchId = searchId[0][0];
     let key = Object.keys(req.body);
     let values = Object.values(req.body);
+    let searchId = "";
+
+    sql = sqlText.SELECT("users", `id="${req.body.userId}"`);
+    searchId = await conn.query(sql);
+    searchId = searchId[0][0];
+
     sql = sqlText.SELECT(`users`, `id="${req.body.userId}"`, "project");
     let project = await conn.query(sql);
     project = project[0][0].project;
+
     function existProject(newp) {
       project = [...project];
       let text = "";
@@ -40,17 +49,16 @@ router.post("/add", async (req, res) => {
     await conn.query(sql);
     values = values.map((v) => `"${v}"`);
     sql = sqlText.INSERT("project", key, `(${values})`);
+    console.log(sql);
     await conn.query(sql);
+    result = { condition: "SUCCESS", data: searchId, login: true };
 
-    res.status(200).json({
-      condition: "SUCCESS",
-      data: searchId,
-      login: true,
-    });
     correctMessage(routerName, "Project create ");
+    await conn.release();
   } catch (error) {
     errorMessage(routerName, error);
   }
+  res.status(200).json(result);
 });
 
 router.post("/info", async (req, res) => {
@@ -168,13 +176,121 @@ router.post("/projectCalendarDelete", async (req, res) => {
     );
     data = await conn.query(sql);
     data = data[0];
-    res.status(200).json({
-      data,
-    });
+
     correctMessage(routerName, "s");
   } catch (error) {
     errorMessage(routerName, error);
   }
+
+  await res.status(200).json({
+    data,
+  });
+});
+
+router.post("/:projectName/memo", async (req, res) => {
+  const routerName = req.originalUrl;
+  let sql = "";
+  let data = [];
+  let result = {};
+  let search;
+  let memo = {
+    date: req.body.date,
+    value: req.body.memo,
+  };
+  if (req.params.projectName !== "undefined")
+    try {
+      const conn = await db2.getConnection();
+      let sql2 = sqlText.SELECT(
+        "project",
+        `userId="${req.body.userId}" AND subject="${req.params.projectName}"`
+      );
+      search = await conn.query(sql2);
+      search = search[0][0].memo;
+
+      if (!!search) {
+        if (!!req.body.memo) {
+          search.push(memo);
+          search = JSON.stringify(search);
+          sql = sqlText.UPDATE(
+            "project",
+            `memo='${search}'`,
+            `num=${req.body.num}`
+          );
+          await conn.query(sql);
+        }
+      } else {
+        if (!!req.body.memo) {
+          memo = JSON.stringify(memo);
+          sql = sqlText.UPDATE(
+            "project",
+            `memo = '[${memo}]'`,
+            `num=${req.body.num}`
+          );
+          await conn.query(sql);
+        }
+      }
+
+      search = await conn.query(sql2);
+      data = search[0][0].memo;
+
+      correctMessage(routerName, "memo");
+      result = {
+        condition: "success",
+        data,
+      };
+
+      await conn.release();
+    } catch (error) {
+      result = {
+        condition: "fail",
+      };
+
+      errorMessage(routerName, error);
+    }
+  res.status(200).json(result);
+});
+
+router.post("/:projectName/memoDelete", async (req, res) => {
+  const routerName = req.originalUrl;
+  let sql = "";
+  let result = {};
+  let data,
+    search = [];
+  try {
+    const conn = await db2.getConnection();
+
+    sql = sqlText.SELECT(
+      "project",
+      `userId="${req.body.userId}" AND subject="${req.params.projectName}"`
+    );
+    search = await conn.query(sql);
+    search = search[0][0].memo;
+    search = search.reduce((a, c, i) => {
+      if (c.value !== req.body.text) if (c.date !== req.body.date) a.push(c);
+      return a;
+    }, []);
+    search = JSON.stringify(search);
+    console.log(search);
+    sql = sqlText.UPDATE("project", `memo='${search}'`, `num=${req.body.num}`);
+    await conn.query(sql);
+    sql = sqlText.SELECT(
+      "project",
+      `userId="${req.body.userId}" AND subject="${req.params.projectName}"`
+    );
+    search = await conn.query(sql);
+    data = search[0][0].memo;
+
+    result = {
+      condition: "success",
+      data,
+    };
+    correctMessage(routerName, "memo delete");
+    await conn.release();
+  } catch (error) {
+    errorMessage(routerName, error);
+  }
+
+  res.status(200).json(result);
 });
 
 module.exports = router;

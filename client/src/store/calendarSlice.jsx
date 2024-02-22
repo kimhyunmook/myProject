@@ -8,6 +8,7 @@ let initialState = {
   testData: [],
   projectData: [],
   projectExecution: [],
+  memo: [],
 };
 
 const calendarSlice = createSlice({
@@ -49,6 +50,14 @@ const calendarSlice = createSlice({
     getProjectCalendarInfo: (state, action) => {
       state.projectExecution = action.payload.data;
     },
+
+    // 전부 이걸로 변경 에정
+    _ProjectMemo: (state, action) => {
+      state.action = action.type;
+    },
+    getProjectMemo: (state, action) => {
+      state.memo = action.payload.data;
+    },
   },
 });
 
@@ -64,5 +73,7 @@ export const {
   getProjectInfo,
   _ProjectCalendarInfo,
   getProjectCalendarInfo,
+  _ProjectMemo,
+  getProjectMemo,
 } = calendarSlice.actions;
 export default calendarSlice.reducer;
