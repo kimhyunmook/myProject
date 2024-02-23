@@ -25,6 +25,7 @@ module.exports = {
 
 /** MySQL USER 설정
  * @SQL접속방법 mysql -h localhost -u root -p password
+ * @DB생성 CREATE DATABASE 'dbname';
  * @유저생성 CREATE USER 'userID'@'%' IDENTIFIED WITH MYSQL_NATIVE_PASSWORD BY 'password';
  * @권한부여 GRANT ALL PRIVILEGES ON 'database name'.* to 'userID'@'%' WITH GRANT OPTION; flush privileges;
  */

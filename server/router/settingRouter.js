@@ -47,6 +47,7 @@ DB=${req.body.db}
     ok: false,
     msg: "",
   };
+
   try {
     const conn = await initDB.getConnection();
     let sql;
@@ -120,6 +121,12 @@ DB=${req.body.db}
       read_sql: "project/project_calendar.sql",
     });
 
+    await existCreateQuery({
+      connect: conn,
+      table_name: "project_memo",
+      read_sql: "project/project_memo.sql",
+    });
+
     sql = sqlText.INSERT(
       "likes",
       "icon,type,hit",
@@ -159,16 +166,18 @@ DB=${req.body.db}
     }
 
     await fs.writeFileSync(".env", dbinfo);
-    result = true;
+    result.ok = true;
     result.msg = "ok";
     // result.result = result;
 
-    await res.status(200).send(result);
     correctMessage(routerName);
     conn.release();
   } catch (error) {
     errorMessage(routerName, error);
+    result.msg = error;
   }
+
+  res.status(200).send(result);
 });
 
 router.delete("/delete", async (req, res) => {
@@ -220,10 +229,12 @@ router.post("/menu", async (req, res) => {
 
 router.post("/like", async (req, res) => {
   const routerName = req.originalUrl;
+  let rows;
+  let result = {};
   try {
     const conn = await db2.getConnection();
     let sql;
-    console.log(req.body);
+
     if (req.body.click) {
       sql = sqlText.UPDATE(
         "likes",
@@ -235,16 +246,19 @@ router.post("/like", async (req, res) => {
     }
 
     sql = sqlText.SELECT("likes");
-    const rows = await conn.query(sql);
+    rows = await conn.query(sql);
     correctMessage(routerName);
-    await res.status(200).json({
+    result = {
       data: rows[0],
       condition: "success",
-    });
+    };
     await conn.release();
   } catch (error) {
     errorMessage(routerName, error);
+    result.condition = "fail";
   }
+
+  res.status(200).json(result);
 });
 
 module.exports = router;

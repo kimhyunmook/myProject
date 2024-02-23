@@ -210,7 +210,7 @@ export default function ExecutionView({
           </ul>
         ) : (
           <ul className="execution-look-view">
-            {list.length === 0 ? (
+            {list?.length === 0 ? (
               <li>
                 <h3>Projectd의 상세 계획이 없습니다.</h3>
               </li>
@@ -295,7 +295,7 @@ export function InsertInput({
         <textarea
           name={name}
           placeholder={placeholder}
-          value={value_}
+          defaultValue={value_}
           onChange={change}
           onClick={click}
         ></textarea>

@@ -2106,17 +2106,154 @@ body {
             }
         }
     }
+    $right: 3%;
+    $top:20%;
+    .memo-icon {
+        position:fixed;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        right: $right;
+        top:$top;
+        $w:50px;
+        width: $w;
+        height:$w;
+        border-radius:50%;
+        z-index:999;
+        cursor:pointer;
+        font-size:25px;
+        background:#333;
+        color:rgb(247, 247, 127);
+        box-shadow:  2px 0 5px #aaa;
+    }
     .project-side {
         position:fixed;
-        right: 1%;
-        top:30%;
+        right: $right;
+        top:$top;
         z-index:999;
-        width: 200px;
+        width: 300px;
         height: auto;
-        max-height: 60vh;
-        overflow:scroll;
-        // background:$active_color;
+        max-height: 70vh;
+        // overflow: hidden;
+        border-radius:5px;
+        box-shadow: 3px 3px 10px #aaa;
+        overflow-y:scroll;
+        &::-webkit-scrollbar {
+            display:none;
+        }
+        background:rgb(255, 255, 195);
         min-height:0;
+
+        $padding: 5px 10px;
+        .menu-bar {
+            padding: $padding;
+            background:rgb(247, 247, 127);
+            position:relative;
+            button {
+                position:relative;
+                background:0;
+                border:0;
+                cursor: pointer;
+                margin-right: 15px;
+                font-size:16px;
+                &:hover {
+                    color:$main;
+                }
+                &.closeBtn {
+                    position: absolute;
+                    width:15px;
+                    height:15px;
+                    margin-right:0;
+                    top:50%;
+                    right:10px;
+                    transform:translateY(-50%);
+                    &::after,&::before {
+                        height:1px;
+                    }
+                }
+            }
+        }
+        ul {
+            // padding:$padding;
+            li {
+                border-bottom: 1px solid #aaa;
+                padding: 5px 10px;
+                display:flex;
+                font-size: 14px;
+                b {
+                    font-weight:100;
+                    margin-right:7px;
+                    color:#888;
+                    display:flex;
+                    align-items: end;
+                }
+                p {
+                    font-size:1.1em;
+                    &.subject {
+                        font-family: $font2;;
+                    }
+                }
+
+                &.des {
+                    margin: 5px 0;
+                }
+                &.memo {
+                    display:block;
+                    border:0;
+                    h3 {
+                        font-size:17px;
+                        margin-bottom:5px;
+                    }
+                    .memo-insert {
+                        textarea {
+                            border:1px solid #e5e5e5;
+                            width:100%;
+                            height:120px;
+                            display:block;
+                            margin: 5px auto;
+                            outline:none;
+                            background:rgb(255, 253, 236);
+                            padding: 2px;
+                            border-radius:5px;
+                        }
+                    }
+                    .memo-look {
+                        padding:0;
+                        li {
+                            position:relative;
+                            display:block;
+                            border:0;
+                            margin: 5px 0;
+                            border: 1px solid #e5e5e5;
+                            background:#fff;
+                            padding:5px 10px 10px;
+                            border-radius:5px;
+                            p {
+                                width: 94%;
+                                &.memo-date {
+                                    color:#aaa;
+                                    font-size:0.7em;
+                                }
+                                &.memo-value {
+                                    font-size:0.9em;
+                                }
+                            }
+button {
+    &.deleteBtn {
+        position:absolute;
+        top:50%;
+        transform:translateY(-50%);
+        right:3%;
+        border:0;
+        background:0;
+        cursor:pointer;
+    }
+}
+                        }
+                    }
+                }
+            }
+        }
         
     }
 
@@ -2197,6 +2334,54 @@ body {
             font-size:25px;
             color:#aaa;
             font-weight:400;
+        }
+        .select-box {
+            margin: 60px 0  0;
+            border-bottom:1px solid #aaa;
+            display:flex;
+            padding: 0 10px 10px 10px;
+            position:relative;
+
+            &.on {
+                h3 {
+                    color:$calendar_color;
+                    position:absolute;
+                    bottom:50px;
+                    font-size:16px;
+                    left:10px;
+                }
+                select {
+                    color:#000;
+                }
+            }
+            h3 {
+                font-weight:700;
+                color:#aaa;
+                font-size:20px;
+                margin-right:10px;
+                transition: .5s;
+            }
+            select {
+                position:relative;
+                transition: .5s;
+                background:transparent;
+                border:0;
+                outline:none;
+                font-size:18px;
+                color:#aaa;
+                width: 30%;
+            }
+            input {
+                margin-left: 10px;
+                background:#ffdcba;
+                padding: 5px;
+                height:100%;
+                font-size:18px;
+                width:100%; 
+                border:0;
+                outline: none;
+            }
+          
         }
         .box {
             margin: 50px 0;

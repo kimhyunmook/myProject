@@ -15,7 +15,6 @@ export default function ProjectInsertView({ userInfo, title }) {
   const dateView = (event) => {
     event.preventDefault();
     const cal = event.currentTarget.nextSibling.nextSibling.nextSibling;
-    console.log(event);
 
     if (event.type === "focus") cal.classList.add("on");
   };
@@ -25,44 +24,59 @@ export default function ProjectInsertView({ userInfo, title }) {
   function dateHandle(event) {
     event.preventDefault();
   }
-  //   const dateHandler = ()
   const submit_ = (event) => {
     event.preventDefault();
     const t = form.current;
     let body = {
       url: "/project/add",
       userId: id,
-      type: t.type.value,
+      type: type !== "custom" ? type : customType,
       subject: t.subject.value,
       date: date,
       content: t.content.value,
       description: t.description.value,
     };
+
     if (!!!body.type) {
-      alert("type을 입력해주세요");
+      alert("type을 선택해주세요");
       t.type.focus();
       return;
     }
     if (!!!body.subject) {
-      alert("이름을 입력해주세요");
+      alert("Project 명을 정해주세요.");
       t.subject.focus();
       return;
     }
     if (!!!body.date) {
-      alert("기간을 정해주세요");
+      alert("Project 기간을 정해주세요.");
       t.date.focus();
       return;
     }
     if (!!!body.content) {
-      alert("계획의 내용을 입력해주세요");
+      alert("Project 목표를 입력해주세요.");
       t.content.focus();
       return;
     }
+
     dispatch(_Project(body));
     alert("입력되었습니다.");
     navigate("/project/calendar");
     window.location.reload();
   };
+  const [type, setType] = useState("");
+  const [customType, setCustomType] = useState("");
+  function typeHandle(event) {
+    event.preventDefault();
+    if (event.type === "focus") {
+      event.currentTarget.parentNode.classList.add("on");
+    }
+    event.currentTarget.children[0].disabled = true;
+    setType(event.currentTarget.value);
+  }
+  function customHandle(event) {
+    event.preventDefault();
+    setCustomType(event.currentTarget.value);
+  }
 
   return (
     <form className="pi-view" ref={form}>
@@ -77,15 +91,32 @@ export default function ProjectInsertView({ userInfo, title }) {
       ) : (
         <>
           <h2>새로운 프로젝트</h2>
-          {/* 명언 넣어볼 예정 */}
           <p className="wiseSaying">새로운 Project를 입력해주세요</p>
         </>
       )}
-      <InsertInput
+      <div className="select-box">
+        <h3>Project Type</h3>
+        <select name="type" id="" onChange={typeHandle} onFocus={typeHandle}>
+          <option value="">type을 선택해주세요</option>
+          <option value="여행">여행</option>
+          <option value="공부">공부</option>
+          <option value="저축">저축</option>
+          <option value="custom">custom</option>
+        </select>
+        {type === "custom" ? (
+          <input
+            type="text"
+            name="type"
+            defaultValue={customType}
+            onChange={customHandle}
+          />
+        ) : null}
+      </div>
+      {/* <InsertInput
         className="box"
         name={"type"}
         label={"Project type"}
-      ></InsertInput>
+      ></InsertInput> */}
       <InsertInput
         className="box"
         name={"subject"}
@@ -107,7 +138,7 @@ export default function ProjectInsertView({ userInfo, title }) {
       <InsertInput
         className="box"
         name={"content"}
-        label={"Project 내용"}
+        label={"Project 목표"}
       ></InsertInput>
       <InsertInput
         type="textarea"
@@ -117,9 +148,6 @@ export default function ProjectInsertView({ userInfo, title }) {
         placeholder={"Project 설명"}
       ></InsertInput>
       <BtnArea info={{ Name: "Create", Click: submit_ }}></BtnArea>
-      {/* <button className="pi-createbtn" onClick={submit_}> */}
-      {/* Create */}
-      {/* </button> */}
     </form>
   );
 }
