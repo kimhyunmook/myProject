@@ -71,6 +71,13 @@ export default function ProjectS() {
       userId: projectTarget.userId,
       date: moment(new Date()).format("YYYY-MM-DD"),
     };
+    body = {
+      url: `/project/${projectTarget.subject}/memo`,
+      num: projectTarget.num,
+      project_name: projectTarget.subject,
+      userId: projectTarget.userId,
+      date: moment(new Date()).format("YYYY-MM-DD"),
+    };
 
     dispatch(_ProjectMemo(body));
   }, [projectTarget]);

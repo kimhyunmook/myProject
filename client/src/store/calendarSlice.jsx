@@ -57,6 +57,7 @@ const calendarSlice = createSlice({
     },
     getProjectMemo: (state, action) => {
       state.memo = action.payload.data;
+      state.type = "memo/" + action.payload.condition;
     },
   },
 });

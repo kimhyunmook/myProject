@@ -193,57 +193,35 @@ router.post("/:projectName/memo", async (req, res) => {
   let data = [];
   let result = {};
   let search;
-  let memo = {
-    date: req.body.date,
-    value: req.body.memo,
-  };
+  delete req.body.url;
   if (req.params.projectName !== "undefined")
     try {
       const conn = await db2.getConnection();
-      let sql2 = sqlText.SELECT(
-        "project",
-        `userId="${req.body.userId}" AND subject="${req.params.projectName}"`
-      );
-      search = await conn.query(sql2);
-      search = search[0][0].memo;
-
-      if (!!search) {
-        if (!!req.body.memo) {
-          search.push(memo);
-          search = JSON.stringify(search);
-          sql = sqlText.UPDATE(
-            "project",
-            `memo='${search}'`,
-            `num=${req.body.num}`
-          );
-          await conn.query(sql);
-        }
-      } else {
-        if (!!req.body.memo) {
-          memo = JSON.stringify(memo);
-          sql = sqlText.UPDATE(
-            "project",
-            `memo = '[${memo}]'`,
-            `num=${req.body.num}`
-          );
-          await conn.query(sql);
-        }
+      let [key, value] = [Object.keys(req.body), Object.values(req.body)];
+      value = value.reduce((a, c, i) => {
+        if (i !== 0) a.push(`"${c}"`);
+        else a.push(c);
+        return a;
+      }, []);
+      if (!!req.body.memo) {
+        sql = sqlText.INSERT(`project_memo`, key, `(${value})`);
+        await conn.query(sql);
       }
-
-      search = await conn.query(sql2);
-      data = search[0][0].memo;
-
-      correctMessage(routerName, "memo");
+      sql = sqlText.SELECT(
+        "project_memo",
+        `userId="${req.body.userId}" AND project_name="${req.body.project_name}" AND num=${req.body.num}`
+      );
+      search = await conn.query(sql);
+      search = search[0];
+      correctMessage(routerName, "memo" + search);
       result = {
         condition: "success",
-        data,
+        data: search,
       };
 
       await conn.release();
     } catch (error) {
-      result = {
-        condition: "fail",
-      };
+      result.condition = "fail";
 
       errorMessage(routerName, error);
     }
@@ -258,27 +236,14 @@ router.post("/:projectName/memoDelete", async (req, res) => {
     search = [];
   try {
     const conn = await db2.getConnection();
-
-    sql = sqlText.SELECT(
-      "project",
-      `userId="${req.body.userId}" AND subject="${req.params.projectName}"`
-    );
-    search = await conn.query(sql);
-    search = search[0][0].memo;
-    search = search.reduce((a, c, i) => {
-      if (c.value !== req.body.text) if (c.date !== req.body.date) a.push(c);
-      return a;
-    }, []);
-    search = JSON.stringify(search);
-    console.log(search);
-    sql = sqlText.UPDATE("project", `memo='${search}'`, `num=${req.body.num}`);
+    sql = sqlText.DELETE(`project_memo`, `unique_num=${req.body.unique_num}`);
     await conn.query(sql);
     sql = sqlText.SELECT(
-      "project",
-      `userId="${req.body.userId}" AND subject="${req.params.projectName}"`
+      `project_memo`,
+      `userId="${req.body.userId}" AND num=${req.body.num} AND project_name="${req.body.project_name}"`
     );
     search = await conn.query(sql);
-    data = search[0][0].memo;
+    data = search[0];
 
     result = {
       condition: "success",
