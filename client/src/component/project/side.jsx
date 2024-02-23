@@ -17,7 +17,7 @@ export default function Side({ project = {} }) {
   let body;
   useEffect(() => {
     setMemoList(store.calendarInfo.memo);
-  }, [store.calendarInfo?.memo]);
+  }, [store.calendarInfo]);
 
   const fnc = {
     close: (event) => {
@@ -45,28 +45,29 @@ export default function Side({ project = {} }) {
       body = {
         url: `/project/${project.subject}/memo`,
         num: project.num,
+        project_name: project.subject,
         userId: project.userId,
         date: moment(new Date()).format("YYYY-MM-DD"),
         memo: memo,
       };
       dispatch(_ProjectMemo(body));
+
       setMemoActive(false);
       setMemo("");
     },
     deleteMemo: (event) => {
       event.preventDefault();
-      console.log(event.currentTarget.parentNode.children[1].innerText);
+      // console.log(event.currentTarget.parentNode.children[1].innerText);
       body = {
         url: `/project/${project.subject}/memoDelete`,
+        unique_num: event.currentTarget.parentNode.ariaLabel,
         num: project.num,
+        project_name: project.subject,
         userId: project.userId,
-        date: moment(new Date()).format("YYYY-MM-DD"),
-        text: event.currentTarget.parentNode.children[1].innerText,
       };
       dispatch(_ProjectMemo(body));
     },
   };
-  console.log(project.description);
 
   if (!!project)
     return (
@@ -77,9 +78,9 @@ export default function Side({ project = {} }) {
               <button className="memo" onClick={fnc.memeoActive}>
                 <FontAwsome data={"fa-plus"} />
               </button>
-              <button className="editBtn" onClick={fnc.edit}>
+              {/* <button className="editBtn" onClick={fnc.edit}>
                 <FontAwsome data={"fa-wrench"} />
-              </button>
+              </button> */}
               <button className="closeBtn" onClick={fnc.close}></button>
             </div>
             <ul className="project-content">
@@ -100,10 +101,14 @@ export default function Side({ project = {} }) {
                   {!memoActive ? (
                     <ul className="memo-look">
                       {memoList?.map((el, index) => {
+                        console.log(el);
                         return (
-                          <li key={`${el}_${index}`}>
+                          <li
+                            aria-label={`${el.unique_num}`}
+                            key={`${el}_${el.unique_num}`}
+                          >
                             <p className="memo-date">{el.date}</p>
-                            <p className="memo-value">{el.value}</p>
+                            <p className="memo-value">{el.memo}</p>
                             <button
                               className="deleteBtn"
                               onClick={fnc.deleteMemo}

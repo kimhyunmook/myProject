@@ -29,6 +29,15 @@ export default function NeedDownLoad(props) {
       password: dbPassword,
       db: db,
     }).payload.then((res) => {
+      if (res.msg?.errorno === "ETIMEDOUT") {
+        alert("host를 확인해주세요.");
+        return;
+      }
+      if (!res.ok) {
+        alert("server 정보를 정확히 입력해주세요.");
+        return;
+      }
+
       navigate("/download?task=2");
     });
   };
@@ -54,21 +63,26 @@ export default function NeedDownLoad(props) {
       });
     });
   }, [pathTask]);
-
-  const [host, setHost] = useState("");
+  let local = {
+    host: "127.0.0.1",
+    user: "dev01",
+    password: "1234",
+    db: "db_dev",
+  };
+  const [host, setHost] = useState(local.host);
   const onHostHandler = (event) => {
     let target = event.currentTarget;
     setHost(target.value);
   };
-  const [dbUser, setDbUser] = useState("");
+  const [dbUser, setDbUser] = useState(local.user);
   const onUserHandler = (event) => {
     setDbUser(event.currentTarget.value);
   };
-  const [dbPassword, setDbPassword] = useState("");
+  const [dbPassword, setDbPassword] = useState(local.password);
   const onPasswordHandler = (event) => {
     setDbPassword(event.currentTarget.value);
   };
-  const [db, setDb] = useState("");
+  const [db, setDb] = useState(local.db);
   const onDbHandler = (event) => {
     setDb(event.currentTarget.value);
   };

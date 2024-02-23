@@ -2122,8 +2122,7 @@ body {
         z-index:999;
         cursor:pointer;
         font-size:25px;
-        // background:rgb(247, 247, 127);
-        background:#000;
+        background:#333;
         color:rgb(247, 247, 127);
         box-shadow:  2px 0 5px #aaa;
     }
@@ -2335,6 +2334,54 @@ button {
             font-size:25px;
             color:#aaa;
             font-weight:400;
+        }
+        .select-box {
+            margin: 60px 0  0;
+            border-bottom:1px solid #aaa;
+            display:flex;
+            padding: 0 10px 10px 10px;
+            position:relative;
+
+            &.on {
+                h3 {
+                    color:$calendar_color;
+                    position:absolute;
+                    bottom:50px;
+                    font-size:16px;
+                    left:10px;
+                }
+                select {
+                    color:#000;
+                }
+            }
+            h3 {
+                font-weight:700;
+                color:#aaa;
+                font-size:20px;
+                margin-right:10px;
+                transition: .5s;
+            }
+            select {
+                position:relative;
+                transition: .5s;
+                background:transparent;
+                border:0;
+                outline:none;
+                font-size:18px;
+                color:#aaa;
+                width: 30%;
+            }
+            input {
+                margin-left: 10px;
+                background:#ffdcba;
+                padding: 5px;
+                height:100%;
+                font-size:18px;
+                width:100%; 
+                border:0;
+                outline: none;
+            }
+          
         }
         .box {
             margin: 50px 0;
