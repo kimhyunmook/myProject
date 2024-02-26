@@ -7,7 +7,7 @@ import { _ProjectMemo } from "../../store/calendarSlice";
 import moment from "moment";
 
 export default function Side({ project = {} }) {
-  const [look, setLook] = useState(true);
+  const [look, setLook] = useState(false);
   const [memo, setMemo] = useState("");
   const [memoActive, setMemoActive] = useState(false);
   const [memoList, setMemoList] = useState([]);
@@ -101,7 +101,6 @@ export default function Side({ project = {} }) {
                   {!memoActive ? (
                     <ul className="memo-look">
                       {memoList?.map((el, index) => {
-                        console.log(el);
                         return (
                           <li
                             aria-label={`${el.unique_num}`}

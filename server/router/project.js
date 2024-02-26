@@ -49,11 +49,10 @@ router.post("/add", async (req, res) => {
     await conn.query(sql);
     values = values.map((v) => `"${v}"`);
     sql = sqlText.INSERT("project", key, `(${values})`);
-    console.log(sql);
     await conn.query(sql);
     result = { condition: "SUCCESS", data: searchId, login: true };
 
-    correctMessage(routerName, "Project create ");
+    correctMessage(routerName, "Project add ");
     await conn.release();
   } catch (error) {
     errorMessage(routerName, error);
@@ -61,28 +60,57 @@ router.post("/add", async (req, res) => {
   res.status(200).json(result);
 });
 
+router.post("/delete", async (req, res) => {
+  const routerName = req.originalUrl;
+  let sql = "";
+  let result = {};
+  let data = [];
+  try {
+    const conn = await db2.getConnection();
+    sql = sqlText.DELETE("project", `userId = ? AND num =?`);
+    await conn.query(sql, [req.body.userId, req.body.num]);
+    sql = sqlText.DELETE("project_calendar", `userId = ? AND project_num =?`);
+    await conn.query(sql, [req.body.userId, req.body.num]);
+
+    correctMessage(routerName, "success");
+    result = {
+      condition: "success",
+    };
+    await conn.release();
+  } catch (error) {
+    errorMessage(routerName, error);
+    result.condition = "error";
+    result.error = error;
+  }
+
+  res.status(200).json(result);
+});
+
 router.post("/info", async (req, res) => {
   const routerName = req.originalUrl;
   let data = [];
+  let result = {};
   try {
     const conn = await db2.getConnection();
     sql = sqlText.SELECT("project", `userId=?`);
     data = await conn.query(sql, req.body.userId);
     data = data[0];
-
-    res.status(200).json({
+    result = {
       data,
-      condition: "SUCCESS",
-    });
+      condition: "success",
+    };
   } catch (error) {
     errorMessage(routerName, error);
+    result.condition = "fail";
   }
+  res.status(200).json(result);
 });
 
 router.post("/projectCalendar", async (req, res) => {
   const routerName = req.originalUrl;
   const conn = await db2.getConnection();
   let sql;
+  let result = {};
   delete req.body.url;
 
   try {
@@ -92,12 +120,12 @@ router.post("/projectCalendar", async (req, res) => {
     sql = sqlText.INSERT("project_calendar", keys, `(${values})`);
     await conn.query(sql);
     await correctMessage(routerName, "insert good");
-    res.status(200).json({
-      condition: "SUCCESS",
-    });
+    reuslt.condition = "success";
   } catch (error) {
     errorMessage(routerName, error);
+    result.condition = "fail";
   }
+  res.status(200).json(result);
 });
 
 router.post("/projectCalendarInfo", async (req, res) => {
@@ -107,9 +135,13 @@ router.post("/projectCalendarInfo", async (req, res) => {
   try {
     let sql = sqlText.SELECT(
       "project_calendar",
-      `userId="${req.body.userId}" AND project_name="${req.body.projectName}"`
+      `userId=? AND project_name=? AND project_num=?`
     );
-    let data = await conn.query(sql);
+    let data = await conn.query(sql, [
+      req.body.userId,
+      req.body.project_name,
+      req.body.project_num,
+    ]);
 
     data = data[0];
     res.status(200).json({

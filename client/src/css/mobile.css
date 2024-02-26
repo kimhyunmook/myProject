@@ -4,6 +4,16 @@
     display: none; }
   #root:has(.container2.index) header .header .hambuger-menu {
     color: #fff; }
+  #root .memo-icon {
+    right: 3%;
+    top: inherit;
+    bottom: 3%;
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+    background: #333;
+    color: #f7f77f;
+    box-shadow: 2px 0 5px #aaa; }
   #root header {
     background-color: transparent; }
     #root header.on {
@@ -34,7 +44,7 @@
         background: #333;
         width: 100%;
         height: 100vh;
-        padding: 125px 0 110px; }
+        padding: 175px 0 120px; }
         #root header .header-nav-menu.on {
           left: 0; }
         #root header .header-nav-menu > li {
@@ -93,14 +103,12 @@
     max-width: 768px; }
   #root .container-normal {
     max-width: 768px;
-    margin-top: 90px;
+    margin-top: 100px;
     padding: 0 10px; }
     #root .container-normal h2 {
       margin: 4% 0 2%;
       font-size: 25px; }
       #root .container-normal h2::before {
-        content: "🖍";
-        font-size: 0.8em;
         transform: rotate(-50deg);
         display: block; }
   #root .onePage {
@@ -132,12 +140,12 @@
     #root section#section1 {
       height: 100vh; }
       #root section#section1 article .textbox {
+        top: 45%;
         width: 75%; }
         #root section#section1 article .textbox h2 {
-          text-align: left;
-          font-size: 45px; }
+          font-size: 12vw; }
         #root section#section1 article .textbox p {
-          font-size: 30px; }
+          font-size: 6vw; }
       #root section#section1 article .imgBox {
         position: relative;
         min-width: 750px;
@@ -652,30 +660,32 @@
     max-width: 768px;
     padding: 10px;
     width: 70%;
-    font-size: 28px; }
+    font-size: 28px;
+    font-weight: 700;
+    font-family: sans-serif;
+    margin-top: 30px; }
   #root .project-menu {
     height: auto;
-    width: 80%;
+    width: 90%;
     max-width: 768px;
-    margin: 0px auto 30px;
+    margin: 0px auto;
     align-items: center;
     font-size: 4.2vw; }
     #root .project-menu li {
-      width: 100%;
-      height: 100%;
-      text-align: center;
-      line-height: 1em;
-      padding: 10px 0; }
-      #root .project-menu li:hover a {
-        font-size: 1.2em;
+      padding: 5px 0; }
+      #root .project-menu li:hover a, #root .project-menu li:focus a {
+        font-size: 1.3em;
         text-shadow: orange 3px 1px 15px; }
       #root .project-menu li a {
+        font-size: 30px;
+        font-family: sans-serif;
+        font-weight: 700;
         display: block; }
   #root .pi-view {
-    background-color: #fff1e3;
-    max-width: 800px;
-    padding: 30px;
-    margin: auto; }
+    max-width: 768px;
+    padding: 12px;
+    margin: 30px auto;
+    border-radius: 15px; }
     #root .pi-view h2 {
       display: initial;
       font-family: sans-serif;
@@ -692,6 +702,10 @@
       font-size: 25px;
       color: #aaa;
       font-weight: 400; }
+    #root .pi-view .select-box {
+      margin-top: 50px; }
+      #root .pi-view .select-box select {
+        width: 45%; }
     #root .pi-view .box {
       margin: 50px 0; }
     #root .pi-view .pi-createbtn {
@@ -730,9 +744,12 @@
     border-left: 0;
     border-right: 0;
     overflow: hidden;
-    font-family: 'OKDDUNG';
-    padding-bottom: 100px; }
+    font-family: inherit;
+    padding-bottom: 50px; }
     #root .react-calendar-main .react-calendar__month-view__weekdays__weekday abbr {
+      font-family: sans-serif;
+      text-decoration: none;
+      font-weight: 700;
       color: #000; }
     #root .react-calendar-main .react-calendar__month-view__days {
       background-color: #fff1e3;
@@ -855,16 +872,17 @@
       padding: 10px 0 0;
       background: #fff1e3; }
     #root .react-calendar-main .react-calendar__navigation {
-      height: 150px;
-      margin-bottom: 0; }
-      #root .react-calendar-main .react-calendar__navigation .react-calendar__navigation__label {
-        font-size: 30px; }
+      margin-top: 20px;
+      height: 100px;
+      margin-bottom: 10px; }
+      #root .react-calendar-main .react-calendar__navigation .react-calendar__navigation__label__labelText {
+        font-size: 40px;
+        font-family: sans-serif;
+        font-weight: 700; }
       #root .react-calendar-main .react-calendar__navigation button {
         font-family: initial; }
       #root .react-calendar-main .react-calendar__navigation .react-calendar__navigation__arrow {
         font-size: 3em; }
-    #root .react-calendar-main .react-calendar__navigation__label__labelText {
-      font-family: 'OKDDUNG'; }
     #root .react-calendar-main .react-calendar__month-view__weekdays__weekday {
       font-size: 22px; }
     #root .react-calendar-main .react-calendar__month-view__days__day abbr {
@@ -887,7 +905,7 @@
     #root .textarea textarea {
       width: 100%;
       height: 100%;
-      min-height: 300px;
+      min-height: 150px;
       border: 0;
       outline: none;
       background-color: #fff;
@@ -898,20 +916,40 @@
   #root .calendar-modal {
     width: 85%;
     max-width: 768px;
-    height: 95%; }
+    height: 90%; }
+    #root .calendar-modal .logo_title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px; }
+      #root .calendar-modal .logo_title .logo {
+        display: block; }
+        #root .calendar-modal .logo_title .logo a {
+          color: #babfff;
+          text-shadow: 3px 0 5px #000; }
+      #root .calendar-modal .logo_title h2 {
+        font-size: 25px;
+        margin: 5px 0 0 15px !important; }
+    #root .calendar-modal .date {
+      position: absolute;
+      font-family: cursive;
+      top: 10%;
+      right: 2%;
+      font-size: 20px;
+      color: #666; }
     #root .calendar-modal h2 {
       font-size: 40px; }
     #root .calendar-modal .execution-insert-view li {
       width: 90%;
       margin: 10px auto; }
       #root .calendar-modal .execution-insert-view li .line {
+        margin-top: 40px;
         margin-bottom: 10px; }
       #root .calendar-modal .execution-insert-view li .textarea {
         margin-top: 30px; }
         #root .calendar-modal .execution-insert-view li .textarea textarea {
           width: 100%;
           height: 100%;
-          min-height: 300px;
+          min-height: 220px;
           border: 0;
           outline: none;
           background-color: #faebeb;
@@ -920,14 +958,12 @@
           padding: 10px;
           border-radius: 10px; }
     #root .calendar-modal .execution-look-view {
-      margin-top: 20px; }
+      margin-top: 10px; }
       #root .calendar-modal .execution-look-view li {
         position: relative;
-        border: 1px solid #aaa;
-        border-radius: 5px;
-        overflow: hidden;
-        width: 100%;
-        padding: 10px;
+        border: 1px solid #b3b1b1;
+        border-radius: 15px;
+        width: 95%;
         margin: 10px auto 20px; }
         #root .calendar-modal .execution-look-view li .line {
           margin-bottom: 10px; }
@@ -937,13 +973,13 @@
               width: 100%;
               height: 100%;
               min-height: 200px;
-              font-size: 20px;
+              font-size: 17px;
               font-weight: 100;
               padding: 10px;
               border-radius: 5px; }
         #root .calendar-modal .execution-look-view li p {
-          font-size: 20px;
-          border-radius: 5px; }
+          font-size: 17px;
+          border-radius: 10px; }
           #root .calendar-modal .execution-look-view li p.execution-subject::before {
             content: "제목";
             word-break: keep-all;
@@ -965,8 +1001,8 @@
             color: #999;
             border: 0;
             box-shadow: none;
-            margin: 5px 10px;
-            font-size: 20px; }
+            margin: 5px 5px;
+            font-size: 15px; }
             #root .calendar-modal .execution-look-view li button.achieve-button.active {
               cursor: inherit; }
     #root .calendar-modal ul {
@@ -1046,6 +1082,10 @@
           #root .calendar-modal ul li .line input:focus ~ span,
           #root .calendar-modal ul li .line input:valid ~ span {
             width: 100%; }
+  #root .cover-box-calendar .btnArea button {
+    background: #0009;
+    color: #fff;
+    font-size: 18px; }
   #root .cover-box-test {
     width: 100%;
     height: 300px; }

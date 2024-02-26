@@ -694,30 +694,28 @@ body {
 
                     .textbox {
                         position: absolute;
-                        left: 5%;
+                        left: 50%;
                         top: 40%;
-                        transform: translateY(-50%);
-                        // height:100%;
-                        width: 45%;
+                        transform: translate(-50%,-50%);
+                        width: 100%;
                         margin: 0;
-                        $left: 50px;
 
                         h2 {
-                            text-align: left;
-                            margin: 0;
-                            // padding-left:$left;
-                            color: #fff;
+                            text-align: center;
+                            // color: #fff;
+                            color:$main;
                             font-family: $font2;
-                            font-size: 70px;
+                            margin:auto;
+                            font-size: 80px;
                             text-shadow: 3px 1px 5px #000;
                         }
 
                         p {
                             text-shadow: 3px 1px 5px #000;
                             word-break: keep-all;
+                            text-align:center;
                             color: #fff;
-                            padding-top: 30px;
-                            // padding-left:$left;
+                            padding-top: 40px;
                             font-size: 35px;
                         }
                     }
@@ -725,7 +723,7 @@ body {
                     .bg {
                         width: 100%;
                         height: 100%;
-                        background: rgba(0, 0, 0, 0.4);
+                        background: rgba(0, 0, 0, 0.45);
 
                         .imgbox {
                             position: absolute;
@@ -2261,16 +2259,18 @@ button {
         background:transparent;
         border:0;
         border-bottom: 3px solid $calendar_color;
-        font-family: $font2;
-        max-width: 300px;
+        width:100%;
+        max-width: 450px;
         min-width:150px;
-        padding:3px;
+        padding:10px 0;
         width:50%;
-        margin:auto;
         display:block;
-        font-size:22px;
+        font-size:35px;
+        font-weight:700;
         outline:none;
         text-align:center;
+        margin:auto;
+
         option {
         }
     }
@@ -2280,7 +2280,7 @@ button {
         height: 50px;
         width: 70%;
         max-width: 1000px;
-        margin: 20px auto 80px;
+        margin: 20px auto 50px;
         align-items: center;
         font-size: 27px;
 
@@ -2346,7 +2346,7 @@ button {
                 h3 {
                     color:$calendar_color;
                     position:absolute;
-                    bottom:50px;
+                    bottom:40px;
                     font-size:16px;
                     left:10px;
                 }
@@ -2512,6 +2512,11 @@ button {
                 //    background-color:#fff;
                 abbr {
                     color:#333;
+                }
+            }
+            &:has(div.dateBg.exe.today) {
+                abbr {
+                    color:#fff;
                 }
             }
             &--now {
@@ -2737,14 +2742,37 @@ button {
         max-width: 700px;
         height: 90%;
         overflow-y: scroll;
+        &::-webkit-scrollbar{
+            display:none;
+        }
         box-shadow: 2px 3px 5px #000;
         border-radius: 5px;
 
-        h2 {
-            font-size:40px;
-            // font-family: $font3;
-            // text-shadow: 3px 0px 5px rgb(255, 204, 108);
+        .logo_title {
+            display:flex;
+            align-items: center;
+            margin-bottom:20px;
+            .logo {
+                display:block;
+                a {
+                    color:$main;
+                    text-shadow: 3px 0 5px #000;
+                }
+            }
+            h2{
+                font-size:40px;
+                margin:5px 0 0 15px !important;
+            }
         }
+        .date {
+            position:absolute;
+            font-family: cursive;
+            top: 11%; 
+            right:2%;
+            font-size:25px;
+            color:#666;
+        }
+      
 
         .execution-insert-view {
             li {
@@ -2780,6 +2808,12 @@ button {
                 width:90%;
                 padding: 10px;
                 margin: 10px auto;
+                .execution-date {
+                    background:transparent;
+                    padding:0;
+                    font-size:13px;
+                    color:#666;
+                }
                 // @include inputs( );
              .line {
                 margin-bottom:10px;

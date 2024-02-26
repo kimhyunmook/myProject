@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Skeleton from "react-loading-skeleton";
 import { getSetting } from "../../store/settingSlice";
 import { mobileSize } from "../../size";
+import Logo from "../common/logo";
 
 const headerH = 90;
 const footerH = 125;
@@ -146,7 +147,14 @@ export function LoadingPage({ style, children }) {
  * @param className classname "on" <- display:block; Default display:none;
  * @returns Modal
  */
-export function Modal({ display = false, title, className, children, button }) {
+export function Modal({
+  display = false,
+  title,
+  className,
+  children,
+  button,
+  logo = false,
+}) {
   let clan = "modal";
   const bg = useRef(null);
   let btnInfo = {};
@@ -173,7 +181,14 @@ export function Modal({ display = false, title, className, children, button }) {
   return (
     <div ref={bg} className="modal-background">
       <div className={clan}>
-        <h2>{title}</h2>
+        {logo ? (
+          <div className="logo_title">
+            <Logo></Logo>
+            <h2>{title}</h2>
+          </div>
+        ) : (
+          <h2>{title}</h2>
+        )}
         {children}
         {!!!button ? null : <BtnArea info={btnInfo} />}
       </div>
