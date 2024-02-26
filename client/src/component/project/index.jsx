@@ -18,6 +18,7 @@ import Auth from "../common/Auth";
 import ProjectInsertView from "./piView";
 import ExecutionView from "./executionView";
 import Side from "./side";
+import axios from "axios";
 
 export default function ProjectS() {
   const urlParam = window.location.search;
@@ -59,18 +60,12 @@ export default function ProjectS() {
   useEffect(() => {
     executionBody = {
       url: "/project/projectCalendarInfo",
-      projectName: projectTarget.subject,
+      project_name: projectTarget.subject,
+      project_num: projectTarget.num,
       userId: userInfo?.id,
     };
     dispatch(_ProjectCalendarInfo(executionBody));
-    // setProjectTarget(projectTarget);
 
-    body = {
-      url: `/project/${projectTarget.subject}/memo`,
-      num: projectTarget.num,
-      userId: projectTarget.userId,
-      date: moment(new Date()).format("YYYY-MM-DD"),
-    };
     body = {
       url: `/project/${projectTarget.subject}/memo`,
       num: projectTarget.num,
@@ -171,6 +166,31 @@ export default function ProjectS() {
     },
   };
 
+  const editProject = (event) => {
+    event.preventDefault();
+    alert(
+      "현재 수정 기능은 준비 중입니다.\n project를 삭제 후 재등록 부탁드립니다."
+    );
+  };
+  const deleteProject = (event) => {
+    event.preventDefault();
+    body = {
+      url: "/api/project/delete",
+      userId: userInfo?.id,
+      num: projectTarget?.num,
+    };
+    axios
+      .post(body.url, body)
+      .then((res) => res.data)
+      .then((res) => {
+        console.log(res);
+        if (res.condition === "success") {
+          alert("삭제 되었습니다.");
+          navigate(0);
+        } else alert("재시도 부탁드립니다.");
+      });
+  };
+  console.log(projectTarget);
   return (
     <Container2
       info={{
@@ -219,12 +239,14 @@ export default function ProjectS() {
                   closeEvent={closeModal}
                   modalDisplay={modalDisplay}
                 />
-                <BtnArea
-                  info={[
-                    { Name: "수정", Clcik: "" },
-                    { Name: "삭제", Click: "" },
-                  ]}
-                />
+                {!!!projectTarget ? null : (
+                  <BtnArea
+                    info={[
+                      { Name: "수정", Click: editProject },
+                      { Name: "삭제", Click: deleteProject },
+                    ]}
+                  />
+                )}
               </div>
             ) : (
               <ProjectInsertView userInfo={userInfo} title={true} />

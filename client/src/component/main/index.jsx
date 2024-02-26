@@ -75,7 +75,7 @@ function Main() {
           <div className="content-cover">
             <div className="textbox">
               <h2>My Project</h2>
-              <p>계획을 Calendar에 저장하고 하루를 체크 해보세요.</p>
+              <p>나만의 Project를 만들고 실천해보세요.</p>
             </div>
           </div>
         </div>

@@ -80,7 +80,7 @@ export default function ExecutionView({
       target.content.focus();
       return;
     }
-
+    submitData.project_num = project.num;
     submitData.date = projectDate;
     submitData.project_name = project.subject;
     submitData.content = text1;
@@ -88,7 +88,8 @@ export default function ExecutionView({
     let body = {
       url: "/project/projectCalendarInfo",
       userId: userInfo.id,
-      projectName: project.subject,
+      project_name: project.subject,
+      project_num: project.num,
     };
     axios.post("/api/project/projectCalendar", submitData).then((res) => {
       submitData.subject = "";
@@ -142,6 +143,7 @@ export default function ExecutionView({
       subject: target.children[0].children[0].value,
       content: target.children[1].children[0].value,
       userId: userInfo.id,
+      achieve: null,
     };
     dispatch(_ProjectCalendarInfo(body));
     alert("수정되었습니다.");
@@ -174,11 +176,12 @@ export default function ExecutionView({
     <Modal
       display={!!!modalDisplay ? false : true}
       className={"calendar-modal"}
-      title={`🤗 ${project?.subject}`}
+      title={`${project?.subject}`}
       button={modalBtn}
+      logo={true}
     >
       <form ref={form}>
-        <h3>{moment(viewDate).format("MM월DD일")}</h3>
+        <h3 className="date">{moment(viewDate).format("MM월DD일")}</h3>
         <ProjectMenu
           arr={[
             { href: `?insert`, text: "Insert" },
@@ -202,7 +205,7 @@ export default function ExecutionView({
                 className="textarea"
                 type="textarea"
                 name="content"
-                placeholder={"오늘 한 일"}
+                placeholder={"내용"}
                 value_={text1}
                 change={callBack}
               ></InsertInput>
@@ -235,7 +238,9 @@ export default function ExecutionView({
                         ></InsertInput>
                       </>
                     ) : (
+                      // look view
                       <>
+                        <p className="execution-date">{v.date}</p>
                         <p className="execution-subject">{v.subject}</p>
                         <p className="execution-content">{v.content}</p>
                       </>

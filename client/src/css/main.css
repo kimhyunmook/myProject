@@ -226,28 +226,29 @@ input {
         background-size: cover; }
         #root section#section1 article .textbox {
           position: absolute;
-          left: 5%;
+          left: 50%;
           top: 40%;
-          transform: translateY(-50%);
-          width: 45%;
+          transform: translate(-50%, -50%);
+          width: 100%;
           margin: 0; }
           #root section#section1 article .textbox h2 {
-            text-align: left;
-            margin: 0;
-            color: #fff;
+            text-align: center;
+            color: #babfff;
             font-family: "OKDDUNG";
-            font-size: 70px;
+            margin: auto;
+            font-size: 80px;
             text-shadow: 3px 1px 5px #000; }
           #root section#section1 article .textbox p {
             text-shadow: 3px 1px 5px #000;
             word-break: keep-all;
+            text-align: center;
             color: #fff;
-            padding-top: 30px;
+            padding-top: 40px;
             font-size: 35px; }
         #root section#section1 article .bg {
           width: 100%;
           height: 100%;
-          background: rgba(0, 0, 0, 0.4); }
+          background: rgba(0, 0, 0, 0.45); }
           #root section#section1 article .bg .imgbox {
             position: absolute;
             width: 50%;
@@ -338,7 +339,7 @@ input {
               align-items: center; }
               #root section#section4 article .list .flex-box .imgBox:hover {
                 transition: .5s;
-                transition-property: width, height, opacity, border-radius, background-color;
+                transition-property: width, height, opacity, border-radius, background-color;
                 margin: auto 0;
                 box-shadow: 2px 2px 10px #babfff;
                 background-color: #fff;
@@ -1111,23 +1112,24 @@ input {
     background: transparent;
     border: 0;
     border-bottom: 3px solid #4b1010a6;
-    font-family: "OKDDUNG";
-    max-width: 300px;
+    width: 100%;
+    max-width: 450px;
     min-width: 150px;
-    padding: 3px;
+    padding: 10px 0;
     width: 50%;
-    margin: auto;
     display: block;
-    font-size: 22px;
+    font-size: 35px;
+    font-weight: 700;
     outline: none;
-    text-align: center; }
+    text-align: center;
+    margin: auto; }
   #root .project-menu {
     display: flex;
     justify-content: space-around;
     height: 50px;
     width: 70%;
     max-width: 1000px;
-    margin: 20px auto 80px;
+    margin: 20px auto 50px;
     align-items: center;
     font-size: 27px; }
     #root .project-menu li {
@@ -1174,7 +1176,7 @@ input {
       #root .pi-view .select-box.on h3 {
         color: #4b1010a6;
         position: absolute;
-        bottom: 50px;
+        bottom: 40px;
         font-size: 16px;
         left: 10px; }
       #root .pi-view .select-box.on select {
@@ -1328,6 +1330,8 @@ input {
         border-right: 1px dashed #3e0000; }
       #root .react-calendar-main .react-calendar__tile:has(div.dateBg.exe) abbr {
         color: #333; }
+      #root .react-calendar-main .react-calendar__tile:has(div.dateBg.exe.today) abbr {
+        color: #fff; }
       #root .react-calendar-main .react-calendar__tile--now {
         background-color: transparent; }
       #root .react-calendar-main .react-calendar__tile--now.react-calendar__month-view__days__day abbr {
@@ -1487,8 +1491,27 @@ input {
     overflow-y: scroll;
     box-shadow: 2px 3px 5px #000;
     border-radius: 5px; }
-    #root .calendar-modal h2 {
-      font-size: 40px; }
+    #root .calendar-modal::-webkit-scrollbar {
+      display: none; }
+    #root .calendar-modal .logo_title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px; }
+      #root .calendar-modal .logo_title .logo {
+        display: block; }
+        #root .calendar-modal .logo_title .logo a {
+          color: #babfff;
+          text-shadow: 3px 0 5px #000; }
+      #root .calendar-modal .logo_title h2 {
+        font-size: 40px;
+        margin: 5px 0 0 15px !important; }
+    #root .calendar-modal .date {
+      position: absolute;
+      font-family: cursive;
+      top: 11%;
+      right: 2%;
+      font-size: 25px;
+      color: #666; }
     #root .calendar-modal .execution-insert-view li .line {
       margin-bottom: 10px; }
     #root .calendar-modal .execution-insert-view li .textarea {
@@ -1515,6 +1538,11 @@ input {
         width: 90%;
         padding: 10px;
         margin: 10px auto; }
+        #root .calendar-modal .execution-look-view li .execution-date {
+          background: transparent;
+          padding: 0;
+          font-size: 13px;
+          color: #666; }
         #root .calendar-modal .execution-look-view li .line {
           margin-bottom: 10px; }
           #root .calendar-modal .execution-look-view li .line:nth-of-type(2) {
