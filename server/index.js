@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 // import express from 'express';
 
 //es6
@@ -18,19 +19,25 @@ const projectRouter = require("./router/project");
 
 const port = require("../port");
 const app = express();
-app.use(express.json());
+
+app.set("port", port);
+
+app.use(express.static(path.join(__dirname, "clent/build")));
 app.use(
   express.urlencoded({
     extended: true,
   })
 );
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "/client/build/index.html"));
+});
 
 app.use("/api/users", userRouter);
 app.use("/api/board", boardRouter);
 app.use("/api/setting", settingRouter);
 app.use("/api/adm", admRouter);
 app.use("/api/calendar", calendarRouter);
-app.use("/api/project",projectRouter);
+app.use("/api/project", projectRouter);
 // app.use('/api/upload', xlsxUpload);
 app.all("*", (req, res) => {
   res
