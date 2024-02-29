@@ -339,7 +339,7 @@ input {
               align-items: center; }
               #root section#section4 article .list .flex-box .imgBox:hover {
                 transition: .5s;
-                transition-property: width, height, opacity, border-radius, background-color;
+                transition-property: width, height, opacity, border-radius, background-color;
                 margin: auto 0;
                 box-shadow: 2px 2px 10px #babfff;
                 background-color: #fff;
@@ -1063,7 +1063,7 @@ input {
       #root .project-side ul li p {
         font-size: 1.1em; }
         #root .project-side ul li p.subject {
-          font-family: "OKDDUNG"; }
+          font-weight: 700; }
       #root .project-side ul li.des {
         margin: 5px 0; }
       #root .project-side ul li.memo {
@@ -1113,12 +1113,12 @@ input {
     border: 0;
     border-bottom: 3px solid #4b1010a6;
     width: 100%;
-    max-width: 450px;
+    max-width: 400px;
     min-width: 150px;
-    padding: 10px 0;
+    padding: 7px 0;
     width: 50%;
     display: block;
-    font-size: 35px;
+    font-size: 30px;
     font-weight: 700;
     outline: none;
     text-align: center;

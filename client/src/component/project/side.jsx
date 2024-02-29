@@ -89,10 +89,17 @@ export default function Side({ project = {} }) {
                 <p className="subject">{project.subject}</p>
               </li>
               <li className="goals">
-                <b>Goal</b>
+                <b>목표</b>
                 <p>{project.content}</p>
               </li>
+              <li className="date">
+                <b>기간</b>
+                <p>
+                  {project.date?.replace(/-/g, '.').replace(/20/g, '')}
+                </p>
+              </li>
               <li className="des">
+                <b>설명</b>
                 <p>{project.description}</p>
               </li>
               {!!!memoInfo && !memoActive ? null : (
@@ -100,23 +107,32 @@ export default function Side({ project = {} }) {
                   <h3>Memo</h3>
                   {!memoActive ? (
                     <ul className="memo-look">
-                      {memoList?.map((el, index) => {
-                        return (
-                          <li
-                            aria-label={`${el.unique_num}`}
-                            key={`${el}_${el.unique_num}`}
-                          >
-                            <p className="memo-date">{el.date}</p>
-                            <p className="memo-value">{el.memo}</p>
-                            <button
-                              className="deleteBtn"
-                              onClick={fnc.deleteMemo}
+                      {memoList.length === 0 ?
+                        <li>
+                          <p className="memo-date">0000-00-00</p>
+                          <p className="memo-value">
+                            + 눌러 memo를 추가 해보세요.
+                          </p>
+                        </li>
+                        :
+                        memoList?.map((el, index) => {
+                          return (
+                            <li
+                              aria-label={`${el.unique_num}`}
+                              key={`${el}_${el.unique_num}`}
                             >
-                              <FontAwsome data={"fa-trash"} />
-                            </button>
-                          </li>
-                        );
-                      })}
+                              <p className="memo-date">{el.date}</p>
+                              <p className="memo-value">{el.memo}</p>
+                              <button
+                                className="deleteBtn"
+                                onClick={fnc.deleteMemo}
+                              >
+                                <FontAwsome data={"fa-trash"} />
+                              </button>
+                            </li>
+                          );
+                        })
+                      }
                     </ul>
                   ) : (
                     <div className="memo-insert">
