@@ -20,17 +20,17 @@ const projectRouter = require("./router/project");
 const port = require("../port");
 const app = express();
 
-app.set("port", port);
+// app.set("port", port);
 
-app.use(express.static(path.join(__dirname, "../client/build")));
+// app.use(express.static(path.join(__dirname, "../client/build")));
 app.use(
   express.urlencoded({
     extended: true,
   })
 );
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/build/index.html"));
-});
+// app.get("/", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../client/build/index.html"));
+// });
 
 app.use("/api/users", userRouter);
 app.use("/api/board", boardRouter);

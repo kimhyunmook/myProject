@@ -56,7 +56,9 @@ router.post("/login", async (req, res) => {
   const routerName = req.originalUrl;
   const id = req.body.id;
   const password = req.body.password;
+  console.log(req.body);
   let param = [id, password];
+  console.log(param)
   let sql = `SELECT * FROM users WHERE id=?`;
   let conn = await db2.getConnection();
   let message = "";
@@ -100,6 +102,7 @@ router.post("/login", async (req, res) => {
       await errorMessage(routerName, message);
     }
   } catch (error) {
+    res.send('login fail')
     errorMessage(router, error);
   }
 });

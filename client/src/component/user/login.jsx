@@ -29,6 +29,7 @@ function Login() {
             id: login_Id,
             password: login_Password
         }
+        console.log(body);
         dispatch(_Login(body));
         // if (userInfo.message === 'ID_NO_EXIST' || userInfo.message === 'PW_ERROR')
         // await alert('ID or password 가 틀립니다.')
