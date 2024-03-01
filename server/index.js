@@ -1,8 +1,8 @@
 const express = require("express");
 const path = require("path");
-// import express from 'express';
 
 //es6
+// import express from 'express';
 // import userRouter from './router/userRouter';
 // import boardRouter from './router/boardRouter';
 // import settingRouter from './router/settingRouter';
@@ -19,6 +19,9 @@ const projectRouter = require("./router/project");
 
 const port = require("../port");
 const app = express();
+
+
+app.use(express.json())
 
 // app.set("port", port);
 

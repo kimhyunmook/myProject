@@ -32,7 +32,7 @@ export default function Likes(props) {
           ? likes.map((el, i) => {
               const clickHandle = async (event) => {
                 event.preventDefault();
-                if (props.userInfo.data.num === undefined)
+                if (props.userInfo.data?.num === undefined)
                   return alert("로그인 이후 이용해주세요");
                 let click = false;
                 if (event.type === "click") click = true;

@@ -56,9 +56,8 @@ router.post("/login", async (req, res) => {
   const routerName = req.originalUrl;
   const id = req.body.id;
   const password = req.body.password;
-  console.log(req.body);
+  // console.log(req.body);
   let param = [id, password];
-  console.log(param)
   let sql = `SELECT * FROM users WHERE id=?`;
   let conn = await db2.getConnection();
   let message = "";
@@ -66,6 +65,7 @@ router.post("/login", async (req, res) => {
   try {
     search = await conn.query(sql, id);
     searchId = await search[0][0];
+    console.log(searchId)
     if (searchId === undefined) {
       message = "ID_NO_EXIST";
       errorMessage(routerName, message);
