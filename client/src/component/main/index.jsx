@@ -31,8 +31,9 @@ function Main() {
 
   useLayoutEffect(() => {
     body = {};
-
     needDownLoad(body).payload.then((res) => {
+      console.log(res);
+      alert(res)
       if (!res.Download) window.location.href = "/download?task=0";
     });
 

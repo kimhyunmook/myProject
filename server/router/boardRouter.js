@@ -15,12 +15,12 @@ const {
 const boardDummy = require('../dummy/board_dummy.json');
 
 /** uploads 폴더 생성 */
-try {
-    fs.readdirSync('client/public/uploads');
-} catch (err) {
-    console.error('uploads 폴더가 없습니다. 폴더를 생성합니다.')
-    fs.mkdirSync('client/public/uploads');
-}
+// try {
+//     fs.readdirSync('client/public/uploads');
+// } catch (err) {
+//     console.error('uploads 폴더가 없습니다. 폴더를 생성합니다.')
+//     fs.mkdirSync('client/public/uploads');
+// }
 
 router.get('/list/:name/:page', async (req, res) => {
     const routerName = req.originalUrl;

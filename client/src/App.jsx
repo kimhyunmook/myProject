@@ -32,6 +32,7 @@ function App() {
       setHeaderCofirm(true);
     }
   }, [window.location.href]);
+
   return (
     <Router>
       {headerCofirm === true ? <Header /> : null}

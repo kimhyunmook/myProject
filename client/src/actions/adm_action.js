@@ -1,4 +1,5 @@
 import axios from "axios"
+const url = `${process.env.REACT_APP_DB_HOST}/api`
 
 export function adminAction(dataSumbit) {
     const request = axios.post(`/api/adm/${dataSumbit.url}`, dataSumbit)
@@ -10,7 +11,7 @@ export function adminAction(dataSumbit) {
 }
 
 export function needDownLoad(dataSubmit) {
-    const request = axios.get(`/api/setting/down`, dataSubmit)
+    const request = axios.get(`${url}/setting/down`, dataSubmit)
         .then(response => response.data)
     return {
         type: 'Need Download',
@@ -19,7 +20,7 @@ export function needDownLoad(dataSubmit) {
 }
 
 export function settingDownLoad(dataSubmit) {
-    const request = axios.post(`/api/setting/${dataSubmit.url}`, dataSubmit)
+    const request = axios.post(`${url}/setting/${dataSubmit.url}`, dataSubmit)
         .then(response => response.data)
     return {
         type: 'Setting Download',
@@ -28,7 +29,7 @@ export function settingDownLoad(dataSubmit) {
 }
 
 export function basicSetting(dataSubmit) {
-    const request = axios.post(`/api/setting/${dataSubmit.url}`, dataSubmit)
+    const request = axios.post(`${url}/setting/${dataSubmit.url}`, dataSubmit)
         .then(response => response.data)
     return {
         type: 'Setting',

@@ -29,6 +29,7 @@ export default function NeedDownLoad(props) {
       password: dbPassword,
       db: db,
     }).payload.then((res) => {
+      console.log(res);
       if (res.msg?.errorno === "ETIMEDOUT") {
         alert("host를 확인해주세요.");
         return;

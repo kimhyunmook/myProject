@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const cors = require('cors');
 
 //es6
 // import express from 'express';
@@ -20,20 +21,18 @@ const projectRouter = require("./router/project");
 const port = require("../port");
 const app = express();
 
-
 app.use(express.json())
+app.use(cors());
 
 // app.set("port", port);
 
-// app.use(express.static(path.join(__dirname, "../client/build")));
 app.use(
   express.urlencoded({
     extended: true,
   })
 );
-// app.get("/", (req, res) => {
-//   res.sendFile(path.join(__dirname, "../client/build/index.html"));
-// });
+
+// app.get("/download")
 
 app.use("/api/users", userRouter);
 app.use("/api/board", boardRouter);
