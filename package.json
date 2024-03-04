@@ -9,10 +9,9 @@
     "bulid": "webpack",
     "server": "nodemon ./server/index.js ",
     "client": "cd client && npm start",
-    "client_n": "cd client_n && npm start",
+    "build_serve" :"cd client && npx serve -n -s build",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "dev_next": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client_n\"",
-    "servers": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client_n\"",
+    "build_start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run build_serve\"",
     "sass": "node-sass -w client/src/css/main.scss client/src/css/main.css",
     "mobile_sass": "node-sass -w client/src/css/mobile.scss client/src/css/mobile.css"
   },
