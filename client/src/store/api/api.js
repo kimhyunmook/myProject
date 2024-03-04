@@ -9,14 +9,14 @@ export const commonAPi = {
   post: async (body) => {
     const url = getUrl(body);
     return axios
-      .post(`/api${url}`, body.payload)
+      .post(`${process.env.REACT_APP_DB_HOST}/api${url}`, body.payload)
       .then((res) => res.data)
       .catch((error) => error);
   },
   get: async (body) => {
     const url = getUrl(body);
     return axios
-      .get(`/api${url}`, body.payload)
+      .get(`${process.env.REACT_APP_DB_HOST}/api${url}`, body.payload)
       .then((res) => res.data)
       .catch((error) => error);
   },
@@ -26,27 +26,27 @@ export const boardApi = {
   list: async (body) => {
     const url = getUrl(body);
     return axios
-      .get(`/api/board/list${url}`, body.payload)
+      .get(`${process.env.REACT_APP_DB_HOST}/api/board/list${url}`, body.payload)
       .then((res) => res.data)
       .catch((error) => error);
   },
   write: async (body) => {
     const url = getUrl(body);
     return axios
-      .post(`/api/board${url}/write`, body.payload)
+      .post(`${process.env.REACT_APP_DB_HOST}/api/board${url}/write`, body.payload)
       .then((res) => res.data)
       .catch((error) => error);
   },
   view: async (body) => {
     return axios
-      .post(`/api/board/${body.payload.name}/contents/${body.payload.w_num}`)
+      .post(`${process.env.REACT_APP_DB_HOST}/api/board/${body.payload.name}/contents/${body.payload.w_num}`)
       .then((res) => res.data)
       .catch((error) => error);
   },
   modify: async (body) => {
     return axios
       .post(
-        `/api/board/${body.payload.name}/modify/${body.payload.w_id}`,
+        `${process.env.REACT_APP_DB_HOST}/api/board/${body.payload.name}/modify/${body.payload.w_id}`,
         body.payload
       )
       .then((res) => res.data)
@@ -58,7 +58,7 @@ export const boardApi = {
     else target = body.payload.w_id;
 
     return axios
-      .post(`/api/board/${body.payload.name}/delete/${target}`, body.payload)
+      .post(`${process.env.REACT_APP_DB_HOST}/api/board/${body.payload.name}/delete/${target}`, body.payload)
       .then((res) => res.data)
       .catch((error) => error);
   },

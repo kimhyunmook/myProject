@@ -36,7 +36,7 @@ function MyPage() {
 
   return (
     <Container2 info={{ className: "container-normal" }}>
-      <div className="max1400">
+      <div className="register">
         <ul className="myPage">
           <Box
             class_name={"user_id"}

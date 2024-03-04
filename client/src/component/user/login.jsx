@@ -9,7 +9,7 @@ function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const store = useSelector(state => state);
-    const userInfo = store.userInfo;
+    const userInfo = store?.userInfo;
     const [login_Id, setLoginId] = useState("");
     const [login_Password, setLoginPassword] = useState("");
 
@@ -21,7 +21,6 @@ function Login() {
         let value = event.currentTarget.value
         setLoginPassword(value)
     }
-    // const reducer = useSelector(state => state);
 
     const loginHandler = async (event) => {
         event.preventDefault();
@@ -29,7 +28,6 @@ function Login() {
             id: login_Id,
             password: login_Password
         }
-        console.log(body);
         dispatch(_Login(body));
         // if (userInfo.message === 'ID_NO_EXIST' || userInfo.message === 'PW_ERROR')
         // await alert('ID or password 가 틀립니다.')

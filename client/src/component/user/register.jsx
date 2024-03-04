@@ -7,6 +7,7 @@ import { _Register } from "../../store/userSlice";
 // import { useDispatch } from 'react-redux';
 import { Container2 } from "../common/commonUi";
 import util from "../../util";
+import { api } from "../../actions/type";
 
 //오래된 코드 수정 필요함
 function Register() {
@@ -76,9 +77,8 @@ function Register() {
       phone: Phone,
       gender: form.gender.value,
     };
-    // await dispatch(_Register(body));
-    // await navigate('/');
-    axios.post("/api/users/signup", body).then((res) => {
+ 
+    axios.post(`${api}/users/signup`, body).then((res) => {
       if (res.data.signUp) {
         alert("안녕하세요 회원 가입을 축하드립니다.");
         // navigate('/')
@@ -182,15 +182,5 @@ function Register() {
   );
 }
 
-const Cover = (props) => {
-  return (
-    <li className={props.name}>
-      <label>
-        <span>{props.name}</span>
-      </label>
-      <div className="insert-box">{props.children}</div>
-    </li>
-  );
-};
 
 export default Register;

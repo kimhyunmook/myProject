@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { reset } from "../../store/boardSlice";
 import Slider2 from "../common/slider/slider";
 import { _Condtion } from "../../store/menuSlice";
-import D3C from "../common/d3/d3";
 import { _GetLike } from "../../store/likeSlice";
 import { Container2 } from "../common/commonUi";
 import Likes from "../aside/likes";
@@ -15,9 +14,7 @@ function Main() {
   const [menu, setMenu] = useState(store.menuInfo.data);
   const [likeInfo, setLikeInfo] = useState(store.likeInfo.data);
   const [userInfo, setUserInfo] = useState({});
-  const dispatch = useDispatch();
   const section1 = useRef(null);
-  const section2 = useRef(null);
   const [winSize, setWinSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -32,8 +29,6 @@ function Main() {
   useLayoutEffect(() => {
     body = {};
     needDownLoad(body).payload.then((res) => {
-      console.log(res);
-      alert(res)
       if (!res.Download) window.location.href = "/download?task=0";
     });
 

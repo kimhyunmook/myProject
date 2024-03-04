@@ -1,4 +1,5 @@
 import axios from "axios"
+import { api } from './type'
 const url = `${process.env.REACT_APP_DB_HOST}/api`
 
 export function adminAction(dataSumbit) {
