@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "react 기본기능",
   "main": "index.js",
+  "homepage": "http://mkProject.com",
   "scripts": {
     "test": "test",
     "bulid": "webpack",
@@ -11,6 +12,7 @@
     "client_n": "cd client_n && npm start",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "dev_next": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client_n\"",
+    "servers": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client_n\"",
     "sass": "node-sass -w client/src/css/main.scss client/src/css/main.css",
     "mobile_sass": "node-sass -w client/src/css/mobile.scss client/src/css/mobile.css"
   },
@@ -30,7 +32,6 @@
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@tensorflow/tfjs": "^4.9.0",
-    "antd": "^4.23.2",
     "app-root-path": "^3.1.0",
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
