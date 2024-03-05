@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RegisterUi, Li, Gender } from "./ui/userUi";
 import { FontAwsome } from "../common/fontawsome";
@@ -22,42 +22,41 @@ function Register() {
   const [Email, setEmail] = useState("");
   const [Phone, setPhone] = useState("");
   // const [gender, setGender] = useState("");
+  const callBack = useCallback((event) => {
+    event.preventDefault();
+    const t = event.currentTarget
+    let v;
+    switch (t.name) {
+      case "id":
+        v = util.id(event)
+        setId(v);
+        break;
+      case "password":
+        v = util.id(event)
+        setPassword(v);
+        break;
+      case "password2":
+        v = util.id(event)
+        setPassword2(v);
+        break;
+      case "name":
+        setName(t.value);
+        break;
+      case "nickname":
+        setNickName(t.value);
+        break;
+      case "email":
+        v = util.id(event)
+        setEmail(v);
+        break;
+      case "phone":
+        v = util.phoneNumber(event)
+        setPhone(v)
+        break;
+
+    }
+  })
   const form = document.forms[0];
-  // const dispatch = useDispatch();
-
-  // change handler
-  const onIdChangeHandler = (event) => {
-    let value = event.currentTarget.value;
-    setId(value);
-  };
-  const onPasswordChangeHandler = (event) => {
-    let value = event.currentTarget.value;
-    setPassword(value);
-  };
-  const onPasswordChangeHandler2 = (event) => {
-    let value = event.currentTarget.value;
-    setPassword2(value);
-  };
-  const onNameChangeHandler = (event) => {
-    let value = event.currentTarget.value;
-    setName(value);
-  };
-  const onEmailChangeHandler = (event) => {
-    let value = event.currentTarget.value;
-    setEmail(value);
-  };
-  const onPhoneChangeHandler = (event) => {
-    let value = util.phoneNumber(event);
-    setPhone(value);
-  };
-  const onNickNameChangeHandler = (event) => {
-    let value = event.currentTarget.value;
-    setNickName(value);
-  };
-
-  const onGenderChangehandler = (event) => {
-    let value = event.currentTarget.value;
-  };
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
@@ -77,15 +76,13 @@ function Register() {
       phone: Phone,
       gender: form.gender.value,
     };
- 
+
     axios.post(`${api}/users/signup`, body).then((res) => {
       if (res.data.signUp) {
         alert("안녕하세요 회원 가입을 축하드립니다.");
-        // navigate('/')
         window.location.href = "/";
-      } else {
-        if (res.data.errorType === "idOverlap") alert("아이디 중복");
-      }
+      } else if (res.data.errorType === "idOverlap") alert("아이디 중복");
+
     });
   };
 
@@ -99,7 +96,7 @@ function Register() {
             value={_Id}
             name="id"
             placeholder="ID"
-            onChange={onIdChangeHandler}
+            onChange={callBack}
           />
         </Li>
         <Li name="password">
@@ -109,7 +106,7 @@ function Register() {
             value={_Password}
             name="password"
             placeholder="Password"
-            onChange={onPasswordChangeHandler}
+            onChange={callBack}
           />
         </Li>
         <Li name="password2">
@@ -119,7 +116,7 @@ function Register() {
             value={_Password2}
             name="password2"
             placeholder="Password 확인"
-            onChange={onPasswordChangeHandler2}
+            onChange={callBack}
           />
         </Li>
         <Li name="name">
@@ -129,7 +126,7 @@ function Register() {
             value={Name}
             name="name"
             placeholder="Name"
-            onChange={onNameChangeHandler}
+            onChange={callBack}
           />
         </Li>
         <Li name="nickname">
@@ -139,7 +136,7 @@ function Register() {
             value={nickName}
             name="nickname"
             placeholder="Nick Name"
-            onChange={onNickNameChangeHandler}
+            onChange={callBack}
           />
         </Li>
 
@@ -151,7 +148,7 @@ function Register() {
             maxLength={13}
             name="phone"
             placeholder="Phone"
-            onChange={onPhoneChangeHandler}
+            onChange={callBack}
           />
         </Li>
         <Li name="gender">
@@ -159,11 +156,10 @@ function Register() {
             checked
             value="남자"
             gender="man"
-            change={onGenderChangehandler}
           >
             <FontAwsome data={"fa-person"} />
           </Gender>
-          <Gender value="여자" gender="girl" change={onGenderChangehandler}>
+          <Gender value="여자" gender="girl" >
             <FontAwsome data={"fa-person-dress"} />
           </Gender>
         </Li>
@@ -174,7 +170,7 @@ function Register() {
             value={Email}
             name="email"
             placeholder="E-mail"
-            onChange={onEmailChangeHandler}
+            onChange={callBack}
           />
         </Li>
       </RegisterUi>

@@ -120,7 +120,7 @@ export default function ProjectS() {
     if (triger) {
       setList(listFirst);
       window.location.reload();
-      axios.post(`/api/calendar/add`, body);
+      axios.post(`${process.env.REACT_APP_DB_HOST}/api/calendar/add`, body);
       dispatch(calendarInfo({ url: `/calendar/info` }));
       setModal_dis(false);
       alert("입력되었습니다.");

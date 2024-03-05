@@ -1371,7 +1371,8 @@ body {
 
     .register {
         padding: 2% 15px;
-        max-width: 1400px;
+        max-width: 1000px;
+        margin:auto;
         $b: 1px solid #cecdcd;
 
         h2 {
@@ -3124,10 +3125,18 @@ button {
 
 
     footer {
-        background-color:#333;
-        border-top: 2px solid $line;
-        height: 125px;
-
+        border-top: 1px solid $line;
+        height: 75px;
+        position:relative;
+        p {
+            position: absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+            color:#999;
+            font-weight:100;
+            font-family: sans-serif;
+        }
         .max_container {
             width: 100%;
             height: 100%;

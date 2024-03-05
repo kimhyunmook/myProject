@@ -10,24 +10,24 @@ export function registerUser(dataSubmit = {}) {
     }
 }
 
-export function loginUser(dataSubmit) {
-    const request = axios.post('/api/users/login', dataSubmit)
-        .then(response => response.data)
-    return {
-        type: user_login,
-        payload: request
-    }
-}
+// export function loginUser(dataSubmit) {
+//     const request = axios.post('/api/users/login', dataSubmit)
+//         .then(response => response.data)
+//     return {
+//         type: user_login,
+//         payload: request
+//     }
+// }
 
-export function auth(dataSubmit) {
-    const request = axios.get('/api/users/auth', dataSubmit)
-        .then(response => response.data)
+// export function auth(dataSubmit) {
+//     const request = axios.get('/api/users/auth', dataSubmit)
+//         .then(response => response.data)
 
-    return {
-        type: user_auth,
-        payload: request
-    }
-}
+//     return {
+//         type: user_auth,
+//         payload: request
+//     }
+// }
 
 export function edit(dataSubmit) {
     const request = axios.put('/api/users/edit', dataSubmit)

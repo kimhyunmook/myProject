@@ -80,6 +80,7 @@ export default function ExecutionView({
       target.content.focus();
       return;
     }
+
     submitData.project_num = project.num;
     submitData.date = projectDate;
     submitData.project_name = project.subject;
@@ -91,7 +92,8 @@ export default function ExecutionView({
       project_name: project.subject,
       project_num: project.num,
     };
-    axios.post("/api/project/projectCalendar", submitData).then((res) => {
+    axios.post(`${process.env.REACT_APP_DB_HOST}/api/project/projectCalendar`, submitData).then((res) => {
+      console.log(res);
       submitData.subject = "";
       setText1("");
 

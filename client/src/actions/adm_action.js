@@ -39,7 +39,7 @@ export function basicSetting(dataSubmit) {
 }
 
 export function admDelete(dataSubmit) {
-    const request = axios.delete(`/api/setting/${dataSubmit.url}`, dataSubmit)
+    const request = axios.delete(`${url}/setting/${dataSubmit.url}`, dataSubmit)
         .then(response => response.data)
     return {
         type: 'delete',

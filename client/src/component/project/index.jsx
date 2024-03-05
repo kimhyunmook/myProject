@@ -175,7 +175,7 @@ export default function ProjectS() {
   const deleteProject = (event) => {
     event.preventDefault();
     body = {
-      url: "/api/project/delete",
+      url: `${process.env.REACT_APP_DB_HOST}/api/project/delete`,
       userId: userInfo?.id,
       num: projectTarget?.num,
     };
@@ -190,7 +190,6 @@ export default function ProjectS() {
         } else alert("재시도 부탁드립니다.");
       });
   };
-  console.log(projectTarget);
   return (
     <Container2
       info={{

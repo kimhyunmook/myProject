@@ -60,8 +60,8 @@ function App() {
         <Route path={`/board/:name/modify/:num`} element={<ModifyBoard />} />
         {/* <Route path={`/board/gallery/:name/write`} element={<WriteGallery />} /> */}
       </Routes>
-      {headerCofirm === true ? <Aside /> : null}
-      {/* {headerCofirm === true ? <Footer /> : null} */}
+      {/* {headerCofirm === true ? <Aside /> : null} */}
+      {headerCofirm === true ? <Footer /> : null}
     </Router>
   );
 }

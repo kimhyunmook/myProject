@@ -7,6 +7,23 @@ const util = {
     if (userInfo.id === undefined) return alert("로그인 후 이용해주세요.");
   },
   /**
+   * id ,pw 
+   */
+  id: (e) => {
+    let re = /^[a-zA-Z0-9]*$/;
+    let k_re = /^[ㄱ-ㅎ|가-힣]/g;
+    let eng = RegExp(re);
+    let value = e.currentTarget.value
+    if (!eng.test(value)) {
+      // alert("영어와 숫자로만 입력해주세요");
+      e.currentTarget.focus();
+      value.replace(k_re, "");
+    }
+    
+      return value.replace(k_re,"");
+  }
+  ,
+  /**
    * 핸드폰 번호 함수 자동 적으로 하이푼(-)을 넣어줌
    * @param {*} e
    * @returns ex) 000-0000-0000

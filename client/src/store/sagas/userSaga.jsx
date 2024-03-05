@@ -15,7 +15,7 @@ export function* handleProject(body) {
 export function* handleLoginUser(body) {
   try {
     const res = yield call(login, body);
-    if (res.message === "PW_ERROR") yield alert("pw error");
+
     switch (res.message) {
       case "PW_ERROR":
         yield alert("pw 틀렸습니다.");
@@ -23,6 +23,7 @@ export function* handleLoginUser(body) {
       case "ID_NO_EXIST":
         yield alert("ID가 존재하지 않습니다.");
         break;
+        
     }
     yield put(getUser(res));
   } catch (error) {
@@ -34,6 +35,7 @@ export function* handleLogOutUser(body) {
   try {
     const res = yield call(logout, body);
     if (res.message === "LOGOUT_SUCCESS") {
+      alert('로그아웃 되었습니다.')
     }
     yield put(getUser(res));
   } catch (error) {

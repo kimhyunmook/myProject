@@ -120,7 +120,7 @@ router.post("/projectCalendar", async (req, res) => {
     sql = sqlText.INSERT("project_calendar", keys, `(${values})`);
     await conn.query(sql);
     await correctMessage(routerName, "insert good");
-    reuslt.condition = "success";
+    result.condition = "success";
   } catch (error) {
     errorMessage(routerName, error);
     result.condition = "fail";
@@ -130,9 +130,10 @@ router.post("/projectCalendar", async (req, res) => {
 
 router.post("/projectCalendarInfo", async (req, res) => {
   const routerName = req.originalUrl;
-  const conn = await db2.getConnection();
   delete req.body.url;
+  let result = {}
   try {
+    const conn = await db2.getConnection();
     let sql = sqlText.SELECT(
       "project_calendar",
       `userId=? AND project_name=? AND project_num=?`
@@ -144,24 +145,27 @@ router.post("/projectCalendarInfo", async (req, res) => {
     ]);
 
     data = data[0];
-    res.status(200).json({
+    result = {
       condition: "SUCCESS",
       data,
-    });
+    }
     correctMessage(routerName, "execution data");
     await conn.release();
   } catch (error) {
-    await conn.release();
-
     errorMessage(routerName, error);
+    result = {
+      condition: "FAIL",
+      fail_error: error
+    }
   }
+  res.status(200).json(result);
 });
 
 router.post("/projectCalendarEdit", async (req, res) => {
   const routerName = req.originalUrl;
-  const conn = await db2.getConnection();
   let update, sql;
   try {
+    const conn = await db2.getConnection();
     if (!!req.body.achieve)
       sql = sqlText.UPDATE(
         "project_calendar",

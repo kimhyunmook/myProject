@@ -44,36 +44,40 @@ router.post("/signup", async (req, res) => {
         message,
       };
     }
-    res.status(200).json(res_data);
     await conn.release();
     correctMessage(routerName, message);
   } catch (error) {
+    res_data = {
+      fail_error: error
+    }
     errorMessage(routerName, error);
   }
+  res.status(200).json(res_data);
+
 });
 
 router.post("/login", async (req, res) => {
   const routerName = req.originalUrl;
   const id = req.body.id;
   const password = req.body.password;
-  // console.log(req.body);
   let param = [id, password];
   let sql = `SELECT * FROM users WHERE id=?`;
   let conn = await db2.getConnection();
   let message = "";
   let search, searchId, loginToken;
+  let result = {};
   try {
     search = await conn.query(sql, id);
     searchId = await search[0][0];
-    console.log(searchId)
     if (searchId === undefined) {
       message = "ID_NO_EXIST";
-      errorMessage(routerName, message);
-      return res.status(200).json({
+      result = {
         login: false,
         message,
         data: {},
-      });
+      }
+      res.status(200).json(result);
+      return
     }
     let match = await bcrypt.compareSync(param[1], searchId.password);
     if (match) {
@@ -87,24 +91,29 @@ router.post("/login", async (req, res) => {
       });
       sql = `UPDATE users SET login_token=? WHERE id=?`;
       await conn.query(sql, param);
-      await res.status(200).json({
+      result = {
         login: true,
         data: searchId,
         message,
-      });
+      }
     } else {
       message = "PW_ERROR";
-      await res.status(200).json({
+      result = {
         login: false,
         data: {},
         message: message,
-      });
+      }
       await errorMessage(routerName, message);
     }
   } catch (error) {
-    res.send('login fail')
+    result = {
+      login: false,
+      fail_error: error,
+    }
     errorMessage(router, error);
   }
+
+  res.status(200).json(result)
 });
 
 router.post("/logout", async (req, res) => {
@@ -113,21 +122,26 @@ router.post("/logout", async (req, res) => {
   let sql = `SELECT * FROM users WHERE id=?`;
   let conn = await db2.getConnection();
   let search, logOutId;
+  let result = {}
   try {
     search = await conn.query(sql, id);
     logOutId = search[0][0];
     sql = `UPDATE users SET login_token=null WHERE id=?`;
     await conn.query(sql, id);
     let message = "LOGOUT_SUCCESS";
-    await res.status(200).json({
+    result = {
       login: false,
       message,
       data: {},
-    });
+    }
     await correctMessage(routerName, `ID: ${id} , logout success`);
   } catch (error) {
+    result = {
+      fail_error: error
+    }
     errorMessage(routerName, error);
   }
+  res.status(200).json(result)
 });
 
 router.post("/edit", (req, res) => {
@@ -171,8 +185,9 @@ router.post("/delete", async (req, res) => {
         WHERE id=?
     `;
   let param = [req.body.id];
-  const conn = await db2.getConnection();
+
   try {
+    const conn = await db2.getConnection();
     await conn.query(sql, param[0]);
     await correctMessage(routerName, `Id: ${param[0]}, ID delete`);
 
@@ -191,7 +206,7 @@ router.post("/search/:type", async (req, res) => {
   let type;
   let result = {};
   param = key;
-  console.log(param, req.params);
+
   try {
     switch (req.params.type) {
       case "1":
@@ -203,7 +218,7 @@ router.post("/search/:type", async (req, res) => {
         sql = sqlText.SELECT("users", "id=? AND name=? AND email=?");
         break;
     }
-    console.log(type);
+
     let searchInfo = await conn.query(sql, param);
     searchInfo = searchInfo[0][0];
     if (searchInfo === undefined) {
@@ -222,7 +237,6 @@ router.post("/search/:type", async (req, res) => {
       };
     }
     if (type === "password") {
-      console.log(1);
       let pwLen = pw_askiicode().length;
       let newPw = "";
       for (i = 0; i < 8; i++) {
@@ -244,12 +258,16 @@ router.post("/search/:type", async (req, res) => {
         password: newPw,
       };
     }
-    res.send(result);
     await correctMessage(routerName, `Search ${type}`);
     await conn.release();
   } catch (error) {
+    result = {
+      fail_error: error
+    }
     errorMessage(routerName, error);
   }
+
+  res.status(200).json(result);
 });
 
 module.exports = router;

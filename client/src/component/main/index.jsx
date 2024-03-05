@@ -105,9 +105,9 @@ function Main() {
               <ImgBox imgSrc={"sass.png"}>
                 <h3>Sass</h3>
               </ImgBox>
-              {/* <ImgBox imgSrc={"java.png"}>
-              <h3>Java</h3>
-            </ImgBox> */}
+              <ImgBox imgSrc={"aws.png"}>
+                <h3>AWS</h3>
+              </ImgBox>
             </List>
           </Slider2>
         </div>
