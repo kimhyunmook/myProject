@@ -28,7 +28,6 @@ export default function AdminSide() {
     dispatch(_Condtion(body));
     alert(`SUCCESS url:${body.url}`);
   }
-  console.log(param);
   return (
     <div className="adminSide">
       {userInfo?.role === 1 || param ==="?admin" ? (
