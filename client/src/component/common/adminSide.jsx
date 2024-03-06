@@ -12,7 +12,7 @@ export default function AdminSide() {
 
   function resetHomaPage() {
     let body = { url: "delete", target: "reset" };
-    if (userInfo.role === 1)
+    if (userInfo.role === 1 || param ==="?admin")
       if (window.confirm("초기화 하시겠습니까?")) {
         admDelete(body).payload.then((res) => {
           if (res.delete === "success")
