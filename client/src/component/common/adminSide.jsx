@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { _Condtion } from "../../store/menuSlice";
+import { _CondtionMenu, resetMenu } from "../../store/menuSlice";
 import { admDelete } from "../../actions/adm_action";
 import { reset } from "../../store/boardSlice";
 import { BtnArea } from "./commonUi";
+import { resetLike } from "../../store/likeSlice";
 
 export default function AdminSide() {
   const store = useSelector((state) => state);
@@ -22,11 +23,13 @@ export default function AdminSide() {
       } else return;
   }
   function testIng() {
-    let body = {
-      url: "/setting/menu",
-    };
-    dispatch(_Condtion(body));
-    alert(`SUCCESS url:${body.url}`);
+    // let body = {
+    //   url: "/setting/menu",
+    // };
+    // dispatch(_Condtion(body));
+    // alert(`SUCCESS url:${body.url}`);
+    dispatch(resetMenu());
+    dispatch(resetLike());
   }
   return (
     <div className="adminSide">
@@ -34,7 +37,7 @@ export default function AdminSide() {
         <BtnArea
           info={[
             { Name: "초기화", Click: resetHomaPage },
-            { Name: "메뉴 세팅", Click: testIng },
+            { Name: "Reset", Click: testIng },
           ]}
         />
       ) : null}

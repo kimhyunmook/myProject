@@ -15,7 +15,7 @@ import {
   _Register,
   _Project,
 } from "../userSlice";
-import { _Condtion, _CreateMenu } from "../menuSlice";
+import { _CondtionMenu, _CreateMenu } from "../menuSlice";
 import { handleCreateMenu, handleMenu } from "./menuSaga";
 import {
   _DeleteTarget,
@@ -64,7 +64,7 @@ export default function* rootSaga() {
     yield takeLatest(_Project.type, handleProject),
 
     //menu
-    yield takeLatest(_Condtion.type, handleMenu),
+    yield takeLatest(_CondtionMenu.type, handleMenu),
     yield takeLatest(_CreateMenu.type, handleCreateMenu),
 
     //board

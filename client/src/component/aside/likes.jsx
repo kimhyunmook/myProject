@@ -1,9 +1,14 @@
 import { useDispatch } from "react-redux";
 import { _GetLike } from "../../store/likeSlice";
+import { useEffect } from "react";
 
 export default function Likes(props) {
   const dispatch = useDispatch();
   const likes = props.like;
+  useEffect(()=>{
+    dispatch(_GetLike({url:'/setting/like'}))
+  },[])
+
   const banerStyle = {
     backgroundImage:
       props.background_image !== undefined
@@ -14,6 +19,7 @@ export default function Likes(props) {
     backgroundSize: "100%",
     backgroundAttachment: "fixed",
   };
+
   const fontStyle = {
     ...props.titleStyle,
   };

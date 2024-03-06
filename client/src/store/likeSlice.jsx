@@ -13,11 +13,14 @@ const likeSlice = createSlice({
         _GetLike: (state, action) => {
             state.action = action.type;
         },
+
+        /** get data */
         getLikeData: (state, action) => {
             state.data = action.payload.data;
-        }
+        },
+        resetLike: () => initialState
     }
 })
 
-export const { _GetLike, getLikeData } = likeSlice.actions;
+export const { _GetLike, getLikeData, resetLike } = likeSlice.actions;
 export default likeSlice.reducer;

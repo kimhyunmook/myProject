@@ -2,15 +2,16 @@ import { useState, useLayoutEffect, useEffect, useRef, useMemo } from "react";
 import LoginList from "./loginList";
 import { loginToken } from "../../actions/type";
 import { FontAwsome } from "./fontawsome";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Logo, { homelink } from "./logo";
 import util from "../../util";
 import { headerSize, mobileSize } from "../../size";
 import { MobileUi } from "./commonUi";
 import AdminSide from "./adminSide";
+import { _CondtionMenu } from "../../store/menuSlice";
 
-function Header({}) {
+function Header({ }) {
   const store = useSelector((state) => state);
   const loginCookieName = loginToken;
   const [userInfo, setUserInfo] = useState({});
@@ -22,7 +23,15 @@ function Header({}) {
   const [winW, setWinW] = useState(window.outerWidth);
   const [scrollY, setScrollY] = useState(0);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const navMenu = useRef(null);
+  let body ={}
+  useEffect(() => {
+    body ={
+      url:"/setting/menu"
+    }
+    dispatch(_CondtionMenu(body));
+  }, [])
 
   // scroll
   useEffect(() => {
@@ -33,6 +42,7 @@ function Header({}) {
       setWinW(window.outerWidth);
     });
   }, [winW, scrollY]);
+
   useEffect(() => {
     setUserInfo(store.userInfo.data);
     if (path[1].split("?")[0] !== "download") {

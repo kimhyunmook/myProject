@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { settingDownLoad } from "../../actions/adm_action";
 import Container from "../common/container";
 import { useDispatch } from "react-redux";
-import { _Condtion } from "../../store/menuSlice";
+import { _CondtionMenu } from "../../store/menuSlice";
 import { Container2 } from "../common/commonUi";
 
 export default function NeedDownLoad(props) {
@@ -45,7 +45,7 @@ export default function NeedDownLoad(props) {
   const next3 = (event) => {
     event.preventDefault();
     let body = { url: "/setting/menu" };
-    dispatch(_Condtion(body));
+    dispatch(_CondtionMenu(body));
     setTimeout(() => {
       window.location.href = "/";
     }, 100);
