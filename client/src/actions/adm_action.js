@@ -1,6 +1,7 @@
 import axios from "axios"
 import { api } from './type'
-const url = `${process.env.REACT_APP_DB_HOST}/api`
+// const url = `${process.env.REACT_APP_DB_HOST}/api`
+const url  = `${window.location.protocol+window.location.hostname}:3100/api`
 
 export function adminAction(dataSumbit) {
     const request = axios.post(`/api/adm/${dataSumbit.url}`, dataSumbit)

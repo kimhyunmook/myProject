@@ -10,6 +10,7 @@
     "server": "nodemon ./server/index.js ",
     "server_pm": "pm2 ./server/index.js ",
     "client": "cd client && npm start",
+    "build":"cd client && npm run build",
     "build_serve": "cd client && npx serve -n -s build",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "build_start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run build_serve\"",
