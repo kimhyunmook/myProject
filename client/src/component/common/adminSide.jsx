@@ -8,6 +8,7 @@ export default function AdminSide() {
   const store = useSelector((state) => state);
   const userInfo = store.userInfo.data;
   const dispatch = useDispatch();
+  const param = window.location.search
 
   function resetHomaPage() {
     let body = { url: "delete", target: "reset" };
@@ -27,14 +28,14 @@ export default function AdminSide() {
     dispatch(_Condtion(body));
     alert(`SUCCESS url:${body.url}`);
   }
+  console.log(param);
   return (
     <div className="adminSide">
-      {userInfo === undefined ? null : userInfo.role === 1 ? (
-        // <BtnArea info={{Name:'초기화',Click:resetHomaPage}}/>
+      {userInfo?.role === 1 || param ==="?admin" ? (
         <BtnArea
           info={[
             { Name: "초기화", Click: resetHomaPage },
-            { Name: "테스트", Click: testIng },
+            { Name: "메뉴 세팅", Click: testIng },
           ]}
         />
       ) : null}

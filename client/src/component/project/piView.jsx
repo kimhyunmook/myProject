@@ -86,7 +86,7 @@ export default function ProjectInsertView({ userInfo, title }) {
             안녕하세요 <b className="userid">{id}</b>님 <br />
             현재 진행 중인 Project가 없습니다.
           </h2>
-          <p>새로운 Project를 만들어 계획을 세우고 관리하며 실천해보세요.</p>
+          <p>새로운 목표를 Project로 만들어 실천해보세요</p>
         </>
       ) : (
         <>

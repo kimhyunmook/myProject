@@ -1156,10 +1156,9 @@ input {
       font-weight: 700;
       font-size: 35px; }
       #root .pi-view h2 b.userid {
-        color: #babfff;
+        color: #555;
         font-family: "OKDDUNG";
-        font-size: 0.8em;
-        text-shadow: 3px 0 2px #000; }
+        font-size: 0.8em; }
       #root .pi-view h2::before {
         content: "";
         display: none; }

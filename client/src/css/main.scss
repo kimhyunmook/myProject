@@ -2321,10 +2321,10 @@ button {
             font-weight:700;
             font-size:35px;
             b.userid {
-                color:$main;
+                color:#555;
                 font-family: $font2;
                 font-size:0.8em;
-                text-shadow:3px 0 2px #000;
+                // text-shadow:3px 0 2px #000;
             }
             &::before {
                 content: "";
